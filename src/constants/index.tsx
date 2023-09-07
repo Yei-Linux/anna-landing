@@ -9,3 +9,4 @@ export const ABOUT_US = '/';
 export const MEDICAL_TEAM = '/';
 export const IMPROVE_OUR_PLATFORM_TOGETHER = '/';
 export const TERMS_CONDITIONS = '/';
+

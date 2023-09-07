@@ -1,2 +1,2 @@
 export * from './diagnosis.service';
-export * from './user.service';
+export * from './patients.service';
