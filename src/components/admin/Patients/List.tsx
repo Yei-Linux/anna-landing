@@ -1,13 +1,6 @@
-import { useMemo } from 'react';
-import {
-  List,
-  Datagrid,
-  TopToolbar,
-  TextInput,
-  useListContext,
-  TextField,
-  useRecordContext,
-} from 'react-admin';
+import { List, Datagrid, TextInput, TextField, EditButton } from 'react-admin';
+import { useIndexTable } from '../../../hooks';
+import { IndexColumn } from '../../ui/IndexColumn';
 
 const ListActions = () => <></>;
 
@@ -21,29 +14,16 @@ const patientstFilters = [
   />,
 ];
 
-const Index = () => {
-  const record = useRecordContext();
-  return <span>{record.__index__ ?? ''}</span>;
-};
-
 const ListContent = () => {
-  const { data: rawData, page, perPage } = useListContext();
-
-  const data = useMemo(
-    () =>
-      rawData?.map((item, index) => ({
-        ...item,
-        __index__: index + 1 + perPage * (page - 1),
-      })) || [],
-    [rawData]
-  );
+  const { data } = useIndexTable();
 
   return (
-    <Datagrid rowClick="edit" bulkActionButtons={false} data={data}>
-      <Index />
+    <Datagrid bulkActionButtons={false} data={data}>
+      <IndexColumn />
       <TextField source="fullName" />
       <TextField source="documentNumber" />
       <TextField source="phone" />
+      <EditButton />
     </Datagrid>
   );
 };

@@ -5,3 +5,7 @@
       flex: none;
     }
 }
+
+.RaDatagrid-root {
+  width: 100%;
+}

@@ -1,7 +1,9 @@
-import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 import { PatientList } from './Patients/List';
 import { adminTheme } from './theme';
+import { EditPatient } from './Patients/Edit';
+import { EditDiagnosis } from './Diagnosis/Edit';
 
 const AdminWrapper = () => {
   return (
@@ -10,8 +12,13 @@ const AdminWrapper = () => {
         options={{ label: 'Patients' }}
         name="patients"
         list={PatientList}
-        edit={EditGuesser}
-      />
+        edit={EditPatient}
+      ></Resource>
+      <Resource
+        options={{ label: 'Diagnosis' }}
+        name="diagnosis"
+        edit={EditDiagnosis}
+      ></Resource>
     </Admin>
   );
 };
