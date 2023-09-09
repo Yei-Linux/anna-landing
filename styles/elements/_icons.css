@@ -1,0 +1,9 @@
+.editdiagnosis__view .MuiSvgIcon-root[data-testid="SaveIcon"]{
+    color: white;
+}
+.editdiagnosis__view .MuiSvgIcon-root[data-testid="DeleteIcon"]{
+    color: red;
+}
+.MuiToolbar-root .MuiSvgIcon-root[data-testid="MenuIcon"]{
+    color: white;
+}

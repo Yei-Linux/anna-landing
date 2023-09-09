@@ -1,4 +1,5 @@
 import {
+  CreateButton,
   Edit,
   ReferenceManyField,
   SimpleForm,
@@ -8,6 +9,13 @@ import {
 import { PatientDiagnosisTable } from './PatientDiagnosisTable';
 import { Fragment } from 'react';
 import { Grid } from '@mui/material';
+import {
+  EditPageWrapper,
+  EditWrapper,
+} from '../../../layouts/admin/EditWrapper';
+import { UnderlineSection } from '../../../layouts/admin/UnderlineSection';
+import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
+import { Empty } from '../../../layouts/admin/Empty';
 
 const ToolbarEdit = () => {
   return (
@@ -19,43 +27,29 @@ const ToolbarEdit = () => {
 
 export const EditPatient = () => {
   return (
-    <div>
-      <Edit>
-        <SimpleForm toolbar={<ToolbarEdit />}>
+    <div className="editpatient__view h-full">
+      <Breadcrumb />
+
+      <Edit component={EditPageWrapper}>
+        <SimpleForm component={EditWrapper} toolbar={<ToolbarEdit />}>
           <h2 className="font-semibold mb-5">Patient Information</h2>
 
           <Grid container spacing={2}>
             <Grid item sm={6} xs={12}>
-              <TextInput
-                source="fullName"
-                label="Full Name"
-                variant="standard"
-                disabled
-              />
+              <TextInput source="fullName" label="Full Name" disabled />
             </Grid>
             <Grid item sm={6} xs={12}>
-              <TextInput
-                source="phone"
-                label="Phone"
-                variant="standard"
-                disabled
-              />
+              <TextInput source="phone" label="Phone" disabled />
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextInput
                 source="documentNumber"
                 label="Document Number"
-                variant="standard"
                 disabled
               />
             </Grid>
             <Grid item sm={6} xs={12}>
-              <TextInput
-                source="gender"
-                label="Gender"
-                variant="standard"
-                disabled
-              />
+              <TextInput source="gender" label="Gender" disabled />
             </Grid>
           </Grid>
 
@@ -64,7 +58,16 @@ export const EditPatient = () => {
             reference="diagnosis"
             target="userId"
           >
-            <PatientDiagnosisTable />
+            <UnderlineSection
+              title="Diagnosis"
+              contentHeader={
+                <Fragment>
+                  <CreateButton label="CREATE" />
+                </Fragment>
+              }
+            >
+              <PatientDiagnosisTable />
+            </UnderlineSection>
           </ReferenceManyField>
         </SimpleForm>
       </Edit>

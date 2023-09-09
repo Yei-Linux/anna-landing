@@ -15,7 +15,7 @@ export const Results = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <h3 className="font-semibold text-md">Resultados</h3>
+        <h4 className="font-medium">Resultados</h4>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -27,7 +27,6 @@ export const Results = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.results.comments"
               label="Comentarios"
-              variant="standard"
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,7 +36,6 @@ export const Results = () => {
               maxRows={10}
               minRows={3}
               label="Diagnostico"
-              variant="standard"
               source="diagnosisDetails.diagnosisInformation.results.diagnosis"
             />
           </Grid>
@@ -48,7 +46,6 @@ export const Results = () => {
               maxRows={10}
               minRows={3}
               label="Diagnostico"
-              variant="standard"
               source="diagnosisDetails.diagnosisInformation.results.pronostic"
             />
           </Grid>
@@ -59,7 +56,6 @@ export const Results = () => {
               maxRows={10}
               minRows={3}
               label="Tratamiento"
-              variant="standard"
               source="diagnosisDetails.diagnosisInformation.results.treatment"
             />
           </Grid>

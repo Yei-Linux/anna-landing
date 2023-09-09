@@ -15,7 +15,7 @@ export const Background = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <h3 className="font-semibold text-md">Antecedentes</h3>
+        <h4 className="font-medium">Antecedentes</h4>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -27,7 +27,6 @@ export const Background = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.background.familyInherited"
               label="Heredo Familiar"
-              variant="standard"
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,7 +36,6 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Personales patologicos"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.background.personalPathogens"
             />
           </Grid>
@@ -48,7 +46,6 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Personales no patologicos"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.background.personalNonPathogens"
             />
           </Grid>
@@ -59,7 +56,6 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Gineco - Obstetricia"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.background.gynecologyObstetrics"
             />
           </Grid>

@@ -15,7 +15,7 @@ export const GeneralSymptons = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <h3 className="font-semibold text-md">Sintomas</h3>
+        <h4 className="font-medium">Sintomas</h4>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -27,7 +27,6 @@ export const GeneralSymptons = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.generalSymptoms"
               label="Sintomas Generales"
-              variant="standard"
             />
           </Grid>
         </Grid>

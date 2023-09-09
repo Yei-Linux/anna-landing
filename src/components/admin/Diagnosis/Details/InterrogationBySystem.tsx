@@ -15,9 +15,7 @@ export const InterrogationBySystem = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <h3 className="font-semibold text-md">
-          Interrogatorio por aparatos y sistemas
-        </h3>
+        <h4 className="font-medium">Interrogatorio por aparatos y sistemas</h4>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -29,7 +27,6 @@ export const InterrogationBySystem = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.digestiveSystem"
               label="Aparato digestivo"
-              variant="standard"
             />
           </Grid>
           <Grid item xs={12}>
@@ -39,7 +36,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Aparato cardiovascular"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.cardiovascularSystem"
             />
           </Grid>
@@ -50,7 +46,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Aparato respiratorio"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.respiratorySystem"
             />
           </Grid>
@@ -61,7 +56,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Aparato urinario"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.urinarySystem"
             />
           </Grid>
@@ -72,7 +66,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Aparato genital"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.genitalSystem"
             />
           </Grid>
@@ -83,7 +76,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Aparato hematológico"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.bloodSystem"
             />
           </Grid>
@@ -94,7 +86,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Sistema endocrino"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.endocrineSystem"
             />
           </Grid>
@@ -105,7 +96,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Sistema osteomuscular"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.musculoskeletalSystem"
             />
           </Grid>
@@ -116,7 +106,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Sistema nervioso"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.nervousSystem"
             />
           </Grid>
@@ -127,7 +116,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Sistema sensorial"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.sensorySystem"
             />
           </Grid>
@@ -138,7 +126,6 @@ export const InterrogationBySystem = () => {
               maxRows={10}
               minRows={3}
               label="Psicosomático"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.psychosomatic"
             />
           </Grid>

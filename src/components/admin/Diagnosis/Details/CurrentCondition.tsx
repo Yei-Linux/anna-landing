@@ -15,7 +15,7 @@ export const CurrentCondition = () => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <h3 className="font-semibold text-md">Padecimiento Actual</h3>
+        <h4 className="font-medium">Padecimiento Actual</h4>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
@@ -27,7 +27,6 @@ export const CurrentCondition = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.currentCondition.beginning"
               label="Principio"
-              variant="standard"
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,7 +36,6 @@ export const CurrentCondition = () => {
               maxRows={10}
               minRows={3}
               label="Evolucion"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.currentCondition.evolution"
             />
           </Grid>
@@ -48,7 +46,6 @@ export const CurrentCondition = () => {
               maxRows={10}
               minRows={3}
               label="Estado Actual"
-              variant="standard"
               source="diagnosisDetails.clinicHistory.currentCondition.currentStatus"
             />
           </Grid>

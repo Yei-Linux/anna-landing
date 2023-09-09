@@ -1,0 +1,21 @@
+#main-content {
+    padding: 3rem;
+    background: #f3f3f3;
+}
+
+.editpatient__view .RaEdit-noActions .MuiToolbar-root {
+    display: none;
+}
+
+.editpatient__view form {
+    width: 100%;
+    height: 100%;
+}
+
+.edit-page {
+    height: 100%;
+}
+
+.RaEdit-main {
+    height: 100%;
+}

@@ -1,11 +1,2 @@
-.RaList-actions {
-    flex-direction: row-reverse;
-    
-    .css-1331rrf-RaFilterForm-root {
-      flex: none;
-    }
-}
+@import "./elements/_index.css";
 
-.RaDatagrid-root {
-  width: 100%;
-}

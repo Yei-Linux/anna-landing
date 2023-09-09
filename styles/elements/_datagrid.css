@@ -1,0 +1,16 @@
+.RaDatagrid-root {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+.RaDatagrid-headerRow .RaDatagrid-headerCell {
+  border-bottom: none !important;
+}
+
+.RaDatagrid-tbody .RaDatagrid-row:nth-child(odd) {
+  background-color: #fafaff;
+}
+
+.RaDatagrid-rowCell {
+    border-bottom: none !important;
+}
