@@ -1,34 +1,24 @@
 import { Grid } from '@mui/material';
-import {
-  DeleteButton,
-  SaveButton,
-  SimpleForm,
-  TextInput,
-  Toolbar,
-} from 'react-admin';
+import { SaveButton, SimpleForm, TextInput, Toolbar } from 'react-admin';
 import { EditWrapper } from '../../../layouts/admin/EditWrapper';
-import { EditDetails } from './Details/EditDetails';
+import { UnderlineSection } from '../../../layouts/admin/UnderlineSection';
+import { Background } from './Details/Background';
 import { useParams } from 'react-router-dom';
 
 const ToolbarEdit = () => {
-  const { userId } = useParams();
-
   return (
     <Toolbar>
-      <div className="w-full flex justify-between">
-        <SaveButton label="Save" />
-        <DeleteButton label="Delete" redirect={`/patients/${userId}`} />
-      </div>
+      <SaveButton label="Save" />
     </Toolbar>
   );
 };
 
-export const DiagnosisForm = () => {
+export const ClinicHistoryForm = () => {
   const { userId } = useParams();
 
   return (
     <SimpleForm component={EditWrapper} toolbar={<ToolbarEdit />}>
-      <h2 className="font-semibold mb-5">Diagnosis Information</h2>
+      <h2 className="font-semibold mb-5">Clinic History Information</h2>
 
       <TextInput
         sx={{
@@ -44,14 +34,16 @@ export const DiagnosisForm = () => {
 
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="title" label="Title" />
+          <TextInput fullWidth source="civilStatus" label="Estado Civil" />
         </Grid>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="description" label="Description" />
+          <TextInput fullWidth source="occupation" label="Ocupación" />
         </Grid>
       </Grid>
 
-      <EditDetails />
+      <UnderlineSection title="Informacion Detallada">
+        <Background />
+      </UnderlineSection>
     </SimpleForm>
   );
 };

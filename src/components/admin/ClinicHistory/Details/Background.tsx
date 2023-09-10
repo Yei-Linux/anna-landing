@@ -25,8 +25,9 @@ export const Background = () => {
               multiline
               maxRows={10}
               minRows={3}
-              source="diagnosisDetails.clinicHistory.background.familyInherited"
+              source="background.familyInherited"
               label="Heredo Familiar"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -36,7 +37,8 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Personales patologicos"
-              source="diagnosisDetails.clinicHistory.background.personalPathogens"
+              source="background.personalPathogens"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -46,7 +48,8 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Personales no patologicos"
-              source="diagnosisDetails.clinicHistory.background.personalNonPathogens"
+              source="background.personalNonPathogens"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -56,7 +59,8 @@ export const Background = () => {
               maxRows={10}
               minRows={3}
               label="Gineco - Obstetricia"
-              source="diagnosisDetails.clinicHistory.background.gynecologyObstetrics"
+              source="background.gynecologyObstetrics"
+              defaultValue=""
             />
           </Grid>
         </Grid>

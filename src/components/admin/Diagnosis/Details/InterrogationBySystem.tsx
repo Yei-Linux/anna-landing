@@ -27,6 +27,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.digestiveSystem"
               label="Aparato digestivo"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,6 +38,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Aparato cardiovascular"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.cardiovascularSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -47,6 +49,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Aparato respiratorio"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.respiratorySystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -57,6 +60,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Aparato urinario"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.urinarySystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -67,6 +71,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Aparato genital"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.genitalSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -77,6 +82,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Aparato hematológico"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.bloodSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -87,6 +93,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Sistema endocrino"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.endocrineSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -97,6 +104,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Sistema osteomuscular"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.musculoskeletalSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -107,6 +115,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Sistema nervioso"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.nervousSystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -117,6 +126,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Sistema sensorial"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.sensorySystem"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -127,6 +137,7 @@ export const InterrogationBySystem = () => {
               minRows={3}
               label="Psicosomático"
               source="diagnosisDetails.clinicHistory.interrogrationByDevicesAndSystem.psychosomatic"
+              defaultValue=""
             />
           </Grid>
         </Grid>

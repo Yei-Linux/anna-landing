@@ -20,7 +20,7 @@ export const PhysicalExploration = () => {
       <AccordionDetails>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h4 className="font-semibold text-md">Signos Vitales</h4>
+            <h4 className="font-semibold text-md mb-5">Signos Vitales</h4>
             <TextInput
               fullWidth
               multiline
@@ -28,6 +28,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.FC"
               label="FC"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -36,6 +37,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.TA"
               label="TA"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -44,6 +46,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.FR"
               label="FR"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -52,6 +55,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.temperature"
               label="Temperatura"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -60,6 +64,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.currentWeight"
               label="Peso Actual"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -68,6 +73,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.previousWeight"
               label="Peso Anterior"
+              defaultValue=""
             />
             <TextInput
               fullWidth
@@ -76,10 +82,11 @@ export const PhysicalExploration = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.physicalExploration.vitalSigns.idealWeight"
               label="Peso Ideal"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
-            <h4 className="font-semibold text-md">Exploracion General</h4>
+            <h4 className="font-semibold text-md mb-5">Exploracion General</h4>
             <TextInput
               fullWidth
               multiline
@@ -87,6 +94,7 @@ export const PhysicalExploration = () => {
               minRows={3}
               label="Exploracion General"
               source="diagnosisDetails.diagnosisInformation.physicalExploration.generalExploration"
+              defaultValue=""
             />
           </Grid>
         </Grid>

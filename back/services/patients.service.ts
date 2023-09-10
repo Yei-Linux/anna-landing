@@ -9,22 +9,41 @@ export const countPatients = async () => {
   }
 };
 
-export const getPatients = async (skip: number, sizeByPage: number) => {
+export const getPatients = async (
+  skip: number,
+  sizeByPage: number,
+  search?: string
+) => {
   try {
-    const patientsResultSet = await prisma.users.findMany({
-      skip,
-      take: sizeByPage,
-      select: {
-        id: true,
-        phone: true,
-        fullName: true,
-        documentNumber: true,
-      },
+    let pipeline: any = [{ $skip: skip }, { $limit: sizeByPage }];
+
+    if (search) {
+      pipeline = [
+        {
+          $match: {
+            $or: [
+              { fullName: { $regex: search, $options: 'i' } },
+              {
+                fullName: { $regex: search, $options: 'i' },
+              },
+              {
+                documentNumber: { $regex: search, $options: 'i' },
+              },
+            ],
+          },
+        },
+        ...pipeline,
+      ];
+    }
+
+    const patientsResultSet: any = await prisma.users.aggregateRaw({
+      pipeline,
     });
-    const patients = patientsResultSet.map((patient) => ({
-      ...patient,
+
+    return patientsResultSet?.map(({ _id, ...item }: any) => ({
+      ...item,
+      id: _id['$oid'],
     }));
-    return patients;
   } catch (error) {
     throw new Error((error as Error).message);
   }
@@ -42,6 +61,7 @@ export const getPatientById = async (id: string) => {
         fullName: true,
         documentNumber: true,
         genderId: true,
+        clinic_histories: true,
       },
     });
 

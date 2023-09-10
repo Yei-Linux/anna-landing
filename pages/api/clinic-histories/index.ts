@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
-  countDiagnosis,
-  createNewDiagnosis,
-  getDiagnosis,
+  countClinicHistories,
+  createClinicHistory,
+  getClinicHistoriesByUserId,
 } from '../../../back/services';
 
 const post = async (req: NextApiRequest, res: NextApiResponse<any>) => {
@@ -14,8 +14,8 @@ const post = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   }
 
   try {
-    const diagnosisCreated = await createNewDiagnosis(body);
-    res.status(201).json(diagnosisCreated);
+    const clinicHistoryCreated = await createClinicHistory(body);
+    res.status(201).json(clinicHistoryCreated);
   } catch (error) {
     res.status(500).json([]);
   } finally {
@@ -38,8 +38,8 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const [start, end] = rangeObj;
     const sizeByPage = end - start + 1;
 
-    const total = await countDiagnosis(filterObj?.userId);
-    const diagnosisPaginated = await getDiagnosis(
+    const total = await countClinicHistories(filterObj?.userId);
+    const diagnosisPaginated = await getClinicHistoriesByUserId(
       start,
       sizeByPage,
       filterObj?.userId

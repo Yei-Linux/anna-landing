@@ -27,6 +27,7 @@ export const Results = () => {
               minRows={3}
               source="diagnosisDetails.diagnosisInformation.results.comments"
               label="Comentarios"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,6 +38,7 @@ export const Results = () => {
               minRows={3}
               label="Diagnostico"
               source="diagnosisDetails.diagnosisInformation.results.diagnosis"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -47,6 +49,7 @@ export const Results = () => {
               minRows={3}
               label="Diagnostico"
               source="diagnosisDetails.diagnosisInformation.results.pronostic"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -57,6 +60,7 @@ export const Results = () => {
               minRows={3}
               label="Tratamiento"
               source="diagnosisDetails.diagnosisInformation.results.treatment"
+              defaultValue=""
             />
           </Grid>
         </Grid>

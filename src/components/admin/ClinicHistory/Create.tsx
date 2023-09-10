@@ -1,10 +1,10 @@
 import { Create } from 'react-admin';
 import { EditPageWrapper } from '../../../layouts/admin/EditWrapper';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
-import { DiagnosisForm } from './Form';
+import { ClinicHistoryForm } from './Form';
 import { useParams } from 'react-router-dom';
 
-export const CreateDiagnosis = () => {
+export const CreateClinicHistory = () => {
   const { userId } = useParams();
 
   return (
@@ -12,11 +12,11 @@ export const CreateDiagnosis = () => {
       <Breadcrumb />
 
       <Create
-        resource="diagnosis"
+        resource="clinic-histories"
         component={EditPageWrapper}
         redirect={`/patients/${userId}`}
       >
-        <DiagnosisForm />
+        <ClinicHistoryForm />
       </Create>
     </div>
   );

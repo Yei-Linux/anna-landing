@@ -1,7 +1,8 @@
-import { Datagrid, TextField, EditButton } from 'react-admin';
+import { Datagrid, TextField } from 'react-admin';
 import { useIndexTable } from '../../../hooks';
 import { IndexColumn } from '../../ui/IndexColumn';
 import { Empty } from '../../../layouts/admin/Empty';
+import { EditButton } from '../../ui/EditButton';
 
 export const PatientDiagnosisTable = () => {
   const { data } = useIndexTable();
@@ -16,7 +17,8 @@ export const PatientDiagnosisTable = () => {
       <TextField source="title" sortable={false} />
       <TextField source="description" sortable={false} />
       <TextField source="creationTime" sortable={false} />
-      <EditButton />
+
+      <EditButton resourceName="diagnosis" />
     </Datagrid>
   );
 };

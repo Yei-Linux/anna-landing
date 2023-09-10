@@ -8,13 +8,14 @@ datasource db {
 }
 
 model users {
-  id              String      @id @default(auto()) @map("_id") @db.ObjectId
-  phone           String
-  fullName        String
-  documentNumber  String?
-  genderId        String?
-  lastInteraction Int?
-  Diagnosis       diagnosis[]
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  phone            String
+  fullName         String
+  documentNumber   String?
+  genderId         String?
+  lastInteraction  Int?
+  Diagnosis        diagnosis[]
+  clinic_histories clinic_histories?
 }
 
 model diagnosis {
@@ -25,4 +26,13 @@ model diagnosis {
   description      String?
   creationTime     String
   diagnosisDetails Json
+}
+
+model clinic_histories {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  user        users  @relation(fields: [userId], references: [id])
+  userId      String @unique @db.ObjectId
+  civilStatus String
+  occupation  String
+  background  Json
 }

@@ -1,22 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
-  deleteDiagnosisById,
-  getDiagnosisById,
-  updateDiagnosisById,
+  getClinicHistoryById,
+  updateClinicHistory,
 } from '../../../back/services';
-
-const deleteOne = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const id = req.query?.slug as string;
-
-  try {
-    if (!id) throw new Error('Id is required');
-
-    await deleteDiagnosisById(id);
-    res.status(200).json({});
-  } catch (error) {
-    res.status(500).json({});
-  }
-};
 
 const put = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const id = req.query?.slug as string;
@@ -30,8 +16,8 @@ const put = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   try {
     if (!id) throw new Error('Id is required');
 
-    const diagnosis = await updateDiagnosisById(body, id);
-    res.status(200).json(diagnosis);
+    const clinicHistory = await updateClinicHistory(body, id);
+    res.status(200).json(clinicHistory);
   } catch (error) {
     res.status(500).json({});
   }
@@ -43,8 +29,8 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   try {
     if (!id) throw new Error('Id is required');
 
-    const diagnosis = await getDiagnosisById(id);
-    res.status(200).json(diagnosis);
+    const clinicHistory = await getClinicHistoryById(id);
+    res.status(200).json(clinicHistory);
   } catch (error) {
     res.status(500).json({});
   }
@@ -61,11 +47,6 @@ export default async function handler(
 
   if (req.method === 'PUT') {
     await put(req, res);
-    return;
-  }
-
-  if (req.method === 'DELETE') {
-    await deleteOne(req, res);
     return;
   }
 

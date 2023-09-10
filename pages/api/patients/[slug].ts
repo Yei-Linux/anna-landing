@@ -1,11 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPatientById } from '../../../back/services';
 
-type Data = {
-  data: any[];
-  error?: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>

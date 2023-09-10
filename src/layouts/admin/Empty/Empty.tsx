@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Image } from '../../../components/ui/Image';
 
 export interface IEmtpy {
-  text?: string;
+  text?: React.ReactNode;
 }
 
 export const Empty: FC<IEmtpy> = ({
@@ -17,7 +17,7 @@ export const Empty: FC<IEmtpy> = ({
         height={230}
         hasShadow={false}
       />
-      <p className="text-neutralStrong font-medium">{text}</p>
+      <div className="text-neutralStrong font-medium">{text}</div>
     </div>
   );
 };

@@ -27,6 +27,7 @@ export const CurrentCondition = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.currentCondition.beginning"
               label="Principio"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,6 +38,7 @@ export const CurrentCondition = () => {
               minRows={3}
               label="Evolucion"
               source="diagnosisDetails.clinicHistory.currentCondition.evolution"
+              defaultValue=""
             />
           </Grid>
           <Grid item xs={12}>
@@ -47,6 +49,7 @@ export const CurrentCondition = () => {
               minRows={3}
               label="Estado Actual"
               source="diagnosisDetails.clinicHistory.currentCondition.currentStatus"
+              defaultValue=""
             />
           </Grid>
         </Grid>

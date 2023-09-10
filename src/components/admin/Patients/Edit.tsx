@@ -1,4 +1,5 @@
 import {
+  Button,
   CreateButton,
   Edit,
   ReferenceManyField,
@@ -6,7 +7,7 @@ import {
   TextInput,
   Toolbar,
 } from 'react-admin';
-import { PatientDiagnosisTable } from './PatientDiagnosisTable';
+import { PatientDiagnosisTable } from '../Diagnosis/PatientDiagnosisTable';
 import { Fragment } from 'react';
 import { Grid } from '@mui/material';
 import {
@@ -15,7 +16,7 @@ import {
 } from '../../../layouts/admin/EditWrapper';
 import { UnderlineSection } from '../../../layouts/admin/UnderlineSection';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
-import { Empty } from '../../../layouts/admin/Empty';
+import { PatientClinicHistoryTable } from '../ClinicHistory/PatientClinicHistoryTable';
 
 const ToolbarEdit = () => {
   return (
@@ -53,22 +54,41 @@ export const EditPatient = () => {
             </Grid>
           </Grid>
 
-          <ReferenceManyField
-            label="Diagnosis"
-            reference="diagnosis"
-            target="userId"
-          >
-            <UnderlineSection
-              title="Diagnosis"
-              contentHeader={
-                <Fragment>
-                  <CreateButton label="CREATE" />
-                </Fragment>
-              }
+          <div className="flex flex-col gap-7 w-full">
+            <ReferenceManyField
+              label="Clinic History"
+              reference="clinic-histories"
+              target="userId"
             >
-              <PatientDiagnosisTable />
-            </UnderlineSection>
-          </ReferenceManyField>
+              <UnderlineSection title="Clinic History">
+                <PatientClinicHistoryTable />
+              </UnderlineSection>
+            </ReferenceManyField>
+
+            <ReferenceManyField
+              label="Diagnosis"
+              reference="diagnosis"
+              target="userId"
+            >
+              <UnderlineSection
+                title="Diagnosis"
+                contentHeader={
+                  <Fragment>
+                    <Button
+                      color="primary"
+                      size="small"
+                      label=""
+                      href={`${window.location.href}/diagnosis/create`}
+                    >
+                      <>Create</>
+                    </Button>
+                  </Fragment>
+                }
+              >
+                <PatientDiagnosisTable />
+              </UnderlineSection>
+            </ReferenceManyField>
+          </div>
         </SimpleForm>
       </Edit>
     </div>

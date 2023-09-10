@@ -2,12 +2,6 @@ import { Prisma } from '@prisma/client';
 import prisma from '../config/prisma';
 
 interface IClinicHistory {
-  background: {
-    familyInherited: string;
-    personalPathogens: string;
-    personalNonPathogens: string;
-    gynecologyObstetrics: string;
-  };
   currentCondition: {
     beginning: string;
     evolution: string;
@@ -92,19 +86,29 @@ export const createNewDiagnosis = async (
   object: ICreateNewDiagnosis<Prisma.InputJsonValue>
 ) => {
   try {
+    const currentTime = new Date();
+    const creationTime = `${currentTime
+      .getDate()
+      .toString()
+      .padStart(2, '0')}/${(currentTime.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${currentTime.getFullYear()}`;
     const diagnosisCreated = await prisma.diagnosis.create({
-      data: object,
+      data: { ...object, creationTime },
     });
 
     return diagnosisCreated;
   } catch (error) {
+    console.log('test', error);
     throw new Error('Error creating new diagnosis');
   }
 };
 
-export const countDiagnosis = async () => {
+export const countDiagnosis = async (patientId: string) => {
   try {
-    const total = await prisma.diagnosis.count();
+    const total = await prisma.diagnosis.count({
+      where: { userId: patientId },
+    });
     return total;
   } catch (error) {
     throw new Error((error as Error).message);
@@ -151,5 +155,15 @@ export const getDiagnosisById = async (id: string) => {
     return diagnosis;
   } catch (error) {
     throw new Error('Error getting diagnosis');
+  }
+};
+
+export const deleteDiagnosisById = async (diagnosisId: string) => {
+  try {
+    await prisma.diagnosis.delete({
+      where: { id: diagnosisId },
+    });
+  } catch (error) {
+    throw new Error('Error removing diagnosis');
   }
 };

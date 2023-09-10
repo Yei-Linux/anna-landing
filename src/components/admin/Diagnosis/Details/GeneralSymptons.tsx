@@ -27,6 +27,7 @@ export const GeneralSymptons = () => {
               minRows={3}
               source="diagnosisDetails.clinicHistory.generalSymptoms"
               label="Sintomas Generales"
+              defaultValue=""
             />
           </Grid>
         </Grid>
