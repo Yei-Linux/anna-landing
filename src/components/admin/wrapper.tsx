@@ -17,6 +17,7 @@ import { Login } from './Login/Login';
 import { queryClient } from '../../config/react-query';
 
 const AdminWrapper = () => {
+  console.log('admin main page2');
   return (
     <Admin
       loginPage={Login}

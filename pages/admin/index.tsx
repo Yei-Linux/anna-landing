@@ -9,7 +9,6 @@ const AdminWrapper = dynamic(
 );
 
 const Admin: NextPage = () => {
-  console.log('admin main page');
   return (
     <Fragment>
       <AdminWrapper />
