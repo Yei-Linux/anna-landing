@@ -1,18 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createDoctor } from '../../back/services/doctor.service';
 import { crypt } from '../../back/helpers/hashing';
+import { Config } from '../../back/config/constants';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  if (!Config.IS_API_CREATE_DOCTORS_ENABLE) {
+    return res.status(500).json({
+      message: 'You are not available to create a user',
+    });
+  }
+
   const body = req.body;
 
   if (!body) {
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Empty Request',
     });
-    return;
   }
 
   const email = body.email;
