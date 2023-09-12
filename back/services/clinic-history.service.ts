@@ -64,7 +64,6 @@ export const updateClinicHistory = async (
 
     return result;
   } catch (error) {
-    console.log('test', error);
     throw new Error('Error getting clinic histories');
   }
 };

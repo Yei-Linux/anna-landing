@@ -99,7 +99,6 @@ export const createNewDiagnosis = async (
 
     return diagnosisCreated;
   } catch (error) {
-    console.log('test', error);
     throw new Error('Error creating new diagnosis');
   }
 };

@@ -46,7 +46,6 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       .setHeader('Content-Range', total)
       .json(diagnosisPaginated);
   } catch (error) {
-    console.log('test', error);
     return res.status(500).json([]);
   }
 };
