@@ -11,11 +11,16 @@ import { CreateDiagnosis } from './Diagnosis/Create';
 import { EditClinicHistory } from './ClinicHistory/Edit';
 import { CreateClinicHistory } from './ClinicHistory/Create';
 import { Route } from 'react-router-dom';
+import authProvider from '../../config/auth-provider';
+import { httpClient } from '../../config/admin-http-client';
+import { Login } from './Login/Login';
 
 const AdminWrapper = () => {
   return (
     <Admin
-      dataProvider={simpleRestProvider('/api')}
+      loginPage={Login}
+      authProvider={authProvider}
+      dataProvider={simpleRestProvider('/api', httpClient)}
       layout={AdminLayout}
       theme={adminTheme}
     >

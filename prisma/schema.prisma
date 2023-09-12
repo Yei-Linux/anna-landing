@@ -36,3 +36,11 @@ model clinic_histories {
   occupation  String
   background  Json
 }
+
+model doctors {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  email          String  @unique
+  password       String
+  fullName       String
+  documentNumber String?
+}
