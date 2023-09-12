@@ -1,20 +1,16 @@
 import { NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
 import { Config } from '../config/constants';
+import { verify } from '../helpers/jwt';
 
-export const isAuthMiddleware = (request: NextRequest) => {
+export const isAuthMiddleware = async (request: NextRequest) => {
   const auth = request.headers.get('authorization');
 
   if (!auth) {
     return false;
   }
+
   const [bearer_text, token] = auth.split(' ');
+  const isVerify = await verify(token, Config.JWT_SECRET);
 
-  jwt.verify(token, Config.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return false;
-    }
-
-    return true;
-  });
+  return isVerify;
 };

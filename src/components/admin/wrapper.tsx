@@ -14,6 +14,7 @@ import { Route } from 'react-router-dom';
 import authProvider from '../../config/auth-provider';
 import { httpClient } from '../../config/admin-http-client';
 import { Login } from './Login/Login';
+import { queryClient } from '../../config/react-query';
 
 const AdminWrapper = () => {
   return (
@@ -23,6 +24,7 @@ const AdminWrapper = () => {
       dataProvider={simpleRestProvider('/api', httpClient)}
       layout={AdminLayout}
       theme={adminTheme}
+      queryClient={queryClient}
     >
       <Resource
         options={{ label: 'Patients' }}

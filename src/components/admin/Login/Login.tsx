@@ -8,6 +8,7 @@ export const Login = ({ theme }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const login = useLogin();
+
   const notify = useNotify();
 
   const handleSubmit = (e: any) => {

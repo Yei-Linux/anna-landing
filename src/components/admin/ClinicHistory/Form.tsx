@@ -34,10 +34,20 @@ export const ClinicHistoryForm = () => {
 
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="civilStatus" label="Estado Civil" />
+          <TextInput
+            fullWidth
+            source="civilStatus"
+            label="Estado Civil"
+            defaultValue=""
+          />
         </Grid>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="occupation" label="Ocupación" />
+          <TextInput
+            fullWidth
+            source="occupation"
+            label="Ocupación"
+            defaultValue=""
+          />
         </Grid>
       </Grid>
 

@@ -7,3 +7,6 @@
 .MuiToolbar-root .MuiSvgIcon-root[data-testid="MenuIcon"]{
     color: white;
 }
+.MuiToolbar-root .MuiSvgIcon-root[data-testid="PowerSettingsNewIcon"]{
+    color: white;
+}

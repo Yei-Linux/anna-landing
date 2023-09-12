@@ -44,10 +44,15 @@ export const DiagnosisForm = () => {
 
       <Grid container spacing={2}>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="title" label="Title" />
+          <TextInput fullWidth source="title" label="Title" defaultValue="" />
         </Grid>
         <Grid item sm={6} xs={12}>
-          <TextInput fullWidth source="description" label="Description" />
+          <TextInput
+            fullWidth
+            source="description"
+            label="Description"
+            defaultValue=""
+          />
         </Grid>
       </Grid>
 

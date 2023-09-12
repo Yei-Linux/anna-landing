@@ -3,15 +3,18 @@ import { AUTH_CHECK, AUTH_ERROR, AUTH_LOGIN, AUTH_LOGOUT } from 'react-admin';
 export default async (type: string, params: any) => {
   if (type === AUTH_LOGIN) {
     const { username, password } = params;
-    const request = new Request('https://mydomain.com/authenticate', {
+    const request = new Request('/api/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email: username, password }),
       headers: new Headers({ 'Content-Type': 'application/json' }),
     });
 
     const response = await fetch(request);
     const json = await response.json();
 
+    if (json.error || !json.token) throw new Error(json.message);
+
+    localStorage.setItem('token', json.token);
     return json.token;
   }
 
@@ -31,7 +34,9 @@ export default async (type: string, params: any) => {
   }
 
   if (type === AUTH_CHECK) {
-    return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+    const hasToken = localStorage.getItem('token');
+
+    return hasToken ? Promise.resolve() : Promise.reject();
   }
 
   return Promise.resolve();

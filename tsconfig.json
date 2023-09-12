@@ -15,6 +15,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/ui/EditButton"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/components/ui/EditButton",
+    "middleware.ts"
+  ],
   "exclude": ["node_modules"]
 }

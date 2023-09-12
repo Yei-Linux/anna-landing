@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getDoctorByEmail } from '../../back/services/doctor.service';
 import { comparePass } from '../../back/helpers/hashing';
-import jwt from 'jsonwebtoken';
 import { Config } from '../../back/config/constants';
+import { sign } from '../../back/helpers/jwt';
 
 export default async function handler(
   req: NextApiRequest,
@@ -38,16 +38,13 @@ export default async function handler(
       });
     }
 
-    const token = jwt.sign(
+    const token = await sign(
       {
         email: doctor.email,
         fullName: doctor.fullName,
         documentNumber: doctor.documentNumber,
       },
-      Config.JWT_SECRET,
-      {
-        expiresIn: Config.JWT_TOKEN_EXPIRATION,
-      }
+      Config.JWT_SECRET
     );
 
     res.status(200).json({ token, message: 'Login Succesful', error: false });
