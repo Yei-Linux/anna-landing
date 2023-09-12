@@ -22,9 +22,10 @@ export default async function handler(
     const search = filterObj?.q;
 
     const total = await countPatients();
-    const users = await getPatients(start, sizeByPage,search);
+    const users = await getPatients(start, sizeByPage, search);
     res.status(200).setHeader('Content-Range', total).json(users);
   } catch (error) {
+    console.log(error);
     res.status(500).json([]);
   }
 }
