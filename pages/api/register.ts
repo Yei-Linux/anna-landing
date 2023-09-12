@@ -28,11 +28,10 @@ export default async function handler(
 
   const isValidBody = email && password && fullName && documentNumber;
   if (!isValidBody) {
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Invalid Request',
       error: true,
     });
-    return;
   }
 
   try {
@@ -43,7 +42,7 @@ export default async function handler(
       documentNumber,
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       data: doctor,
       message: 'Doctor created succesful',
       error: false,

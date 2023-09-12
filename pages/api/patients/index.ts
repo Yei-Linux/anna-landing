@@ -23,9 +23,9 @@ export default async function handler(
 
     const total = await countPatients();
     const users = await getPatients(start, sizeByPage, search);
-    res.status(200).setHeader('Content-Range', total).json(users);
+    return res.status(200).setHeader('Content-Range', total).json(users);
   } catch (error) {
     console.log(error);
-    res.status(500).json([]);
+    return res.status(500).json([]);
   }
 }

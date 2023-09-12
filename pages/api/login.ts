@@ -11,11 +11,10 @@ export default async function handler(
   const body = req.body;
 
   if (!body) {
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Empty Request',
       error: true,
     });
-    return;
   }
 
   const email = body.email;
@@ -47,7 +46,9 @@ export default async function handler(
       Config.JWT_SECRET
     );
 
-    res.status(200).json({ token, message: 'Login Succesful', error: false });
+    return res
+      .status(200)
+      .json({ token, message: 'Login Succesful', error: false });
   } catch (error) {
     console.log('test', error);
     return res.status(500).json({

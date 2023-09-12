@@ -9,17 +9,14 @@ const post = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const body = req.body;
 
   if (!body) {
-    res.status(500).json([]);
-    return;
+    return res.status(500).json([]);
   }
 
   try {
     const clinicHistoryCreated = await createClinicHistory(body);
-    res.status(201).json(clinicHistoryCreated);
+    return res.status(201).json(clinicHistoryCreated);
   } catch (error) {
-    res.status(500).json([]);
-  } finally {
-    return;
+    return res.status(500).json([]);
   }
 };
 
@@ -44,12 +41,13 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       sizeByPage,
       filterObj?.userId
     );
-    res.status(201).setHeader('Content-Range', total).json(diagnosisPaginated);
+    return res
+      .status(201)
+      .setHeader('Content-Range', total)
+      .json(diagnosisPaginated);
   } catch (error) {
     console.log('test', error);
-    res.status(500).json([]);
-  } finally {
-    return;
+    return res.status(500).json([]);
   }
 };
 
@@ -58,14 +56,12 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   if (req.method === 'POST') {
-    await post(req, res);
-    return;
+    return await post(req, res);
   }
 
   if (req.method === 'GET') {
-    await get(req, res);
-    return;
+    return await get(req, res);
   }
 
-  res.status(500).json([]);
+  return res.status(500).json([]);
 }

@@ -9,17 +9,16 @@ const put = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const body = req.body;
 
   if (!body) {
-    res.status(500).json([]);
-    return;
+    return res.status(500).json([]);
   }
 
   try {
     if (!id) throw new Error('Id is required');
 
     const clinicHistory = await updateClinicHistory(body, id);
-    res.status(200).json(clinicHistory);
+    return res.status(200).json(clinicHistory);
   } catch (error) {
-    res.status(500).json({});
+    return res.status(500).json({});
   }
 };
 
@@ -30,9 +29,9 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     if (!id) throw new Error('Id is required');
 
     const clinicHistory = await getClinicHistoryById(id);
-    res.status(200).json(clinicHistory);
+    return res.status(200).json(clinicHistory);
   } catch (error) {
-    res.status(500).json({});
+    return res.status(500).json({});
   }
 };
 
@@ -41,14 +40,12 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   if (req.method === 'GET') {
-    await get(req, res);
-    return;
+    return await get(req, res);
   }
 
   if (req.method === 'PUT') {
-    await put(req, res);
-    return;
+    return await put(req, res);
   }
 
-  res.status(500).json([]);
+  return res.status(500).json([]);
 }

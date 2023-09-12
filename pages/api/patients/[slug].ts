@@ -11,8 +11,8 @@ export default async function handler(
     if (!id) throw new Error('Id is required');
 
     const user = await getPatientById(id);
-    res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({});
+    return res.status(500).json({});
   }
 }
