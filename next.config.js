@@ -4,7 +4,7 @@ const nextConfig = {
     unoptimized: true,
   },
   env: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    NEXT_DATABASE_URL: process.env.NEXT_DATABASE_URL,
     NEXT_API_CREATE_DOCTORS_ENABLE: process.env.NEXT_API_CREATE_DOCTORS_ENABLE,
     NEXT_JWT_SALT: process.env.NEXT_JWT_SALT,
     NEXT_JWT_SECRET: process.env.NEXT_JWT_SECRET,
