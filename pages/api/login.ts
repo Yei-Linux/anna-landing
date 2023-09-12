@@ -49,6 +49,7 @@ export default async function handler(
 
     res.status(200).json({ token, message: 'Login Succesful', error: false });
   } catch (error) {
+    console.log('test', error);
     return res.status(500).json({
       message: 'Error in process',
     });
