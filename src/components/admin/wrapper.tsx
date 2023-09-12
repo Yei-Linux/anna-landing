@@ -1,4 +1,3 @@
-'use client';
 import { Admin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 import { PatientList } from './Patients/List';
@@ -16,8 +15,7 @@ import { httpClient } from '../../config/admin-http-client';
 import { Login } from './Login/Login';
 import { queryClient } from '../../config/react-query';
 
-const AdminWrapper = () => {
-  console.log('admin main page2');
+export const AdminWrapper = () => {
   return (
     <Admin
       loginPage={Login}
@@ -52,5 +50,3 @@ const AdminWrapper = () => {
     </Admin>
   );
 };
-
-export default AdminWrapper;

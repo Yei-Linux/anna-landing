@@ -2,7 +2,10 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { Fragment } from 'react';
 const AdminWrapper = dynamic(
-  () => import('../../src/components/admin/wrapper'),
+  () =>
+    import('../../src/components/admin/wrapper').then(
+      (module) => module.AdminWrapper
+    ),
   {
     ssr: false,
   }
