@@ -47,7 +47,7 @@ export const Results = () => {
               multiline
               maxRows={10}
               minRows={3}
-              label="Diagnostico"
+              label="Pronostico"
               source="diagnosisDetails.diagnosisInformation.results.pronostic"
               defaultValue=""
             />
