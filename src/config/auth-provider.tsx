@@ -15,11 +15,13 @@ export default async (type: string, params: any) => {
     if (json.error || !json.token) throw new Error(json.message);
 
     localStorage.setItem('token', json.token);
+    localStorage.setItem('personalInfo', JSON.stringify(json.personalInfo));
     return json.token;
   }
 
   if (type === AUTH_LOGOUT) {
     localStorage.removeItem('token');
+    localStorage.removeItem('personalInfo');
     return Promise.resolve();
   }
 
@@ -27,6 +29,7 @@ export default async (type: string, params: any) => {
     const status = params.status;
     if (status === 401 || status === 403) {
       localStorage.removeItem('token');
+      localStorage.removeItem('personalInfo');
       return Promise.reject();
     }
 

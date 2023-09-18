@@ -13,7 +13,7 @@ export const Login = ({ theme }: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    login({ email, password }).catch(() =>
+    login({ username: email, password }).catch(() =>
       notify('Email y/o contraseña invalidos')
     );
   };

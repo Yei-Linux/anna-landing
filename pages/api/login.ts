@@ -20,6 +20,13 @@ export default async function handler(
   const email = body.email;
   const password = body.password;
 
+  if (!email || !password) {
+    return res.status(500).json({
+      message: 'Empty email or password',
+      error: true,
+    });
+  }
+
   try {
     const doctor = await getDoctorByEmail(email);
     if (!doctor) {
@@ -46,9 +53,16 @@ export default async function handler(
       Config.JWT_SECRET
     );
 
-    return res
-      .status(200)
-      .json({ token, message: 'Login Succesful', error: false });
+    return res.status(200).json({
+      token,
+      personalInfo: {
+        email: doctor.email,
+        fullName: doctor.fullName,
+        documentNumber: doctor.documentNumber,
+      },
+      message: 'Login Succesful',
+      error: false,
+    });
   } catch (error) {
     return res.status(500).json({
       message: 'Error in process',

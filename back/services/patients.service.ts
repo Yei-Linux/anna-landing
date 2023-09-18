@@ -24,7 +24,7 @@ export const getPatients = async (
             $or: [
               { fullName: { $regex: search, $options: 'i' } },
               {
-                fullName: { $regex: search, $options: 'i' },
+                phone: { $regex: search, $options: 'i' },
               },
               {
                 documentNumber: { $regex: search, $options: 'i' },

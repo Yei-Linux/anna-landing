@@ -2,8 +2,28 @@ import { AppBar, Layout, Menu } from 'react-admin';
 import { Image } from '../../../components/ui/Image';
 import { Avatar } from '@mui/material';
 import Logout from '../../../components/admin/Logout/Logout';
+import { useEffect, useState } from 'react';
+
+export interface IPersonalInfo {
+  email: string;
+  fullName: string;
+  documentNumber: string;
+}
 
 const MyAppBar = () => {
+  const [personalInfo, setPersonalInfo] = useState<IPersonalInfo>({
+    email: '',
+    fullName: '',
+    documentNumber: '',
+  });
+
+  useEffect(() => {
+    const personalInfoStorage = localStorage.getItem('personalInfo');
+
+    if (!personalInfoStorage) return;
+    setPersonalInfo(JSON.parse(personalInfoStorage));
+  }, []);
+
   return (
     <AppBar color="primary" userMenu={<></>}>
       <div className="w-full flex justify-between items-center">
@@ -21,7 +41,7 @@ const MyAppBar = () => {
 
         <div className="h-full flex items-center gap-3">
           <Avatar alt="User" src="/assets/userprofile.png" />
-          <span className="font-bold">Dr. Jesus</span>
+          <span className="font-bold">Dr. {personalInfo?.fullName}</span>
           <Logout />
         </div>
       </div>
