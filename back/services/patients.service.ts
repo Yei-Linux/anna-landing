@@ -9,6 +9,35 @@ export const countPatients = async () => {
   }
 };
 
+export interface IPatient {
+  phone: string;
+  fullName: string;
+  documentNumber: string;
+  genderId: string;
+}
+export const createPatient = async (patient: IPatient) => {
+  try {
+    return await prisma.users.create({
+      data: patient,
+    });
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const updatePatient = async (patient: IPatient, id: string) => {
+  try {
+    return await prisma.users.update({
+      where: {
+        id,
+      },
+      data: patient,
+    });
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
 export const getPatients = async (
   skip: number,
   sizeByPage: number,

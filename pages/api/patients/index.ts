@@ -1,10 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { countPatients, getPatients } from '../../../back/services';
+import {
+  countPatients,
+  createPatient,
+  getPatients,
+} from '../../../back/services';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
+const post = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  const body = req.body;
+
+  if (!body) {
+    return res.status(500).json([]);
+  }
+
+  try {
+    const patientCreated = await createPatient(body);
+    return res.status(201).json(patientCreated);
+  } catch (error) {
+    return res.status(500).json([]);
+  }
+};
+
+const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const range = req.query?.range as string;
   const sort = req.query?.sort as string;
   const filter = req.query?.filter as string;
@@ -28,4 +44,19 @@ export default async function handler(
     console.log(error);
     return res.status(500).json([]);
   }
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<any>
+) {
+  if (req.method === 'POST') {
+    return await post(req, res);
+  }
+
+  if (req.method === 'GET') {
+    return await get(req, res);
+  }
+
+  return res.status(500).json([]);
 }
