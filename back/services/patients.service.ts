@@ -89,6 +89,8 @@ export const getPatientById = async (id: string) => {
         phone: true,
         fullName: true,
         documentNumber: true,
+        email: true,
+        isInactive: true,
         genderId: true,
         clinic_histories: true,
       },
