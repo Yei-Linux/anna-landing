@@ -1,3 +1,6 @@
+.editpatient__view .MuiSvgIcon-root[data-testid="SaveIcon"]{
+    color: white;
+}
 .editdiagnosis__view .MuiSvgIcon-root[data-testid="SaveIcon"]{
     color: white;
 }

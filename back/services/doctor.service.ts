@@ -29,6 +29,7 @@ export const createDoctor = async (doctorReq: ICreateDoctor) => {
 
     return doctor;
   } catch (error) {
+    console.log('test', error);
     throw new Error('Error creating a doctor');
   }
 };

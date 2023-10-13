@@ -1,8 +1,9 @@
 import {
+  BooleanInput,
   Button,
-  CreateButton,
   Edit,
   ReferenceManyField,
+  SaveButton,
   SimpleForm,
   TextInput,
   Toolbar,
@@ -21,7 +22,9 @@ import { PatientClinicHistoryTable } from '../ClinicHistory/PatientClinicHistory
 const ToolbarEdit = () => {
   return (
     <Toolbar>
-      <Fragment></Fragment>
+      <div className="w-full flex justify-between">
+        <SaveButton label="Save Patient" />
+      </div>
     </Toolbar>
   );
 };
@@ -51,6 +54,15 @@ export const EditPatient = () => {
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextInput source="gender" label="Gender" disabled />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <TextInput source="email" label="Email" disabled />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <BooleanInput
+                source="isInactive"
+                label="Inactive Bot for this user"
+              />
             </Grid>
           </Grid>
 

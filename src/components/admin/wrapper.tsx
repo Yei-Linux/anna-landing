@@ -11,16 +11,16 @@ import { EditClinicHistory } from './ClinicHistory/Edit';
 import { CreateClinicHistory } from './ClinicHistory/Create';
 import { Route } from 'react-router-dom';
 import authProvider from '../../config/auth-provider';
-import { httpClient } from '../../config/admin-http-client';
 import { Login } from './Login/Login';
 import { queryClient } from '../../config/react-query';
+import { dataProvider } from '../../config/life-cycle-callbacks';
 
 export const AdminWrapper = () => {
   return (
     <Admin
       loginPage={Login}
       authProvider={authProvider}
-      dataProvider={simpleRestProvider('/api', httpClient)}
+      dataProvider={dataProvider}
       layout={AdminLayout}
       theme={adminTheme}
       queryClient={queryClient}

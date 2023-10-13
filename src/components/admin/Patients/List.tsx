@@ -33,7 +33,8 @@ const ListContent = () => {
     >
       <IndexColumn />
       <TextField source="fullName" sortable={false} />
-      <TextField source="documentNumber" sortable={false} />
+      <TextField source="email" sortable={false} />
+      <TextField source="isInactive" sortable={false} />
       <TextField source="phone" sortable={false} />
       <EditButton />
     </Datagrid>

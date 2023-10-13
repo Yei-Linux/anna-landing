@@ -3,8 +3,14 @@
     background: #f3f3f3;
 }
 
-.editpatient__view .RaEdit-noActions .MuiToolbar-root {
-    display: none;
+.editpatient__view .RaEdit-noActions form {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.editpatient__view .RaEdit-noActions .MuiToolbar-root div {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .editpatient__view form {
