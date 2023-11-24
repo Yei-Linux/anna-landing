@@ -2,10 +2,10 @@ import type { NextPage } from 'next';
 import { Fragment } from 'react';
 import Head from 'next/head';
 
-import { WithLayout } from '../src/hocs/WithLayout';
-import { Landing } from '../src/components/anna-care/Landing';
+import { WithLayout } from '../../src/hocs/WithLayout';
+import { CarePlus, Home } from '../../src/components/anna-care/Platform';
 
-const Home: NextPage = () => {
+const CarePage: NextPage = () => {
   return (
     <Fragment>
       <Head>
@@ -23,9 +23,9 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <Landing />
+      <Home />
     </Fragment>
   );
 };
 
-export default WithLayout(Home);
+export default WithLayout(CarePage);

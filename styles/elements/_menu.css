@@ -1,0 +1,17 @@
+.menu-drawer .MuiPaper-root {
+    top: 60px;
+    width: 100%;
+}
+
+.menu-drawer .MuiBackdrop-root {
+    background-color: transparent;
+}
+
+.MuiAccordion-root {
+    box-shadow: none;
+    position: static;
+}
+
+.MuiAccordionSummary-root {
+    border-bottom: 1px dashed darkgray;
+}

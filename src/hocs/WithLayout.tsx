@@ -1,8 +1,9 @@
 /* eslint-disable react/display-name */
-import { Header } from '../layouts/Header';
 import { Fragment } from 'react';
-import { Main } from '../layouts/Main';
-import { Footer } from '../layouts/Footer';
+import { Header } from '../layouts/anna-care/Header';
+import { Main } from '../layouts/anna-care/Main';
+import { Footer } from '../layouts/anna-care/Footer';
+import { Menu } from '../layouts/anna-care/Menu/Menu';
 
 export const WithLayout =
   <P extends object>(WrapperComponent: React.ComponentType) =>
@@ -10,6 +11,7 @@ export const WithLayout =
     return (
       <Fragment>
         <Header />
+        <Menu />
         <Main>
           <WrapperComponent {...props} />
         </Main>

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-const FigureCSS = classNames('max-w-lg', 'flex', 'rounded-[0.8rem]');
+const FigureCSS = classNames('w-fit', 'flex', 'rounded-[0.8rem]');
 
 const NextImageCSS = classNames('h-auto', 'max-w-full');
 

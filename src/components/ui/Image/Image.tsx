@@ -11,6 +11,7 @@ export interface IImage {
   height?: number;
   caption?: string;
   hasShadow?: boolean;
+  className?: string;
 }
 
 export const Image: React.FC<IImage> = ({
@@ -19,6 +20,7 @@ export const Image: React.FC<IImage> = ({
   width,
   height,
   caption,
+  className,
   hasShadow = true,
 }) => {
   const imageProps = useMemo(() => {
@@ -35,7 +37,7 @@ export const Image: React.FC<IImage> = ({
       })}
     >
       <NextImage
-        className={styles.NextImageCSS}
+        className={classNames(styles.NextImageCSS, className)}
         src={src}
         alt={alt}
         {...imageProps}
