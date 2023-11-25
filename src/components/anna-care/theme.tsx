@@ -1,8 +1,6 @@
 import { createTheme } from '@mui/material/styles';
-import { defaultTheme } from 'react-admin';
 
-export const adminTheme = createTheme({
-  ...defaultTheme,
+export const annaCareTheme = createTheme({
   palette: {
     primary: {
       main: '#494AF4',

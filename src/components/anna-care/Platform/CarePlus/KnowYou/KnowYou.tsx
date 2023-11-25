@@ -13,8 +13,11 @@ export const KnowYou = () => {
       </div>
 
       <div className="flex flex-col gap-5">
-        <TextField label="Ingresa tu nombre" variant="outlined" />
-        <TextField label="Ingresa tu numero de celular" variant="outlined" />
+        <TextField placeholder="Ingresa tu nombre" variant="outlined" />
+        <TextField
+          placeholder="Ingresa tu numero de celular"
+          variant="outlined"
+        />
       </div>
     </div>
   );
