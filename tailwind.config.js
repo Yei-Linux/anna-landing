@@ -10,6 +10,7 @@ module.exports = {
         primary: '#494AF4',
         primaryLight: '#9389ff',
         neutralPrimary: '#f3f3f3',
+        neutralPrimaryLight: '#fafafa',
         neutralStrong: '#a3a3a3',
       },
     },

@@ -8,7 +8,6 @@ export const AnnaCareWrapper = () => {
     <Fragment>
       <ThemeProvider theme={annaCareTheme}>
         <Home />
-        <CarePlus />
       </ThemeProvider>
     </Fragment>
   );

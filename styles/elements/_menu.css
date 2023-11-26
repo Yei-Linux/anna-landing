@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.caresignin-drawer .MuiPaper-root {
+    width: 100%;
+}
+
 .menu-drawer .MuiBackdrop-root {
     background-color: transparent;
 }
