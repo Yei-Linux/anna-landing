@@ -1,10 +1,12 @@
 import TextField from '@mui/material/TextField';
 import { Text } from '../../../../../ui/Text';
 import { Button } from '../../../../../ui/Button';
-import { useSignInStore } from '../../../../../../store';
+import { Image } from '../../../../../ui/Image';
+import { useSignInStore, useStepsStore } from '../../../../../../store';
 
 export const TakeCare = () => {
-  const { setSigninData, signInData, nextSignInStep } = useSignInStore();
+  const { setSigninData, signInData } = useSignInStore();
+  const { nextSignInStep } = useStepsStore();
 
   return (
     <div className="flex flex-col gap-10">
@@ -42,9 +44,29 @@ export const TakeCare = () => {
             })
           }
         />
-        <Button className="w-full" onClick={() => nextSignInStep()}>
-          Continuar
-        </Button>
+        <div className="flex flex-col gap-3">
+          <Button className="w-full" onClick={() => nextSignInStep()}>
+            Continuar
+          </Button>
+          <div className="flex items-center gap-3">
+            <div className="w-[48%] h-[2px] bg-neutralStrong" />
+            <div className="w-[4%] text-center">o</div>
+            <div className="w-[48%] h-[2px] bg-neutralStrong" />
+          </div>
+          <Button
+            className="w-full !rounded-sm !bg-white !text-left !text-neutralStrong !border-[1px] !border-neutralStrong py-3 flex gap-3 items-center"
+            onClick={() => nextSignInStep()}
+          >
+            <Image
+              src="/assets/Google.png"
+              alt="Not Results"
+              width={18}
+              height={18}
+              hasShadow={false}
+            />
+            <span>Continuar con Google</span>
+          </Button>
+        </div>
       </div>
     </div>
   );

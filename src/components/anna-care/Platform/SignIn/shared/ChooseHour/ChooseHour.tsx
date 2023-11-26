@@ -1,24 +1,24 @@
-import { useSignInStore, useStepsStore } from '../../../../../../store';
+import { useStepsStore, useTreatmentStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Options } from '../Options/Options';
 
-export const ChooseCondition = () => {
-  const { signInData, setSigninData } = useSignInStore();
+export const ChooseHour = () => {
+  const { treatmentData, setTreatmentData } = useTreatmentStore();
   const { nextSignInStep } = useStepsStore();
 
   return (
     <div className="flex flex-col justify-between gap-10 h-full">
       <div className="flex flex-col gap-2">
         <Text
-          text="Condición"
+          text="Selecciona el horario"
           level="base"
           fontWeight="semibold"
           as="h3"
           className="text-primary text-center"
         />
         <Text
-          text="Porfavor, selecciona la situación crónica la cual llevas seguimiento"
+          text="Serás atendido por un especialista"
           level="base"
           as="p"
           className="text-center"
@@ -27,32 +27,20 @@ export const ChooseCondition = () => {
 
       <div className="flex justify-center items-center">
         <Options
-          compareToId={signInData?.cronicDesease}
-          setter={(id) => setSigninData({ cronicDesease: id })}
+          compareToId={treatmentData?.hour}
+          setter={(id) => setTreatmentData({ hour: id })}
           options={[
             {
-              text: 'Diabetes',
+              text: 'Mañana',
               id: 1,
             },
             {
-              text: 'Hipertensión',
+              text: 'Tarde',
               id: 2,
             },
             {
-              text: 'Enfermedades respiratorias',
+              text: 'Noche',
               id: 3,
-            },
-            {
-              text: 'Obesidad',
-              id: 4,
-            },
-            {
-              text: 'Dislipidemia',
-              id: 5,
-            },
-            {
-              text: 'Tiroides',
-              id: 6,
             },
           ]}
         />

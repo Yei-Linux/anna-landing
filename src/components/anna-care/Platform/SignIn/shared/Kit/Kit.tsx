@@ -1,10 +1,10 @@
 import { Text } from '../../../../../ui/Text';
 import { Image } from '../../../../../ui/Image';
 import { Button } from '../../../../../ui/Button';
-import { useSignInStore } from '../../../../../../store';
+import { useStepsStore } from '../../../../../../store';
 
 export const Kit = () => {
-  const { nextSignInStep } = useSignInStore();
+  const { nextSignInStep } = useStepsStore();
 
   return (
     <div className="flex flex-col gap-10">

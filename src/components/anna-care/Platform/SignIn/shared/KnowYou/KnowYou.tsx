@@ -1,10 +1,11 @@
 import TextField from '@mui/material/TextField';
 import { Text } from '../../../../../ui/Text';
 import { Button } from '../../../../../ui/Button';
-import { useSignInStore } from '../../../../../../store';
+import { useSignInStore, useStepsStore } from '../../../../../../store';
 
 export const KnowYou = () => {
-  const { setSigninData, signInData, nextSignInStep } = useSignInStore();
+  const { setSigninData, signInData } = useSignInStore();
+  const { nextSignInStep } = useStepsStore();
 
   return (
     <div className="flex flex-col gap-10">

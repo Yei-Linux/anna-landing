@@ -1,10 +1,11 @@
-import { useSignInStore } from '../../../../../../store';
+import { useSignInStore, useStepsStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Image } from '../../../../../ui/Image';
 
 export const AnyCondition = () => {
-  const { nextSignInStep, setSigninData } = useSignInStore();
+  const { setSigninData } = useSignInStore();
+  const { nextSignInStep } = useStepsStore();
 
   return (
     <div className="flex flex-col justify-between gap-10 h-full">
