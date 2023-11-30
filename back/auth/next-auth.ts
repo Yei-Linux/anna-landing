@@ -4,7 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
 import { authorize } from './authorize';
-import { AUTH_PROVIDERS } from './constants';
+import { AUTH_PROVIDERS, AUTH_SECRET } from './constants';
 import prisma from '../config/prisma';
 
 export const handlerAuth = NextAuth({
@@ -15,6 +15,7 @@ export const handlerAuth = NextAuth({
     strategy: 'jwt',
   },
   adapter: PrismaAdapter(prisma),
+  secret: AUTH_SECRET,
   providers: [
     GoogleProvider(AUTH_PROVIDERS.google),
     CredentialsProvider({
@@ -26,7 +27,6 @@ export const handlerAuth = NextAuth({
       authorize,
     }),
   ],
-
   callbacks: {
     session: ({ session, token, trigger }) => {
       return {
