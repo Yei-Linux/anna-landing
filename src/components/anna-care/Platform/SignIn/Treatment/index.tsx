@@ -6,6 +6,7 @@ import { ChooseDisease } from '../shared/ChooseDisease';
 import { ChooseDay } from '../shared/ChooseDay/ChooseDay';
 import { ChooseHour } from '../shared/ChooseHour/ChooseHour';
 import { PaymentPlans } from '../shared/PaymentsPlans';
+import { ConfirmationPayment } from '../shared/ConfirmationPayment';
 
 export const Treatment = () => {
   const { currentSignInStep } = useStepsStore();
@@ -17,7 +18,7 @@ export const Treatment = () => {
       {currentSignInStep === 3 && <ChooseDisease />}
       {currentSignInStep === 4 && <ChooseDay />}
       {currentSignInStep === 5 && <ChooseHour />}
-      {currentSignInStep === 6 && <PaymentPlans />}
+      {currentSignInStep === 6 && <ConfirmationPayment />}
     </Fragment>
   );
 };

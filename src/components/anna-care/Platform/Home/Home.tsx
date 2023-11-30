@@ -4,20 +4,10 @@ import { Button } from '../../../ui/Button';
 import { Pill } from '../../../ui/Pill';
 import { Fragment } from 'react';
 import { SignIn } from '../SignIn/SignIn';
-import { useSignInStore } from '../../../../store';
+import { useHome } from './useHome';
 
 export const Home = () => {
-  const { toggleSignIn, setSignInType } = useSignInStore();
-
-  const handleCarePlus = () => {
-    setSignInType('carePlus');
-    toggleSignIn();
-  };
-
-  const handleTreatment = () => {
-    setSignInType('treatment');
-    toggleSignIn();
-  };
+  const { handleCarePlus, handleTreatment } = useHome();
 
   return (
     <Fragment>

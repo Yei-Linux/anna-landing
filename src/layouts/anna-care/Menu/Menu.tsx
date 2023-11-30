@@ -9,26 +9,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button } from '../../../components/ui/Button';
-
-interface IItem {
-  title: string;
-  description: string;
-}
-const Item = ({ title, description }: IItem) => (
-  <li>
-    <div className="flex gap-2 items-center">
-      <span className={styles.MarketItemCSS} />
-      <Text text={title} level="lg" fontWeight="medium" as="h3" />
-    </div>
-
-    <Text
-      text={description}
-      level="base"
-      as="p"
-      className="text-neutralStrong"
-    />
-  </li>
-);
+import { List } from '../../../components/ui/List';
+import { MenuLoggedContent } from '../../../components/anna-care/Platform/MenuLogged';
 
 const Content = () => (
   <div className="h-full">
@@ -37,20 +19,20 @@ const Content = () => (
     </div>
 
     <div className="flex flex-col gap-10">
-      <ul className="flex flex-col gap-5 px-[20px] mt-5">
-        <Item
+      <List>
+        <List.Item
           title="Trata tu dolor"
           description="Indica que tipo es tu dolencia y si sufres de alguna condición crónica con anterioridad"
         />
-        <Item
+        <List.Item
           title="Selecciona tu horario y listo"
           description="Selecciona el horario que se te acomode e indica si es para ti o algún familiar"
         />
-        <Item
+        <List.Item
           title="Hazte seguimiento y ahorra"
           description="Con Care+ logra mejores resultados para ti. Ten beneficios mensuales y monitorea tu situación."
         />
-      </ul>
+      </List>
 
       <Accordion>
         <AccordionSummary
@@ -80,7 +62,7 @@ export const Menu = () => {
 
   return (
     <Drawer open={isOpenMenu} onClose={toggleMenu} className="menu-drawer">
-      <Content />
+      {true ? <MenuLoggedContent /> : <Content />}
     </Drawer>
   );
 };
