@@ -4,5 +4,5 @@ const AUTH_PROVIDERS = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
   },
 };
-
-export { AUTH_PROVIDERS };
+const AUTH_SECRET = process.env.SECRET;
+export { AUTH_PROVIDERS, AUTH_SECRET };
