@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { SaveButton, SimpleForm, TextInput, Toolbar } from 'react-admin';
 import { EditWrapper } from '../../../layouts/admin/EditWrapper';
 import { UnderlineSection } from '../../../layouts/admin/UnderlineSection';

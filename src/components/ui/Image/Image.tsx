@@ -11,6 +11,8 @@ export interface IImage {
   height?: number;
   caption?: string;
   hasShadow?: boolean;
+  className?: string;
+  onClick?: () => void;
 }
 
 export const Image: React.FC<IImage> = ({
@@ -19,7 +21,9 @@ export const Image: React.FC<IImage> = ({
   width,
   height,
   caption,
+  className,
   hasShadow = true,
+  onClick,
 }) => {
   const imageProps = useMemo(() => {
     return {
@@ -33,9 +37,10 @@ export const Image: React.FC<IImage> = ({
       className={classNames(styles.FigureCSS, {
         'shadow-lg': hasShadow,
       })}
+      onClick={onClick}
     >
       <NextImage
-        className={styles.NextImageCSS}
+        className={classNames(styles.NextImageCSS, className)}
         src={src}
         alt={alt}
         {...imageProps}

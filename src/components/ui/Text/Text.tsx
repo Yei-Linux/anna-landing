@@ -13,6 +13,7 @@ export interface IText {
   underline?: `offset-${TUnderlineVariations}`;
   as?: `h${TVariations}` | 'p';
   className?: string;
+  onClick?: () => void;
 }
 
 export const Text: React.FC<IText> = ({
@@ -22,6 +23,7 @@ export const Text: React.FC<IText> = ({
   underline,
   fontWeight = 'medium',
   className,
+  onClick,
 }) => {
   const Component = as;
   const classNameBuilt = useMemo(
@@ -32,5 +34,9 @@ export const Text: React.FC<IText> = ({
     [level, fontWeight, underline, className]
   );
 
-  return <Component className={classNameBuilt}>{text}</Component>;
+  return (
+    <Component className={classNameBuilt} onClick={onClick}>
+      {text}
+    </Component>
+  );
 };
