@@ -1,10 +1,17 @@
+import { useSession } from 'next-auth/react';
+import { useBookingAppointment } from '../../../../../../hooks/useBookingAppointment';
+import { useTreatmentStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { ConfirmationDetails } from './Details';
 
 export const ConfirmationPayment = () => {
+  const { data } = useSession();
+  const { treatmentData } = useTreatmentStore();
+  const { handlerBooking } = useBookingAppointment();
+
   return (
-    <div className="flex flex-col justify-between gap-10 h-full">
+    <div className="flex flex-col justify-between gap-10 h-full p-4">
       <div className="flex flex-col gap-2">
         <Text
           text="Confirmación"
@@ -36,7 +43,19 @@ export const ConfirmationPayment = () => {
           as="p"
         />
       </div>
-      <Button className="w-full" onClick={() => {}}>
+      <Button
+        className="w-full"
+        onClick={() => {
+          if (!treatmentData) return;
+          if (!data) return;
+          handlerBooking({
+            day: new Date(treatmentData.day).toLocaleString() ?? '',
+            turn: treatmentData.hour,
+            diseaseOption: treatmentData.disease,
+            userId: (data.user as any).id,
+          });
+        }}
+      >
         Confirmar visital virtual
       </Button>
     </div>

@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button } from '../../../components/ui/Button';
 import { List } from '../../../components/ui/List';
 import { MenuLoggedContent } from '../../../components/anna-care/Platform/MenuLogged';
+import { useSession } from 'next-auth/react';
 
 const Content = () => (
   <div className="h-full">
@@ -51,18 +52,17 @@ const Content = () => (
       </Accordion>
     </div>
 
-    <div className="absolute bottom-20 w-full flex justify-center">
-      <Button className="w-[95%]">Ser miembro Care+</Button>
-    </div>
+    <div className="absolute bottom-20 w-full flex justify-center"></div>
   </div>
 );
 
 export const Menu = () => {
+  const { data } = useSession();
   const { isOpenMenu, toggleMenu } = useLandingBotStore();
 
   return (
     <Drawer open={isOpenMenu} onClose={toggleMenu} className="menu-drawer">
-      {true ? <MenuLoggedContent /> : <Content />}
+      {data?.user ? <MenuLoggedContent /> : <Content />}
     </Drawer>
   );
 };

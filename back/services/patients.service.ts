@@ -1,8 +1,9 @@
+import { email } from 'react-admin';
 import prisma from '../config/prisma';
 
 export const countPatients = async () => {
   try {
-    const total = await prisma.users.count();
+    const total = await prisma.user.count();
     return total;
   } catch (error) {
     throw new Error((error as Error).message);
@@ -10,14 +11,76 @@ export const countPatients = async () => {
 };
 
 export interface IPatient {
-  phone: string;
-  fullName: string;
-  documentNumber: string;
-  genderId: string;
+  phone?: string;
+  fullName?: string;
+  documentNumber?: string;
+  genderId?: string;
+  hasAnyCronicDesease: boolean;
+  cronicDesease: number;
 }
 export const createPatient = async (patient: IPatient) => {
   try {
-    return await prisma.users.create({
+    return await prisma.user.create({
+      data: patient,
+    });
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export interface ISignUpPatient {
+  email: string;
+  password: string;
+}
+export const signUpPatient = async (patient: ISignUpPatient) => {
+  try {
+    const userFound = await prisma.user.findUnique({
+      where: { email: patient.email },
+    });
+
+    const OrUserDoesntExistsEitherHasOnlyEmail =
+      !userFound || (userFound && !userFound.password);
+    if (OrUserDoesntExistsEitherHasOnlyEmail) {
+      return await prisma.user.upsert({
+        where: { email: patient.email, password: '' },
+        update: patient,
+        create: patient,
+      });
+    }
+
+    return userFound;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const suscribeByEmail = async (
+  carePlusPlanPrice: number,
+  email: string
+) => {
+  try {
+    return await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        carePlusPlanPrice,
+      },
+    });
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const updatePatientByEmail = async (
+  patient: IPatient,
+  email: string
+) => {
+  try {
+    return await prisma.user.update({
+      where: {
+        email,
+      },
       data: patient,
     });
   } catch (error) {
@@ -27,7 +90,7 @@ export const createPatient = async (patient: IPatient) => {
 
 export const updatePatient = async (patient: IPatient, id: string) => {
   try {
-    return await prisma.users.update({
+    return await prisma.user.update({
       where: {
         id,
       },
@@ -65,7 +128,7 @@ export const getPatients = async (
       ];
     }
 
-    const patientsResultSet: any = await prisma.users.aggregateRaw({
+    const patientsResultSet: any = await prisma.user.aggregateRaw({
       pipeline,
     });
 
@@ -80,7 +143,7 @@ export const getPatients = async (
 
 export const getPatientById = async (id: string) => {
   try {
-    const patientResultSet = await prisma.users.findFirst({
+    const patientResultSet = await prisma.user.findFirst({
       where: {
         id,
       },

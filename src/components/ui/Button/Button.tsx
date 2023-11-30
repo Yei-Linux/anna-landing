@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import styles from './Button.styles';
 
 export interface IButton {
+  disabled?: boolean;
   children: React.ReactNode;
   className?: string;
   type?: 'button' | 'reset' | 'submit';
@@ -13,9 +14,11 @@ export const Button: React.FC<IButton> = ({
   children,
   className,
   onClick,
+  disabled = false,
 }) => {
   return (
     <button
+      disabled={disabled}
       type={type}
       className={classNames(styles.ButtonCSS, className)}
       onClick={onClick}

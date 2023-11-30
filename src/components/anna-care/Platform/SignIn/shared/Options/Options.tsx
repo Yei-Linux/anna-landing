@@ -45,6 +45,7 @@ export const Options = ({ options, setter, compareToId }: IOptions) => {
     <ul className="rounded-lg max-w-[300px] w-[90%]">
       {options.map(({ text, id }) => (
         <Option
+          key={id}
           text={text}
           isSelected={compareToId === id}
           onClick={() => setter?.(id)}

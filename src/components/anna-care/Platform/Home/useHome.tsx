@@ -1,4 +1,4 @@
-import { useSignInStore } from '../../../../store';
+import { useLandingBotStore, useSignInStore } from '../../../../store';
 
 export const useHome = () => {
   const { toggleSignIn, setSignInType } = useSignInStore();

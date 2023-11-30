@@ -1,3 +1,4 @@
+import { turn } from '../../../../../../constants/care';
 import { useStepsStore, useTreatmentStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
@@ -8,7 +9,7 @@ export const ChooseHour = () => {
   const { nextSignInStep } = useStepsStore();
 
   return (
-    <div className="flex flex-col justify-between gap-10 h-full">
+    <div className="flex flex-col justify-between gap-7 h-full">
       <div className="flex flex-col gap-2">
         <Text
           text="Selecciona el horario"
@@ -29,20 +30,7 @@ export const ChooseHour = () => {
         <Options
           compareToId={treatmentData?.hour}
           setter={(id) => setTreatmentData({ hour: id })}
-          options={[
-            {
-              text: 'Mañana',
-              id: 1,
-            },
-            {
-              text: 'Tarde',
-              id: 2,
-            },
-            {
-              text: 'Noche',
-              id: 3,
-            },
-          ]}
+          options={turn}
         />
       </div>
 

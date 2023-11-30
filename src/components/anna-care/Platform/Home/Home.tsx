@@ -5,15 +5,29 @@ import { Pill } from '../../../ui/Pill';
 import { Fragment } from 'react';
 import { SignIn } from '../SignIn/SignIn';
 import { useHome } from './useHome';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { useNotificationStore } from '../../../../store';
+import { useSession } from 'next-auth/react';
+import { Profile } from '../../../ui/Profile/Profile';
 
 export const Home = () => {
+  const { close, isOpen, message, severity } = useNotificationStore();
   const { handleCarePlus, handleTreatment } = useHome();
+  const { data } = useSession();
+  const hasCarePlusPlanPrice = (data?.user as any)?.carePlusPlanPrice;
 
   return (
     <Fragment>
+      <Snackbar open={isOpen} autoHideDuration={6000} onClose={close}>
+        <Alert onClose={close} severity={severity} sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
       <SignIn />
       <div className="flex flex-col items-center gap-10">
         <div>
+          <Profile />
           <Text
             text="¿Te sientes mal?"
             className="text-primary text-center"
@@ -36,7 +50,9 @@ export const Home = () => {
           />
         </div>
         <div className="flex flex-col gap-3 ">
-          <Button onClick={handleCarePlus}>Prueba Care+</Button>
+          {!hasCarePlusPlanPrice && (
+            <Button onClick={handleCarePlus}>Prueba Care+</Button>
+          )}
           <Button
             onClick={handleTreatment}
             className="bg-white !text-primary border-2 border-primary"

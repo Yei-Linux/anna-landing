@@ -1,15 +1,22 @@
-import TextField from '@mui/material/TextField';
 import { Text } from '../../../../../ui/Text';
 import { Button } from '../../../../../ui/Button';
 import { Image } from '../../../../../ui/Image';
-import { useSignInStore, useStepsStore } from '../../../../../../store';
+import { FormControllerInput } from '../../../../../ui/FormControllerInput';
+import { useForm } from 'react-hook-form';
+import { TSignInForm } from '../../../../../../types/sign-in';
+import { signInZodSchema } from '../../../../../../zodSchemas/sign-in.zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
+import { useSignIn } from '../../../../../../hooks/useSignIn';
 
 export const TakeCare = () => {
-  const { setSigninData, signInData } = useSignInStore();
-  const { nextSignInStep } = useStepsStore();
+  const { signinHandler } = useSignIn();
+  const { handleSubmit, reset, control } = useForm<TSignInForm>({
+    resolver: zodResolver(signInZodSchema),
+  });
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-7 p-7">
       <div className="flex flex-col gap-2">
         <Text
           text="Anotado.A cuidarte"
@@ -23,29 +30,23 @@ export const TakeCare = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-5">
-        <TextField
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={handleSubmit(signinHandler)}
+      >
+        <FormControllerInput
           placeholder="Ingresa tu correo electrónico"
-          variant="outlined"
-          value={signInData?.email}
-          onChange={(e) =>
-            setSigninData({
-              email: e.target.value,
-            })
-          }
+          control={control}
+          name="email"
         />
-        <TextField
+        <FormControllerInput
           placeholder="Ingresa tu contraseña"
-          variant="outlined"
-          value={signInData?.password}
-          onChange={(e) =>
-            setSigninData({
-              password: e.target.value,
-            })
-          }
+          control={control}
+          name="password"
         />
+
         <div className="flex flex-col gap-3">
-          <Button className="w-full" onClick={() => nextSignInStep()}>
+          <Button className="w-full" type="submit">
             Continuar
           </Button>
           <div className="flex items-center gap-3">
@@ -55,7 +56,7 @@ export const TakeCare = () => {
           </div>
           <Button
             className="w-full !rounded-sm !bg-white !text-left !text-neutralStrong !border-[1px] !border-neutralStrong py-3 flex gap-3 items-center"
-            onClick={() => nextSignInStep()}
+            onClick={() => signIn('google')}
           >
             <Image
               src="/assets/Google.png"
@@ -67,7 +68,7 @@ export const TakeCare = () => {
             <span>Continuar con Google</span>
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

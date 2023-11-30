@@ -1,3 +1,4 @@
+import { diseases } from '../../../../../../constants/care';
 import { useStepsStore, useTreatmentStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
@@ -29,32 +30,7 @@ export const ChooseDisease = () => {
         <Options
           compareToId={treatmentData?.disease}
           setter={(id) => setTreatmentData({ disease: id })}
-          options={[
-            {
-              text: 'Dolor de cabeza',
-              id: 1,
-            },
-            {
-              text: 'Dolor de corazon',
-              id: 2,
-            },
-            {
-              text: 'Dolor de garganta',
-              id: 3,
-            },
-            {
-              text: 'Insuficiencia Respiratoria',
-              id: 4,
-            },
-            {
-              text: 'Presion Arterial',
-              id: 5,
-            },
-            {
-              text: 'Relacionado u otro',
-              id: 6,
-            },
-          ]}
+          options={diseases}
         />
       </div>
 

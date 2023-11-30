@@ -1,14 +1,18 @@
-import { useSignInStore, useStepsStore } from '../../../../../../store';
+import { useSession } from 'next-auth/react';
+import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
+import { useSignInStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Options } from '../Options/Options';
+import { cronicalDisease } from '../../../../../../constants/care';
 
 export const ChooseCondition = () => {
+  const { data } = useSession();
   const { signInData, setSigninData } = useSignInStore();
-  const { nextSignInStep } = useStepsStore();
+  const { handlerUpsertInfo, isRegistering } = useRegisterUser();
 
   return (
-    <div className="flex flex-col justify-between gap-10 h-full">
+    <div className="flex flex-col justify-between gap-7 h-full p-4">
       <div className="flex flex-col gap-2">
         <Text
           text="Condición"
@@ -29,37 +33,27 @@ export const ChooseCondition = () => {
         <Options
           compareToId={signInData?.cronicDesease}
           setter={(id) => setSigninData({ cronicDesease: id })}
-          options={[
-            {
-              text: 'Diabetes',
-              id: 1,
-            },
-            {
-              text: 'Hipertensión',
-              id: 2,
-            },
-            {
-              text: 'Enfermedades respiratorias',
-              id: 3,
-            },
-            {
-              text: 'Obesidad',
-              id: 4,
-            },
-            {
-              text: 'Dislipidemia',
-              id: 5,
-            },
-            {
-              text: 'Tiroides',
-              id: 6,
-            },
-          ]}
+          options={cronicalDisease.filter(({ id }) => id != -1)}
         />
       </div>
 
-      <Button className="w-full" onClick={() => nextSignInStep()}>
-        Continuar
+      <Button
+        disabled={isRegistering}
+        className="w-full"
+        onClick={() => {
+          if (!signInData) return;
+          if (!data?.user?.email) return;
+          handlerUpsertInfo(
+            {
+              fullName: signInData.fullName,
+              hasAnyCronicDesease: signInData.hasAnyCronicDesease,
+              cronicDesease: signInData.cronicDesease,
+            },
+            data?.user?.email
+          );
+        }}
+      >
+        {isRegistering ? 'Registrando...' : 'Continuar'}
       </Button>
     </div>
   );

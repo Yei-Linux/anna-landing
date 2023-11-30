@@ -1,7 +1,11 @@
 import { List } from '../../../../../ui/List';
 import { Text } from '../../../../../ui/Text';
 
-export const PlanDetails = () => {
+export interface IPlanDetails {
+  details: Array<{ title: string }>;
+}
+
+export const PlanDetails = ({ details }: IPlanDetails) => {
   return (
     <div className="w-full">
       <Text
@@ -11,9 +15,9 @@ export const PlanDetails = () => {
         as="h3"
       />
       <List className="max-h-[70px] overflow-auto !gap-1">
-        <List.Item title="Trata tu dolor" />
-        <List.Item title="Selecciona tu horario y listo" />
-        <List.Item title="Hazte seguimiento y ahorra" />
+        {details.map(({ title }) => (
+          <List.Item title={title} />
+        ))}
       </List>
     </div>
   );

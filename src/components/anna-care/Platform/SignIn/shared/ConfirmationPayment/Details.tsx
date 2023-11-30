@@ -2,7 +2,7 @@ import { Text } from '../../../../../ui/Text';
 
 export const ConfirmationDetails = () => {
   return (
-    <div className="p-7 flex flex-col gap-5 bg-neutralPrimaryLight rounded-lg">
+    <div className="p-3 flex flex-col gap-5 bg-neutralPrimaryLight rounded-lg">
       <Text text="Turno: Tarde" level="base" as="p" />
       <Text text="Dia: Martes 21" level="base" as="p" />
       <Text text="Precio sin Care+: S/ 59" level="base" as="p" />
