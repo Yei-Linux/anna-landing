@@ -19,7 +19,6 @@ export const authorize = async (
   }
 
   const isSamePassword = await compare(credentials.password, user.password!);
-
   if (!isSamePassword) {
     return null;
   }
@@ -28,7 +27,8 @@ export const authorize = async (
     id: user.id,
     email: user.email,
     fullName: user.fullName,
-    carePlusPlanPrice: user.carePlusPlanPrice,
+    paymentPlansId: user.paymentPlansId,
+    cronicalDiseasesId: user.cronicalDiseasesId,
     randomKey: 'b41f9146-ca61-41dd-80f4-079625f82fc2',
   };
 };

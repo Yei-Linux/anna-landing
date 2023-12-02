@@ -10,7 +10,6 @@ export const getDoctorByEmail = async (email: string) => {
 
     return doctor;
   } catch (error) {
-    console.log('test', error);
     throw new Error('Error searching a doctor');
   }
 };
@@ -29,7 +28,6 @@ export const createDoctor = async (doctorReq: ICreateDoctor) => {
 
     return doctor;
   } catch (error) {
-    console.log('test', error);
     throw new Error('Error creating a doctor');
   }
 };

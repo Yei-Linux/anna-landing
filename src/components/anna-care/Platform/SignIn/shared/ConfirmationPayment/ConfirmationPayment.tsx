@@ -4,11 +4,24 @@ import { useTreatmentStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { ConfirmationDetails } from './Details';
+import {
+  getBotUrlSender,
+  getTreatmentMessage,
+} from '../../../../../../helpers';
+import { PHONE_NUMBER } from '../../../../../../constants';
 
 export const ConfirmationPayment = () => {
   const { data } = useSession();
   const { treatmentData } = useTreatmentStore();
   const { handlerBooking } = useBookingAppointment();
+  if (!treatmentData) return null;
+
+  const message = getTreatmentMessage({
+    turnText: treatmentData.hourText,
+    diseaseText: treatmentData.diseaseText,
+    dayText: treatmentData.dayText,
+  });
+  const link = getBotUrlSender(PHONE_NUMBER, message);
 
   return (
     <div className="flex flex-col justify-between gap-10 h-full p-4">
@@ -28,7 +41,10 @@ export const ConfirmationPayment = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <ConfirmationDetails />
+        <ConfirmationDetails
+          turnText={treatmentData.hourText}
+          dayText={treatmentData.dayText}
+        />
       </div>
 
       <div>
@@ -45,15 +61,18 @@ export const ConfirmationPayment = () => {
       </div>
       <Button
         className="w-full"
-        onClick={() => {
+        onClick={async () => {
           if (!treatmentData) return;
           if (!data) return;
-          handlerBooking({
-            day: new Date(treatmentData.day).toLocaleString() ?? '',
-            turn: treatmentData.hour,
-            diseaseOption: treatmentData.disease,
-            userId: (data.user as any).id,
-          });
+          await handlerBooking(
+            {
+              day: treatmentData.dayText,
+              turnsId: treatmentData.hour,
+              diseasesId: treatmentData.disease,
+              userId: (data.user as any).id,
+            },
+            link
+          );
         }}
       >
         Confirmar visital virtual

@@ -5,3 +5,6 @@ export * from './Instagram';
 export * from './TwitterIcon';
 export * from './YoutubeIcon';
 export * from './RightIcon';
+export * from './Facebook';
+export * from './Linkedin';
+export * from './Tiktok';

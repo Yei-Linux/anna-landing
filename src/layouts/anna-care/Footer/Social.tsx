@@ -1,21 +1,53 @@
 import { SocialNetworks } from '../../../components/anna-care/Landing/SocialNetworks';
 import {
+  Facebook,
   Instagram,
+  Linkedin,
+  Tiktok,
   TwitterIcon,
   YoutubeIcon,
 } from '../../../components/ui/Icons';
 import { Text } from '../../../components/ui/Text';
-import { INSTAGRAM, TWITTER, YOUTUBE } from '../../../constants';
+import {
+  FACEBOOK,
+  INSTAGRAM,
+  LINKEDIN,
+  TIKTOK,
+  TWITTER,
+  YOUTUBE,
+} from '../../../constants';
 
 import styles from './Footer.styles';
+import { Information } from './Information';
 
 export const Social = () => {
   return (
     <div className={styles.SocialCSS}>
+      <div>
+        <SocialNetworks>
+          <SocialNetworks.Item link={FACEBOOK}>
+            <Facebook />
+          </SocialNetworks.Item>
+          <SocialNetworks.Item link={INSTAGRAM}>
+            <Instagram />
+          </SocialNetworks.Item>
+          <SocialNetworks.Item link={LINKEDIN}>
+            <Linkedin />
+          </SocialNetworks.Item>
+          <SocialNetworks.Item link={TIKTOK}>
+            <Tiktok />
+          </SocialNetworks.Item>
+        </SocialNetworks>
+      </div>
+
+      <div className="md:hidden">
+        <Information />
+      </div>
+
       <ul className={styles.SocialListCSS}>
         <li>
           <Text
-            text="Copyright © 2023 Figura"
+            text="Copyright © 2023 AnnaHealth LLC"
             level="base"
             className="text-sm"
           />
@@ -28,22 +60,6 @@ export const Social = () => {
           />
         </li>
       </ul>
-
-      <div>
-        <SocialNetworks>
-          <SocialNetworks.Item link={INSTAGRAM}>
-            <Instagram />
-          </SocialNetworks.Item>
-
-          <SocialNetworks.Item link={TWITTER}>
-            <TwitterIcon />
-          </SocialNetworks.Item>
-
-          <SocialNetworks.Item link={YOUTUBE}>
-            <YoutubeIcon />
-          </SocialNetworks.Item>
-        </SocialNetworks>
-      </div>
     </div>
   );
 };

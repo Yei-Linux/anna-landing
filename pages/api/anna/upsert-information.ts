@@ -19,7 +19,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
   const infoToUpsert = {
     fullName: body.fullName,
     hasAnyCronicDesease: body.hasAnyCronicDesease,
-    cronicDesease: body.cronicDesease,
+    cronicalDiseasesId: body.cronicalDiseasesId,
   };
 
   try {

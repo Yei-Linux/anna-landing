@@ -50,7 +50,7 @@ export const CarePlus = () => {
   }
 
   const isNewUser = !(data?.user as any)?.fullName;
-  const hasCarePlusPlanPrice = (data?.user as any)?.carePlusPlanPrice;
+  const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
   if (status === 'authenticated' && isNewUser) {
     return (
       <Fragment>
@@ -63,11 +63,11 @@ export const CarePlus = () => {
     );
   }
 
-  if (status === 'authenticated' && !isNewUser && !hasCarePlusPlanPrice) {
+  if (status === 'authenticated' && !isNewUser && !haspaymentPlansId) {
     return <Fragment>{currentSignInStep === 1 && <PaymentPlans />}</Fragment>;
   }
 
-  if (status === 'authenticated' && !isNewUser && hasCarePlusPlanPrice) {
+  if (status === 'authenticated' && !isNewUser && haspaymentPlansId) {
     return <Fragment></Fragment>;
   }
 

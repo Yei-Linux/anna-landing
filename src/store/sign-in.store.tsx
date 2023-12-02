@@ -6,7 +6,7 @@ type TSignInData = {
   fullName: string;
   phone: string;
   hasAnyCronicDesease: boolean;
-  cronicDesease: number;
+  cronicDesease: string;
   email: string;
   password: string;
 };

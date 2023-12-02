@@ -7,6 +7,8 @@ import { ChooseDay } from '../shared/ChooseDay/ChooseDay';
 import { ChooseHour } from '../shared/ChooseHour/ChooseHour';
 import { ConfirmationPayment } from '../shared/ConfirmationPayment';
 import { useSession } from 'next-auth/react';
+import { AnyCondition } from '../shared/AnyCondition';
+import { ChooseCondition } from '../shared/ChooseCondition';
 
 export const Treatment = () => {
   const { status, data } = useSession();
@@ -22,10 +24,12 @@ export const Treatment = () => {
       <Fragment>
         {currentSignInStep === 1 && <TakeCare />}
         {currentSignInStep === 2 && <KnowYou />}
-        {currentSignInStep === 3 && <ChooseDisease />}
-        {currentSignInStep === 4 && <ChooseDay />}
-        {currentSignInStep === 5 && <ChooseHour />}
-        {currentSignInStep === 6 && <ConfirmationPayment />}
+        {currentSignInStep === 3 && <AnyCondition />}
+        {currentSignInStep === 4 && <ChooseCondition />}
+        {currentSignInStep === 5 && <ChooseDisease />}
+        {currentSignInStep === 6 && <ChooseDay />}
+        {currentSignInStep === 7 && <ChooseHour />}
+        {currentSignInStep === 8 && <ConfirmationPayment />}
       </Fragment>
     );
   }
@@ -44,10 +48,12 @@ export const Treatment = () => {
   return (
     <Fragment>
       {currentSignInStep === 1 && <KnowYou />}
-      {currentSignInStep === 2 && <ChooseDisease />}
-      {currentSignInStep === 3 && <ChooseDay />}
-      {currentSignInStep === 4 && <ChooseHour />}
-      {currentSignInStep === 5 && <ConfirmationPayment />}
+      {currentSignInStep === 2 && <AnyCondition />}
+      {currentSignInStep === 3 && <ChooseCondition />}
+      {currentSignInStep === 4 && <ChooseDisease />}
+      {currentSignInStep === 5 && <ChooseDay />}
+      {currentSignInStep === 6 && <ChooseHour />}
+      {currentSignInStep === 7 && <ConfirmationPayment />}
     </Fragment>
   );
 };

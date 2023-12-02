@@ -41,7 +41,6 @@ const get = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     const users = await getPatients(start, sizeByPage, search);
     return res.status(200).setHeader('Content-Range', total).json(users);
   } catch (error) {
-    console.log(error);
     return res.status(500).json([]);
   }
 };

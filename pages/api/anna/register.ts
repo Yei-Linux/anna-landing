@@ -34,7 +34,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'Error in process',
+      message: (error as Error).message,
     });
   }
 }

@@ -19,13 +19,13 @@ export const TakeCare = () => {
     <div className="flex flex-col gap-7 p-7">
       <div className="flex flex-col gap-2">
         <Text
-          text="Anotado.A cuidarte"
+          text="Hola. Hay que conocernos!"
           level="2xl"
           fontWeight="semibold"
           as="h3"
         />
         <Text
-          text="Como ultimo paso registrate o inicia sesión en Anna.  Es rápido y gratis. "
+          text="Registrate o inicia sesión en Anna.  Es rápido y gratis. "
           level="base"
         />
       </div>
@@ -43,6 +43,7 @@ export const TakeCare = () => {
           placeholder="Ingresa tu contraseña"
           control={control}
           name="password"
+          type="password"
         />
 
         <div className="flex flex-col gap-3">
@@ -55,7 +56,7 @@ export const TakeCare = () => {
             <div className="w-[48%] h-[2px] bg-neutralStrong" />
           </div>
           <Button
-            className="w-full !rounded-sm !bg-white !text-left !text-neutralStrong !border-[1px] !border-neutralStrong py-3 flex gap-3 items-center"
+            className="w-full !bg-white !text-left !text-neutralStrong !border-[1px] !border-neutralStrong py-3 flex gap-3 items-center font-bold"
             onClick={() => signIn('google')}
           >
             <Image
@@ -65,7 +66,7 @@ export const TakeCare = () => {
               height={18}
               hasShadow={false}
             />
-            <span>Continuar con Google</span>
+            <strong>Continuar con Google</strong>
           </Button>
         </div>
       </form>

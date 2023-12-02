@@ -18,7 +18,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
 
   try {
     const { password, ...user } = await suscribeByEmail(
-      body.carePlusPlanPrice,
+      body.paymentPlansId,
       body.email
     );
 

@@ -13,6 +13,7 @@ export interface IImage {
   hasShadow?: boolean;
   className?: string;
   onClick?: () => void;
+  isHidden?: boolean;
 }
 
 export const Image: React.FC<IImage> = ({
@@ -24,6 +25,7 @@ export const Image: React.FC<IImage> = ({
   className,
   hasShadow = true,
   onClick,
+  isHidden = false,
 }) => {
   const imageProps = useMemo(() => {
     return {
@@ -36,6 +38,7 @@ export const Image: React.FC<IImage> = ({
     <figure
       className={classNames(styles.FigureCSS, {
         'shadow-lg': hasShadow,
+        hidden: isHidden,
       })}
       onClick={onClick}
     >

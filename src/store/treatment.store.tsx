@@ -2,9 +2,12 @@ import { create } from 'zustand';
 import { Optional } from '../types';
 
 type TTreatmentData = {
-  disease: number;
-  day: number;
-  hour: number;
+  disease: string;
+  diseaseText: string;
+  day: string;
+  dayText: string;
+  hour: string;
+  hourText: string;
 };
 
 export interface ITreatmentStore {
