@@ -30,7 +30,12 @@ export const ChooseDay = () => {
       <div className="flex justify-center items-center">
         <Options
           compareToId={treatmentData?.day}
-          setter={(id) => setTreatmentData({ day: id })}
+          setter={(id, text) =>
+            setTreatmentData({
+              day: id,
+              dayText: text,
+            })
+          }
           options={days}
         />
       </div>

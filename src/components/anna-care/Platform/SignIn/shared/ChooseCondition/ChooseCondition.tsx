@@ -4,10 +4,12 @@ import { useSignInStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Options } from '../Options/Options';
-import { cronicalDisease } from '../../../../../../constants/care';
+import { useOptionsStore } from '../../../../../../store/options';
 
 export const ChooseCondition = () => {
   const { data } = useSession();
+  const { options } = useOptionsStore();
+
   const { signInData, setSigninData } = useSignInStore();
   const { handlerUpsertInfo, isRegistering } = useRegisterUser();
 
@@ -30,11 +32,13 @@ export const ChooseCondition = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <Options
-          compareToId={signInData?.cronicDesease}
-          setter={(id) => setSigninData({ cronicDesease: id })}
-          options={cronicalDisease.filter(({ id }) => id != -1)}
-        />
+        {options?.cronicalDiseases && (
+          <Options
+            compareToId={signInData?.cronicDesease}
+            setter={(id) => setSigninData({ cronicDesease: id })}
+            options={options.cronicalDiseases}
+          />
+        )}
       </div>
 
       <Button
@@ -47,7 +51,7 @@ export const ChooseCondition = () => {
             {
               fullName: signInData.fullName,
               hasAnyCronicDesease: signInData.hasAnyCronicDesease,
-              cronicDesease: signInData.cronicDesease,
+              cronicalDiseasesId: signInData.cronicDesease,
             },
             data?.user?.email
           );

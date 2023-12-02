@@ -35,10 +35,10 @@ const Option = ({ text, onClick, isSelected }: IOption) => {
 interface IOptions {
   options: Array<{
     text: string;
-    id: number;
+    id: string;
   }>;
-  setter?: (prop: number) => void;
-  compareToId?: number;
+  setter?: (prop: string, text?: string) => void;
+  compareToId?: string;
 }
 export const Options = ({ options, setter, compareToId }: IOptions) => {
   return (
@@ -48,7 +48,7 @@ export const Options = ({ options, setter, compareToId }: IOptions) => {
           key={id}
           text={text}
           isSelected={compareToId === id}
-          onClick={() => setter?.(id)}
+          onClick={() => setter?.(id, text)}
         />
       ))}
     </ul>

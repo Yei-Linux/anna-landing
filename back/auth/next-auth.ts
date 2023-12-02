@@ -35,7 +35,8 @@ export const handlerAuth = NextAuth({
           ...session.user,
           id: token.id,
           fullName: token.fullName,
-          carePlusPlanPrice: token.carePlusPlanPrice,
+          paymentPlansId: token.paymentPlansId,
+          cronicalDiseasesId: token.cronicalDiseasesId,
           randomKey: token.randomKey,
         },
       };
@@ -56,7 +57,8 @@ export const handlerAuth = NextAuth({
         ...token,
         id: user.id,
         fullName: (user as any).fullName,
-        carePlusPlanPrice: (user as any).carePlusPlanPrice,
+        paymentPlansId: (user as any).paymentPlansId,
+        cronicalDiseasesId: token.cronicalDiseasesId,
         randomKey: (user as any).randomKey,
       };
     },

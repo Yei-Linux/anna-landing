@@ -8,7 +8,9 @@ export const Footer = () => {
     <footer className={styles.FooterCSS}>
       <div className={styles.FooterContainerCSS}>
         <Social />
-        <Information />
+        <div className="hidden md:flex">
+          <Information />
+        </div>
       </div>
     </footer>
   );

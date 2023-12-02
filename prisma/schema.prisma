@@ -7,6 +7,51 @@ datasource db {
   url      = env("MONGODB_URI")
 }
 
+model Diseases {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  text                String
+  bookingAppointments bookingAppointments[]
+
+  @@map("diseases")
+}
+
+model Turns {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  text                String
+  bookingAppointments bookingAppointments[]
+
+  @@map("turns")
+}
+
+model CronicalDiseases {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  text        String
+  paymentPlan PaymentPlans[]
+  User        User[]
+
+  @@map("cronical_diseases")
+}
+
+enum PeriodPayment {
+  Anual
+  Monthly
+}
+
+model PaymentPlans {
+  id                 String            @id @default(auto()) @map("_id") @db.ObjectId
+  type               PeriodPayment     @default(Monthly)
+  subtitle           String
+  description        String
+  priceInfo          String
+  price              Int
+  isPopular          Boolean
+  User               User[]
+  CronicalDiseases   CronicalDiseases? @relation(fields: [cronicalDiseasesId], references: [id])
+  cronicalDiseasesId String?           @db.ObjectId
+
+  @@map("payment_plans")
+}
+
 model User {
   id                  String                @id @default(auto()) @map("_id") @db.ObjectId
   phone               String?
@@ -19,20 +64,23 @@ model User {
   isInactive          Boolean?
   lastInteraction     Int?
   hasAnyCronicDesease Boolean?
-  cronicDesease       Int?
+  cronicDesease       CronicalDiseases?     @relation(fields: [cronicalDiseasesId], references: [id])
   Diagnosis           diagnosis[]
   BookingAppointments bookingAppointments[]
   clinic_histories    clinic_histories?     @relation(fields: [clinic_historiesId], references: [id])
-  carePlusPlanPrice   Int?
+  carePlusPlan        PaymentPlans?         @relation(fields: [paymentPlansId], references: [id])
 
   emailVerified DateTime? @map("email_verified")
   image         String?
 
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  accounts           Account[]
-  sessions           Session[]
-  clinic_historiesId String?   @db.ObjectId
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  accounts  Account[]
+  sessions  Session[]
+
+  clinic_historiesId String? @db.ObjectId
+  cronicalDiseasesId String? @db.ObjectId
+  paymentPlansId     String? @db.ObjectId
 
   @@map("users")
 }
@@ -109,14 +157,17 @@ model doctors {
 }
 
 model bookingAppointments {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  turn          Int?
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
   day           String?
-  diseaseOption Int?
-  User          User?    @relation(fields: [userId], references: [id])
-  userId        String?  @db.ObjectId
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  turn          Turns?    @relation(fields: [turnsId], references: [id])
+  diseaseOption Diseases? @relation(fields: [diseasesId], references: [id])
+  User          User?     @relation(fields: [userId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  turnsId    String? @db.ObjectId
+  userId     String? @db.ObjectId
+  diseasesId String? @db.ObjectId
 
   @@map("booking_appointments")
 }

@@ -21,10 +21,10 @@ export const upsertUserInformation = async (req: any, email: string) => {
   }
 };
 
-export const suscribe = async (carePlusPlanPrice: number, email: string) => {
+export const suscribe = async (paymentPlansId: string, email: string) => {
   try {
     const { data } = await axios.post('/api/anna/suscription', {
-      carePlusPlanPrice,
+      paymentPlansId,
       email,
     });
     return data;

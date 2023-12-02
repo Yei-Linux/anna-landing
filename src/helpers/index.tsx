@@ -10,17 +10,37 @@ export const getBotUrlSender = (phone: string, message: string) => {
   return link;
 };
 
+export interface IGetTreatmentMessage {
+  turnText: string;
+  diseaseText: string;
+  dayText: string;
+}
+export const getTreatmentMessage = ({
+  turnText,
+  dayText,
+  diseaseText,
+}: IGetTreatmentMessage) => {
+  const message = `Hola, creo que tengo ${diseaseText}, y acabo de registrar una cita para el día ${dayText} en el turno ${turnText} `;
+
+  return message;
+};
+
+export const options = [
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado',
+];
+
+export const formatDate = (date: Date) =>
+  options[date.getDay()] + ' ' + date.getDate();
+
 export const getWeekList = () => {
   const days = [];
-  const options = [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-  ];
+
   const now = Date.now();
   const DAY = 60 * 60 * 24 * 1000;
 
@@ -31,8 +51,8 @@ export const getWeekList = () => {
     date.setMilliseconds(0);
 
     days.push({
-      text: options[date.getDay()] + ' ' + date.getDate(),
-      id: date.getTime(),
+      text: formatDate(date),
+      id: date.getTime().toString(),
     });
   }
 

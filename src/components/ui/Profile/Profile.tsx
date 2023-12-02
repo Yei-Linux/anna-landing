@@ -1,7 +1,11 @@
 import { useSession } from 'next-auth/react';
 import { Image } from '../Image';
 import { Text } from '../Text';
-export const Profile = () => {
+import classNames from 'classnames';
+export interface IProfile {
+  hasBorder?: boolean;
+}
+export const Profile = ({ hasBorder = true }: IProfile) => {
   const { data } = useSession();
   const info = data?.user?.email;
 
@@ -9,7 +13,14 @@ export const Profile = () => {
   if (!info) return null;
 
   return (
-    <div className="mb-5 border-2 border-neutralPrimary p-4 cursor-pointer flex gap-3">
+    <div
+      className={classNames(
+        'mb-5 p-4 cursor-pointer flex flex-wrap justify-center items-center gap-3',
+        {
+          'border-2 border-neutralPrimary': hasBorder,
+        }
+      )}
+    >
       <Image
         src="/assets/user.png"
         alt="user_profile"
@@ -19,7 +30,7 @@ export const Profile = () => {
       />
       <div>
         <Text text={'Hola ' + data?.user?.email} level="base" as="p" />
-        {(data?.user as any)?.carePlusPlanPrice && (
+        {(data?.user as any)?.paymentPlansId && (
           <Text text="Con Care+" level="sm" as="p" />
         )}
       </div>

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-const FooterCSS = classNames('bg-zinc-700', 'text-white');
+const FooterCSS = classNames('bg-neutralPrimaryLight');
 
 const FooterContainerCSS = classNames(
   'flex',
@@ -15,7 +15,12 @@ const FooterContainerCSS = classNames(
 
 const InformationCSS = classNames('flex', 'flex-wrap', 'gap-10', 'md:gap-20');
 
-const InformationListCSS = classNames('flex', 'flex-col', 'gap-3');
+const InformationListCSS = classNames(
+  'flex',
+  'flex-col',
+  'gap-3',
+  'text-neutralStrong'
+);
 
 const SocialCSS = classNames('flex', 'flex-col', 'gap-5');
 

@@ -34,6 +34,7 @@ export const AnyCondition = () => {
 
       <div className="flex flex-col gap-3">
         <Button
+          disabled={isRegistering}
           className="w-full"
           onClick={() => {
             setSigninData({
@@ -45,6 +46,7 @@ export const AnyCondition = () => {
           Si, tengo condición
         </Button>
         <Button
+          disabled={isRegistering}
           className="w-full bg-white !text-primary !border-2 !border-primary"
           onClick={() => {
             setSigninData({

@@ -10,16 +10,24 @@ import Alert from '@mui/material/Alert';
 import { useNotificationStore } from '../../../../store';
 import { useSession } from 'next-auth/react';
 import { Profile } from '../../../ui/Profile/Profile';
+import { useGetBookingAppointments } from '../../../../hooks/useGetBooking';
+import { Appointments } from '../Appointments/Appointments';
 
 export const Home = () => {
   const { close, isOpen, message, severity } = useNotificationStore();
   const { handleCarePlus, handleTreatment } = useHome();
   const { data } = useSession();
-  const hasCarePlusPlanPrice = (data?.user as any)?.carePlusPlanPrice;
+  const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
+  const { bookingAppointments } = useGetBookingAppointments();
 
   return (
     <Fragment>
-      <Snackbar open={isOpen} autoHideDuration={6000} onClose={close}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={isOpen}
+        autoHideDuration={6000}
+        onClose={close}
+      >
         <Alert onClose={close} severity={severity} sx={{ width: '100%' }}>
           {message}
         </Alert>
@@ -27,7 +35,8 @@ export const Home = () => {
       <SignIn />
       <div className="flex flex-col items-center gap-10">
         <div>
-          <Profile />
+          <Profile hasBorder={false} />
+
           <Text
             text="¿Te sientes mal?"
             className="text-primary text-center"
@@ -40,6 +49,7 @@ export const Home = () => {
             level="base"
           />
         </div>
+
         <div>
           <Image
             hasShadow={false}
@@ -49,16 +59,24 @@ export const Home = () => {
             height={140}
           />
         </div>
-        <div className="flex flex-col gap-3 ">
-          {!hasCarePlusPlanPrice && (
-            <Button onClick={handleCarePlus}>Prueba Care+</Button>
+        <div className="flex flex-col items-center gap-3 w-[100%]">
+          {!haspaymentPlansId && (
+            <Button className="max-w-[250px] w-[100%]" onClick={handleCarePlus}>
+              Prueba Care+
+            </Button>
           )}
           <Button
             onClick={handleTreatment}
-            className="bg-white !text-primary border-2 border-primary"
+            className="bg-white !text-primary border-2 border-primary max-w-[250px] w-[100%]"
           >
             Tratarme
           </Button>
+        </div>
+
+        <div>
+          {bookingAppointments.map((booking) => (
+            <Appointments {...booking} />
+          ))}
         </div>
 
         <div className="flex flex-col gap-5">
@@ -68,11 +86,11 @@ export const Home = () => {
                 hasShadow={false}
                 src="/assets/pildores2.png"
                 alt="Section One"
-                width={63}
+                width={74}
                 height={74}
               />
             </div>
-            <div className="max-w-[300px]">
+            <div className="max-w-[120px] sm:max-w-[150px] md:max-w-[250px]">
               <Text text="Monitoreate con Care+" level="base" />
               <Text
                 className="text-neutralStrong"

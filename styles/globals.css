@@ -71,3 +71,11 @@ a {
 .slick-next {
   right: 0px !important;
 }
+
+.MuiPaper-root {
+  box-shadow: none;
+}
+
+.MuiInputBase-root:hover {
+  border: none !important;
+}

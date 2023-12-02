@@ -2,6 +2,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useNotificationStore, useSignInStore, useStepsStore } from '../store';
 import { TSignInForm } from '../types/sign-in';
 import axios from 'axios';
+import { ERROR_LOGIN_MESSAGE } from '../constants';
 
 export const useSignIn = () => {
   const callbackUrl = '/';
@@ -21,17 +22,17 @@ export const useSignIn = () => {
       });
 
       if (res?.error) {
-        open({ severity: 'error', message: 'Credenciales incorrectas' });
+        open({ severity: 'error', message: ERROR_LOGIN_MESSAGE });
         return;
       }
 
       const isNewUser = !user.data?.fullName;
-      const hasCarePlusPlanPrice = user.data?.carePlusPlanPrice;
-      if (!isNewUser && hasCarePlusPlanPrice) {
-        open({ severity: 'success', message: 'Bienvenido(a)!' });
+      const haspaymentPlansId = user.data?.paymentPlansId;
+      if (!isNewUser && haspaymentPlansId) {
         toggleSignIn();
       }
       setCurrentSignInStep(1);
+      open({ severity: 'success', message: 'Bienvenido(a) a Anna!' });
     } catch (error) {}
   };
 

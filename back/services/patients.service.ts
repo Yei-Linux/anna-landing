@@ -1,4 +1,3 @@
-import { email } from 'react-admin';
 import prisma from '../config/prisma';
 
 export const countPatients = async () => {
@@ -16,7 +15,7 @@ export interface IPatient {
   documentNumber?: string;
   genderId?: string;
   hasAnyCronicDesease: boolean;
-  cronicDesease: number;
+  cronicalDiseasesId: string;
 }
 export const createPatient = async (patient: IPatient) => {
   try {
@@ -42,7 +41,7 @@ export const signUpPatient = async (patient: ISignUpPatient) => {
       !userFound || (userFound && !userFound.password);
     if (OrUserDoesntExistsEitherHasOnlyEmail) {
       return await prisma.user.upsert({
-        where: { email: patient.email, password: '' },
+        where: { email: patient.email },
         update: patient,
         create: patient,
       });
@@ -55,7 +54,7 @@ export const signUpPatient = async (patient: ISignUpPatient) => {
 };
 
 export const suscribeByEmail = async (
-  carePlusPlanPrice: number,
+  paymentPlansId: string,
   email: string
 ) => {
   try {
@@ -64,7 +63,7 @@ export const suscribeByEmail = async (
         email,
       },
       data: {
-        carePlusPlanPrice,
+        paymentPlansId: paymentPlansId,
       },
     });
   } catch (error) {

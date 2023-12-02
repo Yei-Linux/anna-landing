@@ -6,20 +6,42 @@ import { PlanItem } from './PlanItem';
 import { useSuscribe } from '../../../../../../hooks/useSuscribe';
 import { useSession } from 'next-auth/react';
 import { useSignInStore } from '../../../../../../store';
-import { cronicalDisease } from '../../../../../../constants/care';
+import { getBotUrlSender } from '../../../../../../helpers';
+import { PHONE_NUMBER } from '../../../../../../constants';
+import Link from 'next/link';
+import { useOptionsStore } from '../../../../../../store/options';
+import { cronicalDiseaseSeeders } from '../../../../../../../prisma/seeders/options';
 
 export const PaymentPlans = () => {
-  const { signInData } = useSignInStore();
   const [planSelected, setPlanSelected] = useState(0);
   const { handleSuscribe } = useSuscribe();
   const { data } = useSession();
-  const cronicalOptions = cronicalDisease.find(
-    ({ id }) => (signInData?.cronicDesease || -1) == id
+  const { options } = useOptionsStore();
+  const cronicalOptions = options?.cronicalDiseases.find(
+    ({ id }) =>
+      ((data?.user as any)?.cronicalDiseasesId ||
+        cronicalDiseaseSeeders[cronicalDiseaseSeeders.length - 1].id) == id
   );
 
+  if (!cronicalOptions) return null;
+
   const name = cronicalOptions?.text;
-  const plansSelected = cronicalOptions?.plans ?? [];
-  const plansDetailsSelected = cronicalOptions?.details ?? [];
+  const plansSelected = cronicalOptions.paymentPlan ?? [];
+  const plansDetailsSelected = [
+    {
+      title: 'Trata tu dolor',
+    },
+    {
+      title: 'Selecciona tu horario y listo',
+    },
+    {
+      title: 'Hazte seguimiento y ahorra',
+    },
+  ];
+
+  const message =
+    'Hola, quiero orientacion con respecto a la suscripción de Anna Care';
+  const link = getBotUrlSender(PHONE_NUMBER, message);
 
   return (
     <div className="flex flex-col justify-between gap-10 h-full">
@@ -37,7 +59,11 @@ export const PaymentPlans = () => {
         <div>
           {plansSelected.map((plan, index) => (
             <PlanItem
-              {...plan}
+              title={`Plan ${plan.type === 'Monthly' ? 'Mensual' : 'Anual'}`}
+              subTitle={plan.subtitle}
+              priceInfo={plan.priceInfo}
+              description={plan.description}
+              isPopular={plan.isPopular}
               isSelected={planSelected === index}
               onClick={() => setPlanSelected(index)}
             />
@@ -51,17 +77,18 @@ export const PaymentPlans = () => {
           className="w-full"
           onClick={() =>
             data?.user?.email &&
-            handleSuscribe(plansSelected[planSelected].price, data.user.email)
+            handleSuscribe(plansSelected[planSelected].id, data.user.email)
           }
         >
           Suscribirme
         </Button>
-        <Text
-          onClick={() => {}}
-          text="Orientate con un asistente médico"
-          level="base"
-          className="text-center text-neutralStrong cursor-pointer"
-        />
+        <Link href={link}>
+          <Text
+            text="Orientate con un asistente médico"
+            level="base"
+            className="text-center text-neutralStrong cursor-pointer"
+          />
+        </Link>
       </div>
     </div>
   );

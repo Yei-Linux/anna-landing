@@ -6,9 +6,7 @@ import stylesCSS from './Information.module.css';
 import Link from 'next/link';
 import {
   ABOUT_US,
-  IMPROVE_OUR_PLATFORM_TOGETHER,
   MEDICAL_TEAM,
-  TERMS_CONDITIONS,
 } from '../../../constants';
 
 export const Information = () => {
@@ -19,7 +17,6 @@ export const Information = () => {
           styles.InformationListCSS,
           stylesCSS.informationHeader
         )}
-        aria-label="Compañía"
       >
         <li>
           <Link href={ABOUT_US} target="_blank">
@@ -35,35 +32,15 @@ export const Information = () => {
         <li>
           <Link href={MEDICAL_TEAM} target="_blank">
             <a target="_blank">
-              <Text text="Equipo Médico" level="base" className="text-sm" />
-            </a>
-          </Link>
-        </li>
-      </ul>
-
-      <ul
-        className={classNames(
-          styles.InformationListCSS,
-          stylesCSS.informationHeader
-        )}
-        aria-label="Apoyo"
-      >
-        <li>
-          <Link href={IMPROVE_OUR_PLATFORM_TOGETHER} target="_blank">
-            <a target="_blank">
-              <Text
-                text="Mejoremos la plataforma juntos"
-                level="base"
-                className="text-sm"
-              />
+              <Text text="Soporte" level="base" className="text-sm" />
             </a>
           </Link>
         </li>
         <li>
-          <Link href={TERMS_CONDITIONS} target="_blank">
+          <Link href={MEDICAL_TEAM} target="_blank">
             <a target="_blank">
               <Text
-                text="Términos y Condiciones"
+                text="Términos y condiciones"
                 level="base"
                 className="text-sm"
               />

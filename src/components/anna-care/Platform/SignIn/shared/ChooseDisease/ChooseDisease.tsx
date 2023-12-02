@@ -1,5 +1,5 @@
-import { diseases } from '../../../../../../constants/care';
 import { useStepsStore, useTreatmentStore } from '../../../../../../store';
+import { useOptionsStore } from '../../../../../../store/options';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Options } from '../Options/Options';
@@ -7,6 +7,7 @@ import { Options } from '../Options/Options';
 export const ChooseDisease = () => {
   const { treatmentData, setTreatmentData } = useTreatmentStore();
   const { nextSignInStep } = useStepsStore();
+  const { options } = useOptionsStore();
 
   return (
     <div className="flex flex-col justify-between gap-10 h-full">
@@ -27,11 +28,15 @@ export const ChooseDisease = () => {
       </div>
 
       <div className="flex justify-center items-center">
-        <Options
-          compareToId={treatmentData?.disease}
-          setter={(id) => setTreatmentData({ disease: id })}
-          options={diseases}
-        />
+        {options?.diseases && (
+          <Options
+            compareToId={treatmentData?.disease}
+            setter={(id, text) =>
+              setTreatmentData({ disease: id, diseaseText: text })
+            }
+            options={options?.diseases}
+          />
+        )}
       </div>
 
       <Button className="w-full" onClick={() => nextSignInStep()}>
