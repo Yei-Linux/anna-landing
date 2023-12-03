@@ -4,9 +4,11 @@ import {
   Edit,
   ReferenceManyField,
   SaveButton,
+  SelectInput,
   SimpleForm,
   TextInput,
   Toolbar,
+  required,
 } from 'react-admin';
 import { PatientDiagnosisTable } from '../Diagnosis/PatientDiagnosisTable';
 import { Fragment } from 'react';
@@ -18,6 +20,9 @@ import {
 import { UnderlineSection } from '../../../layouts/admin/UnderlineSection';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
 import { PatientClinicHistoryTable } from '../ClinicHistory/PatientClinicHistoryTable';
+import { useOptionsStore } from '../../../store/options';
+import { useWatch } from 'react-hook-form';
+import { TAnnaOptions } from '../../../../back/services/options';
 
 const ToolbarEdit = () => {
   return (
@@ -29,12 +34,39 @@ const ToolbarEdit = () => {
   );
 };
 
+interface IPaymentsInput {
+  cronicDiseases?: TAnnaOptions['cronicalDiseases'];
+}
+const PaymentsInput = ({ cronicDiseases }: IPaymentsInput) => {
+  const cronicalDiseasesId = useWatch({ name: 'cronicalDiseasesId' });
+  const plans = cronicalDiseasesId
+    ? cronicDiseases?.find(({ id }) => id == cronicalDiseasesId)?.paymentPlan
+    : [];
+  return (
+    <SelectInput
+      choices={
+        plans?.map(({ id, type, price }) => ({
+          id,
+          name: `Plan ${type} con precio de ${price}`,
+        })) ?? []
+      }
+      source="paymentPlansId"
+      validate={required()}
+    />
+  );
+};
+
 export const EditPatient = () => {
+  const { options } = useOptionsStore();
+  const cronicDiseases = options?.cronicalDiseases;
+
+  if (!cronicDiseases) return null;
+
   return (
     <div className="editpatient__view h-full">
       <Breadcrumb />
 
-      <Edit component={EditPageWrapper}>
+      <Edit component={EditPageWrapper} redirect={`/patients`}>
         <SimpleForm component={EditWrapper} toolbar={<ToolbarEdit />}>
           <h2 className="font-semibold mb-5">Patient Information</h2>
 
@@ -63,6 +95,21 @@ export const EditPatient = () => {
                 source="isInactive"
                 label="Inactive Bot for this user"
               />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <SelectInput
+                choices={
+                  cronicDiseases?.map(({ id, text }) => ({
+                    id,
+                    name: text,
+                  })) ?? []
+                }
+                source="cronicalDiseasesId"
+                validate={required()}
+              />
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <PaymentsInput cronicDiseases={cronicDiseases} />
             </Grid>
           </Grid>
 

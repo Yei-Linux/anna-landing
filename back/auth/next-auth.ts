@@ -58,7 +58,7 @@ export const handlerAuth = NextAuth({
         id: user.id,
         fullName: (user as any).fullName,
         paymentPlansId: (user as any).paymentPlansId,
-        cronicalDiseasesId: token.cronicalDiseasesId,
+        cronicalDiseasesId: (user as any).cronicalDiseasesId,
         randomKey: (user as any).randomKey,
       };
     },

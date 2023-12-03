@@ -1,5 +1,4 @@
 import { Admin, Resource } from 'react-admin';
-import simpleRestProvider from 'ra-data-simple-rest';
 import { PatientList } from './Patients/List';
 import { adminTheme } from './theme';
 import { EditPatient } from './Patients/Edit';

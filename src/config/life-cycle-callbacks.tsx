@@ -9,8 +9,13 @@ export const dataProvider = withLifecycleCallbacks(baseDataProvider, [
     resource: 'patients',
     beforeUpdate: async (params, dataProvider) => {
       const isInactive = !!params.data?.isInactive;
+      const paymentPlansId = params.data?.paymentPlansId;
+      const cronicalDiseasesId = params.data?.cronicalDiseasesId;
 
-      return { ...params, data: { isInactive } };
+      return {
+        ...params,
+        data: { isInactive, paymentPlansId, cronicalDiseasesId },
+      };
     },
   },
 ]);

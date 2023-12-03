@@ -25,6 +25,19 @@ export const getTreatmentMessage = ({
   return message;
 };
 
+interface ISuscribeMessage {
+  type: string;
+  cronicDiseaseText: string;
+}
+export const getSuscribeMessage = ({
+  type,
+  cronicDiseaseText,
+}: ISuscribeMessage) => {
+  const message = `Hola,me quiero suscribir al ${type} para la enfermedad crónica ${cronicDiseaseText}`;
+
+  return message;
+};
+
 export const options = [
   'Domingo',
   'Lunes',

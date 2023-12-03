@@ -16,6 +16,7 @@ export interface IPatient {
   genderId?: string;
   hasAnyCronicDesease: boolean;
   cronicalDiseasesId: string;
+  paymentPlansId?: string;
 }
 export const createPatient = async (patient: IPatient) => {
   try {
@@ -120,6 +121,9 @@ export const getPatients = async (
               {
                 documentNumber: { $regex: search, $options: 'i' },
               },
+              {
+                email: { $regex: search, $options: 'i' },
+              },
             ],
           },
         },
@@ -140,6 +144,26 @@ export const getPatients = async (
   }
 };
 
+export const getAnnaUserByEmail = async (email: string) => {
+  try {
+    const patientResultSet = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+        cronicalDiseasesId: true,
+        paymentPlansId: true,
+      },
+    });
+
+    if (!patientResultSet) throw new Error('Patient not found');
+    return patientResultSet;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
 export const getPatientById = async (id: string) => {
   try {
     const patientResultSet = await prisma.user.findFirst({
@@ -155,6 +179,8 @@ export const getPatientById = async (id: string) => {
         isInactive: true,
         genderId: true,
         clinic_histories: true,
+        cronicalDiseasesId: true,
+        paymentPlansId: true,
       },
     });
 

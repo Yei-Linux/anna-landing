@@ -11,7 +11,7 @@ export const getPatients = async () => {
 
 export const upsertUserInformation = async (req: any, email: string) => {
   try {
-    const { data } = await axios.post('/api/anna/upsert-information', {
+    const { data } = await axios.post('/api/anna/user', {
       ...req,
       email,
     });
@@ -31,4 +31,15 @@ export const suscribe = async (paymentPlansId: string, email: string) => {
   } catch (error) {
     return undefined;
   }
+};
+
+export const getProfile = async () => {
+  try {
+    try {
+      const { data } = await axios.get('/api/anna/user');
+      return data;
+    } catch (error) {
+      return undefined;
+    }
+  } catch (error) {}
 };

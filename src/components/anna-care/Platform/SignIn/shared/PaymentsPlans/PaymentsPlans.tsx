@@ -5,13 +5,16 @@ import { PlanDetails } from './PlanDetails';
 import { PlanItem } from './PlanItem';
 import { useSuscribe } from '../../../../../../hooks/useSuscribe';
 import { useSession } from 'next-auth/react';
-import { getBotUrlSender } from '../../../../../../helpers';
+import { getBotUrlSender, getSuscribeMessage } from '../../../../../../helpers';
 import { PHONE_NUMBER } from '../../../../../../constants';
 import Link from 'next/link';
 import { useOptionsStore } from '../../../../../../store/options';
 import { benefitsDetails } from '../../../../../../constants/befenits';
 import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
 import { useSignInStore } from '../../../../../../store';
+import { useRouter } from 'next/router';
+
+const disableDirectSuscription = true;
 
 export interface IPaymentPlans {
   isDisableUpsertRegister?: boolean;
@@ -21,6 +24,7 @@ export const PaymentPlans = ({
   isDisableUpsertRegister = true,
 }: IPaymentPlans) => {
   const [planSelected, setPlanSelected] = useState<string | null>(null);
+  const { push } = useRouter();
   const { signInData } = useSignInStore();
   const { handleSuscribe } = useSuscribe();
   const { handlerUpsertInfo } = useRegisterUser();
@@ -50,9 +54,21 @@ export const PaymentPlans = ({
     ? benefitsDetails[cronicalOptions?.id]
     : [];
 
+  const detailsPlanSelected = plansSelected.find(
+    ({ id }) => planSelected == id
+  );
+  const messageToSuscribe = detailsPlanSelected
+    ? getSuscribeMessage({
+        type: `Plan ${
+          detailsPlanSelected.type === 'Monthly' ? 'Mensual' : 'Anual'
+        }`,
+        cronicDiseaseText: name ?? '',
+      })
+    : '';
   const message =
     'Hola, quiero orientacion con respecto a la suscripción de Anna Care';
   const link = getBotUrlSender(PHONE_NUMBER, message);
+  const linkToSuscribe = getBotUrlSender(PHONE_NUMBER, messageToSuscribe);
 
   return (
     <div className="flex flex-col md:justify-between gap-3 h-full">
@@ -89,6 +105,11 @@ export const PaymentPlans = ({
           disabled={paymentPlansId && planSelected === paymentPlansId}
           className="w-full"
           onClick={async () => {
+            if (disableDirectSuscription) {
+              push(linkToSuscribe);
+              return;
+            }
+
             if (!data?.user?.email) return;
             if (!planSelected) return;
             if (!isDisableUpsertRegister) {
