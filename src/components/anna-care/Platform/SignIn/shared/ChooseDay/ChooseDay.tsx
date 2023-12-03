@@ -40,7 +40,14 @@ export const ChooseDay = () => {
         />
       </div>
 
-      <Button className="w-full" onClick={() => nextSignInStep()}>
+      <Button
+        className="w-full"
+        onClick={() => {
+          if (!treatmentData?.day) return;
+          if (!treatmentData?.dayText) return;
+          nextSignInStep();
+        }}
+      >
         Continuar
       </Button>
     </div>

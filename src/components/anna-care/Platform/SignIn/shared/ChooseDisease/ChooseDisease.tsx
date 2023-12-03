@@ -39,7 +39,14 @@ export const ChooseDisease = () => {
         )}
       </div>
 
-      <Button className="w-full" onClick={() => nextSignInStep()}>
+      <Button
+        className="w-full"
+        onClick={() => {
+          if (!treatmentData?.disease) return;
+          if (!treatmentData?.diseaseText) return;
+          nextSignInStep();
+        }}
+      >
         Continuar
       </Button>
     </div>

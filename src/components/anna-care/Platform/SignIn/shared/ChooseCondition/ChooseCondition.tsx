@@ -46,6 +46,7 @@ export const ChooseCondition = () => {
         className="w-full"
         onClick={() => {
           if (!signInData) return;
+          if (!signInData.cronicDesease) return;
           if (!data?.user?.email) return;
           handlerUpsertInfo(
             {

@@ -39,7 +39,14 @@ export const ChooseHour = () => {
         )}
       </div>
 
-      <Button className="w-full" onClick={() => nextSignInStep()}>
+      <Button
+        className="w-full"
+        onClick={() => {
+          if (!treatmentData?.hour) return;
+          if (!treatmentData?.hourText) return;
+          nextSignInStep();
+        }}
+      >
         Continuar
       </Button>
     </div>
