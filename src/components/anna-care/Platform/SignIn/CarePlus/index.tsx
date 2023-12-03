@@ -64,7 +64,12 @@ export const CarePlus = () => {
   }
 
   if (status === 'authenticated' && !isNewUser && !haspaymentPlansId) {
-    return <Fragment>{currentSignInStep === 1 && <PaymentPlans />}</Fragment>;
+    return (
+      <Fragment>
+        {currentSignInStep === 1 && <ChooseCondition />}
+        {currentSignInStep === 2 && <PaymentPlans />}
+      </Fragment>
+    );
   }
 
   if (status === 'authenticated' && !isNewUser && haspaymentPlansId) {

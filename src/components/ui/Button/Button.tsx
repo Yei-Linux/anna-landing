@@ -20,7 +20,9 @@ export const Button: React.FC<IButton> = ({
     <button
       disabled={disabled}
       type={type}
-      className={classNames(styles.ButtonCSS, className)}
+      className={classNames(styles.ButtonCSS, className, {
+        '!bg-[#dcdcdc]': disabled,
+      })}
       onClick={onClick}
     >
       {children}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { upsertUserInformation } from '../services';
-import { useNotificationStore, useStepsStore } from '../store';
+import { useNotificationStore, useSignInStore, useStepsStore } from '../store';
 import { getCsrfToken, useSession } from 'next-auth/react';
 import { ERROR_MESSAGE } from '../constants';
 
@@ -9,8 +9,20 @@ export const useRegisterUser = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const { setCurrentSignInStep } = useStepsStore();
   const { open } = useNotificationStore();
+  const { signInData } = useSignInStore();
 
   const handlerUpsertInfo = async (req: any, email: string) => {
+    const newUser = !(data?.user as any)?.fullName;
+    const cronicalDiseasesId = (data?.user as any)?.cronicalDiseasesId;
+    if (
+      !newUser &&
+      ((cronicalDiseasesId && !signInData?.cronicDesease) ||
+        signInData?.cronicDesease === cronicalDiseasesId)
+    ) {
+      setCurrentSignInStep(2);
+      return;
+    }
+
     setIsRegistering(true);
     const success = await upsertUserInformation(req, email);
     if (!success) {
@@ -32,10 +44,10 @@ export const useRegisterUser = () => {
         paymentPlansId: undefined,
       },
     });
-    setCurrentSignInStep(1);
+    setCurrentSignInStep(2);
     setIsRegistering(true);
     open({
-      message: 'Genial acabas de completar tu registro!',
+      message: 'Genial acabas de actualizar tu información!',
       severity: 'success',
     });
   };

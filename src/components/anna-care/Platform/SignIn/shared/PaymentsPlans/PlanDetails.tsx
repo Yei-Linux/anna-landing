@@ -13,10 +13,11 @@ export const PlanDetails = ({ details }: IPlanDetails) => {
         level="sm"
         fontWeight="semibold"
         as="h3"
+        className="px-[20px] underline underline-offset-4"
       />
-      <List className="max-h-[70px] overflow-auto !gap-1">
-        {details.map(({ title }) => (
-          <List.Item title={title} />
+      <List className="max-h-[150px] overflow-auto !gap-1">
+        {details.map(({ title }, index) => (
+          <List.Item title={title} key={index} />
         ))}
       </List>
     </div>

@@ -4,12 +4,16 @@ import { Text } from '../../../../../ui/Text';
 import { Image } from '../../../../../ui/Image';
 import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
 import { useSession } from 'next-auth/react';
+import { useOptionsStore } from '../../../../../../store/options';
 
 export const AnyCondition = () => {
   const { data } = useSession();
   const { setSigninData, signInData } = useSignInStore();
   const { nextSignInStep } = useStepsStore();
   const { handlerUpsertInfo, isRegistering } = useRegisterUser();
+  const { options } = useOptionsStore();
+  const cronicDisease =
+    options?.cronicalDiseases[options?.cronicalDiseases.length - 1].id;
 
   return (
     <div className="flex flex-col md:justify-between gap-10 h-full p-7">
@@ -59,6 +63,7 @@ export const AnyCondition = () => {
               {
                 fullName: signInData.fullName,
                 hasAnyCronicDesease: false,
+                cronicalDiseasesId: cronicDisease,
               },
               data?.user?.email
             );

@@ -1,4 +1,4 @@
-import { useLandingBotStore, useSignInStore } from '../../../../store';
+import { useSignInStore } from '../../../../store';
 
 export const useHome = () => {
   const { toggleSignIn, setSignInType } = useSignInStore();
@@ -13,5 +13,10 @@ export const useHome = () => {
     toggleSignIn();
   };
 
-  return { handleCarePlus, handleTreatment };
+  const handleChangeCondition = () => {
+    setSignInType('change-condition');
+    toggleSignIn();
+  };
+
+  return { handleCarePlus, handleTreatment, handleChangeCondition };
 };

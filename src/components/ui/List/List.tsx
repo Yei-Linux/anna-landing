@@ -4,8 +4,8 @@ import { Text } from '../Text';
 const MarketItemCSS = classNames(
   'bg-primaryLight',
   'rounded-full',
-  'w-[10px]',
-  'h-[10px]',
+  'min-w-[10px]',
+  'min-h-[10px]',
   'block'
 );
 
@@ -15,7 +15,7 @@ interface IItem {
 }
 const Item = ({ title, description }: IItem) => (
   <li>
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-3 items-center">
       <span className={MarketItemCSS} />
       <Text text={title} level="sm" fontWeight="medium" as="h3" />
     </div>

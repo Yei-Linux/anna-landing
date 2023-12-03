@@ -4,6 +4,7 @@ import { CarePlus } from './CarePlus';
 import { Treatment } from './Treatment';
 import { Image } from '../../../ui/Image';
 import { useMemo } from 'react';
+import { ChangeCondition } from './ChangeCondition';
 
 export const SignIn = () => {
   const { prevSignInStep, currentSignInStep } = useStepsStore();
@@ -36,6 +37,7 @@ export const SignIn = () => {
         </div>
         <div className="flex justify-center items-center w-full h-[95%]">
           <div className="max-w-[400px] max-h-[600px] h-full md:py-5">
+            {signInType === 'change-condition' && <ChangeCondition />}
             {signInType === 'carePlus' && <CarePlus />}
             {signInType === 'treatment' && <Treatment />}
           </div>

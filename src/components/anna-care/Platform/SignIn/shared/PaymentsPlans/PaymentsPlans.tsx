@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { PlanDetails } from './PlanDetails';
@@ -9,34 +9,46 @@ import { getBotUrlSender } from '../../../../../../helpers';
 import { PHONE_NUMBER } from '../../../../../../constants';
 import Link from 'next/link';
 import { useOptionsStore } from '../../../../../../store/options';
-import { cronicalDiseaseSeeders } from '../../../../../../../prisma/seeders/options';
+import { benefitsDetails } from '../../../../../../constants/befenits';
+import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
+import { useSignInStore } from '../../../../../../store';
 
-export const PaymentPlans = () => {
-  const [planSelected, setPlanSelected] = useState(0);
+export interface IPaymentPlans {
+  isDisableUpsertRegister?: boolean;
+}
+
+export const PaymentPlans = ({
+  isDisableUpsertRegister = true,
+}: IPaymentPlans) => {
+  const [planSelected, setPlanSelected] = useState<string | null>(null);
+  const { signInData } = useSignInStore();
   const { handleSuscribe } = useSuscribe();
+  const { handlerUpsertInfo } = useRegisterUser();
   const { data } = useSession();
   const { options } = useOptionsStore();
+  const paymentPlansId = (data?.user as any)?.paymentPlansId;
   const cronicalOptions = options?.cronicalDiseases.find(
     ({ id }) =>
-      ((data?.user as any)?.cronicalDiseasesId ||
-        cronicalDiseaseSeeders[cronicalDiseaseSeeders.length - 1].id) == id
+      ((!isDisableUpsertRegister && signInData?.cronicDesease) ||
+        (data?.user as any)?.cronicalDiseasesId ||
+        options?.cronicalDiseases[options?.cronicalDiseases.length - 1].id) ==
+      id
   );
 
-  if (!cronicalOptions) return null;
+  useEffect(() => {
+    if (!cronicalOptions) return;
+    const defaultValue =
+      cronicalOptions?.paymentPlan.find(({ id }) => id === paymentPlansId)
+        ?.id || cronicalOptions?.paymentPlan?.[0]?.id;
+
+    setPlanSelected(defaultValue);
+  }, [cronicalOptions]);
 
   const name = cronicalOptions?.text;
-  const plansSelected = cronicalOptions.paymentPlan ?? [];
-  const plansDetailsSelected = [
-    {
-      title: 'Trata tu dolor',
-    },
-    {
-      title: 'Selecciona tu horario y listo',
-    },
-    {
-      title: 'Hazte seguimiento y ahorra',
-    },
-  ];
+  const plansSelected = cronicalOptions?.paymentPlan ?? [];
+  const benefitsSelected = cronicalOptions?.id
+    ? benefitsDetails[cronicalOptions?.id]
+    : [];
 
   const message =
     'Hola, quiero orientacion con respecto a la suscripción de Anna Care';
@@ -56,37 +68,48 @@ export const PaymentPlans = () => {
 
       <div className="flex flex-col justify-center items-center">
         <div>
-          {plansSelected.map((plan, index) => (
+          {plansSelected.map((plan) => (
             <PlanItem
+              key={plan.id}
               title={`Plan ${plan.type === 'Monthly' ? 'Mensual' : 'Anual'}`}
               subTitle={plan.subtitle}
               priceInfo={plan.priceInfo}
               description={plan.description}
               isPopular={plan.isPopular}
-              isSelected={planSelected === index}
-              onClick={() => setPlanSelected(index)}
+              isSelected={planSelected === plan.id}
+              onClick={() => setPlanSelected(plan.id)}
             />
           ))}
         </div>
-        <PlanDetails details={plansDetailsSelected} />
+        <PlanDetails details={benefitsSelected} />
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 px-3">
         <Button
+          disabled={paymentPlansId && planSelected === paymentPlansId}
           className="w-full"
-          onClick={() =>
-            data?.user?.email &&
-            handleSuscribe(plansSelected[planSelected].id, data.user.email)
-          }
+          onClick={async () => {
+            if (!data?.user?.email) return;
+            if (!planSelected) return;
+            if (!isDisableUpsertRegister) {
+              await handlerUpsertInfo(
+                {
+                  cronicalDiseasesId: signInData?.cronicDesease,
+                },
+                data?.user?.email
+              );
+            }
+            await handleSuscribe(planSelected, data.user.email);
+          }}
         >
-          Suscribirme
+          {paymentPlansId && planSelected === paymentPlansId
+            ? 'Estas suscrito con esta opción'
+            : 'Suscribirme'}
         </Button>
         <Link href={link}>
-          <Text
-            text="Orientate con un asistente médico"
-            level="base"
-            className="text-center text-neutralStrong cursor-pointer"
-          />
+          <span className="text-center text-neutralStrong cursor-pointer m-auto">
+            Orientate con un asistente médico
+          </span>
         </Link>
       </div>
     </div>

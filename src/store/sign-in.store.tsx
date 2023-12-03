@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Optional } from '../types';
 
-type TSignInType = 'carePlus' | 'treatment' | undefined;
+type TSignInType = 'carePlus' | 'treatment' | 'change-condition' | undefined;
 type TSignInData = {
   fullName: string;
   phone: string;

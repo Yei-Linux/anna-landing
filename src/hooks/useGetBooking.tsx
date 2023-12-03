@@ -4,13 +4,13 @@ import { TBookingAppointment } from '../components/anna-care/Platform/Appointmen
 import { useSession } from 'next-auth/react';
 
 export const useGetBookingAppointments = () => {
-  const { status } = useSession();
+  const { data, status } = useSession();
   const [bookingAppointments, setBookignAppointments] = useState<
     Array<TBookingAppointment>
   >([]);
 
   const fetchBooking = async () => {
-    if (status !== 'authenticated') return;
+    if (!(data?.user as any)?.fullName) return;
     const res = await getBookingAppointments();
     if (!res) return;
 
@@ -19,7 +19,7 @@ export const useGetBookingAppointments = () => {
 
   useEffect(() => {
     fetchBooking();
-  }, [status]);
+  }, [(data?.user as any)?.fullName]);
 
   return { bookingAppointments, status };
 };

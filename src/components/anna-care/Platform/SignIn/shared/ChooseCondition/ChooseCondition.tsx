@@ -1,17 +1,25 @@
 import { useSession } from 'next-auth/react';
 import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
-import { useSignInStore } from '../../../../../../store';
+import { useSignInStore, useStepsStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Options } from '../Options/Options';
 import { useOptionsStore } from '../../../../../../store/options';
+import { useEffect } from 'react';
 
-export const ChooseCondition = () => {
+export interface IChooseCondition {
+  isDisableUpsertRegister?: boolean;
+}
+export const ChooseCondition = ({
+  isDisableUpsertRegister = false,
+}: IChooseCondition) => {
   const { data } = useSession();
   const { options } = useOptionsStore();
 
+  const { setCurrentSignInStep } = useStepsStore();
   const { signInData, setSigninData } = useSignInStore();
   const { handlerUpsertInfo, isRegistering } = useRegisterUser();
+  const cronicalDiseasesId = (data?.user as any)?.cronicalDiseasesId;
 
   return (
     <div className="flex flex-col md:justify-between gap-1 md:gap-10 h-full p-4">
@@ -34,7 +42,7 @@ export const ChooseCondition = () => {
       <div className="flex justify-center items-center">
         {options?.cronicalDiseases && (
           <Options
-            compareToId={signInData?.cronicDesease}
+            compareToId={signInData?.cronicDesease ?? cronicalDiseasesId}
             setter={(id) => setSigninData({ cronicDesease: id })}
             options={options.cronicalDiseases}
           />
@@ -45,14 +53,18 @@ export const ChooseCondition = () => {
         disabled={isRegistering}
         className="w-full"
         onClick={() => {
-          if (!signInData) return;
-          if (!signInData.cronicDesease) return;
+          if (!cronicalDiseasesId && !signInData) return;
+          if (!cronicalDiseasesId && !signInData?.cronicDesease) return;
           if (!data?.user?.email) return;
+          if (isDisableUpsertRegister) {
+            setCurrentSignInStep(2);
+            return;
+          }
           handlerUpsertInfo(
             {
-              fullName: signInData.fullName,
-              hasAnyCronicDesease: signInData.hasAnyCronicDesease,
-              cronicalDiseasesId: signInData.cronicDesease,
+              fullName: signInData?.fullName,
+              hasAnyCronicDesease: signInData?.hasAnyCronicDesease,
+              cronicalDiseasesId: signInData?.cronicDesease,
             },
             data?.user?.email
           );

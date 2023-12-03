@@ -15,8 +15,9 @@ import { Appointments } from '../Appointments/Appointments';
 
 export const Home = () => {
   const { close, isOpen, message, severity } = useNotificationStore();
-  const { handleCarePlus, handleTreatment } = useHome();
+  const { handleCarePlus, handleTreatment, handleChangeCondition } = useHome();
   const { data } = useSession();
+  const isNewUser = !(data?.user as any)?.fullName;
   const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
   const { bookingAppointments, status } = useGetBookingAppointments();
 
@@ -61,6 +62,15 @@ export const Home = () => {
           />
         </div>
         <div className="flex flex-col items-center gap-3 w-[100%] mt-7 mb-3 max-w-[1000px]">
+          {status === 'authenticated' && !isNewUser && haspaymentPlansId && (
+            <Text
+              text="Cambiar tu condición cronica"
+              className="text-primary text-center text-[16px] underline underline-offset-4 cursor-pointer"
+              level="base"
+              as="h3"
+              onClick={handleChangeCondition}
+            />
+          )}
           {!haspaymentPlansId && (
             <Button className="max-w-[350px] w-[100%]" onClick={handleCarePlus}>
               Prueba Care+
@@ -76,7 +86,7 @@ export const Home = () => {
 
         <div className="w-full h-[10px] bg-neutralPrimary" />
 
-        <div className="flex flex-col gap-5 w-[95%] max-w-[1000px] mt-3">
+        <div className="flex flex-col gap-5 w-[95%] max-w-[350px] mt-3">
           <div className="flex gap-3">
             <div className="flex items-center justify-center">
               <Image

@@ -1,9 +1,9 @@
-export const PHONE_NUMBER = '51906814664';
+export const PHONE_NUMBER = '51907878572';
 export const MESSAGE = 'Hola estoy interesado(a) en el servicio!';
 export const ERROR_MESSAGE =
   'Lo sentimos, ha ocurrido un error inesperado. Inténtalo más tarde por favor';
-export const ERROR_LOGIN_MESSAGE = 'Credenciales incorrectas'
-export const ZUSTAND_STORE_VERSION = 0
+export const ERROR_LOGIN_MESSAGE = 'Credenciales incorrectas';
+export const ZUSTAND_STORE_VERSION = 0;
 
 export const INSTAGRAM = '/';
 export const TWITTER = '/';
