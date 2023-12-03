@@ -24,7 +24,7 @@ export const ConfirmationPayment = () => {
   const link = getBotUrlSender(PHONE_NUMBER, message);
 
   return (
-    <div className="flex flex-col justify-between gap-10 h-full p-4">
+    <div className="flex flex-col md:justify-between gap-7 h-full p-4">
       <div className="flex flex-col gap-2">
         <Text
           text="Confirmación"

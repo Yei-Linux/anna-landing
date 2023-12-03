@@ -12,7 +12,7 @@ export const AnyCondition = () => {
   const { handlerUpsertInfo, isRegistering } = useRegisterUser();
 
   return (
-    <div className="flex flex-col justify-between gap-10 h-full p-7">
+    <div className="flex flex-col md:justify-between gap-10 h-full p-7">
       <div className="flex flex-col gap-2">
         <Text
           text="¿Sufres de alguna condición crónica?"

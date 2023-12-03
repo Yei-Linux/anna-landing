@@ -21,5 +21,5 @@ export const useGetBookingAppointments = () => {
     fetchBooking();
   }, [status]);
 
-  return { bookingAppointments };
+  return { bookingAppointments, status };
 };

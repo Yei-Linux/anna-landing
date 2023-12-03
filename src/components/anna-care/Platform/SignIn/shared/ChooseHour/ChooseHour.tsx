@@ -10,7 +10,7 @@ export const ChooseHour = () => {
   const { options } = useOptionsStore();
 
   return (
-    <div className="flex flex-col justify-between gap-7 h-full">
+    <div className="flex flex-col md:justify-between gap-7 h-full">
       <div className="flex flex-col gap-2">
         <Text
           text="Selecciona el horario"

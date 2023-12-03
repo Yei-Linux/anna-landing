@@ -50,10 +50,10 @@ export const TakeCare = () => {
           <Button className="w-full" type="submit">
             Continuar
           </Button>
-          <div className="flex items-center gap-3">
-            <div className="w-[48%] h-[2px] bg-neutralStrong" />
-            <div className="w-[4%] text-center">o</div>
-            <div className="w-[48%] h-[2px] bg-neutralStrong" />
+          <div className="flex items-center">
+            <div className="w-[23%] h-[2px] bg-neutralStrong" />
+            <div className="w-[54%] text-center">Eres nuevo aquí?</div>
+            <div className="w-[23%] h-[2px] bg-neutralStrong" />
           </div>
           <Button
             className="w-full !bg-white !text-left !text-neutralStrong !border-[1px] !border-neutralStrong py-3 flex gap-3 items-center font-bold"

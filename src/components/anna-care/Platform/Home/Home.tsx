@@ -18,7 +18,7 @@ export const Home = () => {
   const { handleCarePlus, handleTreatment } = useHome();
   const { data } = useSession();
   const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
-  const { bookingAppointments } = useGetBookingAppointments();
+  const { bookingAppointments, status } = useGetBookingAppointments();
 
   return (
     <Fragment>
@@ -33,9 +33,10 @@ export const Home = () => {
         </Alert>
       </Snackbar>
       <SignIn />
-      <div className="flex flex-col items-center gap-10">
-        <div>
-          <Profile hasBorder={false} />
+      <div className="flex flex-col items-center pb-7 gap-3">
+        <div className="w-full h-[10px] bg-neutralPrimary" />
+        <div className="w-full max-w-[1000px]">
+          <Profile hasBorder={false} hasImage={false} />
 
           <Text
             text="¿Te sientes mal?"
@@ -44,13 +45,13 @@ export const Home = () => {
             as="h3"
           />
           <Text
-            className="text-center text-neutralStrong"
+            className="text-center text-neutralStrong #8a8a8a"
             text="Comienza a cuidarte desde casa"
             level="base"
           />
         </div>
 
-        <div>
+        <div className="max-w-[1000px]">
           <Image
             hasShadow={false}
             src="/assets/pildores.png"
@@ -59,29 +60,25 @@ export const Home = () => {
             height={140}
           />
         </div>
-        <div className="flex flex-col items-center gap-3 w-[100%]">
+        <div className="flex flex-col items-center gap-3 w-[100%] mt-7 mb-3 max-w-[1000px]">
           {!haspaymentPlansId && (
-            <Button className="max-w-[250px] w-[100%]" onClick={handleCarePlus}>
+            <Button className="max-w-[350px] w-[100%]" onClick={handleCarePlus}>
               Prueba Care+
             </Button>
           )}
           <Button
             onClick={handleTreatment}
-            className="bg-white !text-primary border-2 border-primary max-w-[250px] w-[100%]"
+            className="bg-white !text-primary border-2 border-primary max-w-[350px] w-[100%]"
           >
             Tratarme
           </Button>
         </div>
 
-        <div>
-          {bookingAppointments.map((booking) => (
-            <Appointments {...booking} />
-          ))}
-        </div>
+        <div className="w-full h-[10px] bg-neutralPrimary" />
 
-        <div className="flex flex-col gap-5">
-          <div className="flex gap-7">
-            <div>
+        <div className="flex flex-col gap-5 w-[95%] max-w-[1000px] mt-3">
+          <div className="flex gap-3">
+            <div className="flex items-center justify-center">
               <Image
                 hasShadow={false}
                 src="/assets/pildores2.png"
@@ -90,7 +87,7 @@ export const Home = () => {
                 height={74}
               />
             </div>
-            <div className="max-w-[120px] sm:max-w-[150px] md:max-w-[250px]">
+            <div className="max-w-[250px]">
               <Text text="Monitoreate con Care+" level="base" />
               <Text
                 className="text-neutralStrong"
@@ -104,6 +101,23 @@ export const Home = () => {
             <Pill>24 Provincias</Pill>
           </div>
         </div>
+        {status === 'authenticated' && (
+          <div className="w-[95%] mt-7 flex flex-col gap-7 max-w-[1000px]">
+            <Text
+              text={
+                !bookingAppointments.length
+                  ? 'Aún no tienes citas :('
+                  : 'Mis citas:'
+              }
+              className="text-primary"
+              level="lg"
+              as="h3"
+            />
+            {bookingAppointments.map((booking) => (
+              <Appointments {...booking} />
+            ))}
+          </div>
+        )}
       </div>
     </Fragment>
   );

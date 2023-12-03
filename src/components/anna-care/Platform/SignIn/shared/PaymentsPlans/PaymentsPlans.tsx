@@ -5,7 +5,6 @@ import { PlanDetails } from './PlanDetails';
 import { PlanItem } from './PlanItem';
 import { useSuscribe } from '../../../../../../hooks/useSuscribe';
 import { useSession } from 'next-auth/react';
-import { useSignInStore } from '../../../../../../store';
 import { getBotUrlSender } from '../../../../../../helpers';
 import { PHONE_NUMBER } from '../../../../../../constants';
 import Link from 'next/link';
@@ -44,7 +43,7 @@ export const PaymentPlans = () => {
   const link = getBotUrlSender(PHONE_NUMBER, message);
 
   return (
-    <div className="flex flex-col justify-between gap-10 h-full">
+    <div className="flex flex-col md:justify-between gap-3 h-full">
       <div className="flex flex-col gap-2">
         <Text
           text={name}

@@ -11,7 +11,7 @@ module.exports = {
         primaryLight: '#9389ff',
         neutralPrimary: '#f3f3f3',
         neutralPrimaryLight: '#fafafa',
-        neutralStrong: '#a3a3a3',
+        neutralStrong: '#8a8a8a',
       },
     },
   },

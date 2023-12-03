@@ -4,14 +4,16 @@ import { Text } from '../../../ui/Text';
 import { Button } from '../../../ui/Button';
 import { Profile } from '../../../ui/Profile/Profile';
 import { useHome } from '../Home/useHome';
+import { useLandingBotStore } from '../../../../store';
 
 export const MenuLoggedContent = () => {
   const { data } = useSession();
   const haspaymentPlansIde = (data?.user as any)?.paymentPlansId;
   const { handleCarePlus } = useHome();
+  const { toggleMenu } = useLandingBotStore();
 
   return (
-    <div className="h-[85%] p-4 flex flex-col justify-between max-w-[500px] m-auto">
+    <div className="h-[85%] p-4 flex flex-col justify-between max-w-[500px] mx-auto">
       <div>
         <Profile />
         <div className="p-4 cursor-pointer flex gap-3">
@@ -33,7 +35,10 @@ export const MenuLoggedContent = () => {
           </Button>
         )}
         <Button
-          onClick={() => signOut({ redirect: false })}
+          onClick={() => {
+            signOut({ redirect: false });
+            toggleMenu();
+          }}
           className="bg-white !text-primary border-2 border-primary w-[100%]"
         >
           Salir de la cuenta
