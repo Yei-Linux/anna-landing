@@ -1,21 +1,12 @@
-import { SocialNetworks } from '../../../components/anna-care/Landing/SocialNetworks';
+import { SocialNetworks } from '../../../components/anna-care/LandingOld/SocialNetworks';
 import {
   Facebook,
   Instagram,
   Linkedin,
   Tiktok,
-  TwitterIcon,
-  YoutubeIcon,
 } from '../../../components/ui/Icons';
 import { Text } from '../../../components/ui/Text';
-import {
-  FACEBOOK,
-  INSTAGRAM,
-  LINKEDIN,
-  TIKTOK,
-  TWITTER,
-  YOUTUBE,
-} from '../../../constants';
+import { FACEBOOK, INSTAGRAM, LINKEDIN, TIKTOK } from '../../../constants';
 
 import styles from './Footer.styles';
 import { Information } from './Information';

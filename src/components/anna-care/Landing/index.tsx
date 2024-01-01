@@ -1,19 +1,9 @@
-import {
-  FirstSection,
-  SecondSection,
-  ThirdSection,
-  FourthSection,
-  FifthSection,
-} from './Sections';
+import { Hero } from './Hero';
 
 export const Landing = () => {
   return (
     <div className="flex flex-col gap-20 md:gap-24">
-      <FirstSection />
-      <SecondSection />
-      <ThirdSection />
-      <FourthSection />
-      <FifthSection />
+      <Hero />
     </div>
   );
 };
