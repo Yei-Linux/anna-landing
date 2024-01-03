@@ -2,8 +2,13 @@ import classNames from 'classnames';
 import { Image } from '../../../components/ui/Image';
 import { useLandingBotStore } from '../../../store';
 import styles from './Header.styles';
+import { useSession } from 'next-auth/react';
+import { useHome } from '../../../components/anna-care/Platform/Home/useHome';
 
 export const Header = () => {
+  const { data } = useSession();
+  const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
+  const { handleCarePlus } = useHome();
   const { toggleMenu, isOpenMenu } = useLandingBotStore();
 
   return (
@@ -12,16 +17,27 @@ export const Header = () => {
         <div className={styles.NavContainerCSS}>
           <a href="#" className={styles.NavLogoCSS}>
             <Image
-              src="/assets/newlogo.png"
+              src="/assets/anna.png"
               alt="Brand Logo"
               width={35}
               height={35}
               hasShadow={false}
             />
+            <Image
+              src="/assets/anna_letter.png"
+              alt="Brand Logo"
+              width={190}
+              height={45}
+              hasShadow={false}
+            />
           </a>
 
           <div className={styles.NavListCSS}>
-            <button type="button" onClick={toggleMenu}>
+            <button
+              className="flex md:hidden"
+              type="button"
+              onClick={toggleMenu}
+            >
               <Image
                 isHidden={isOpenMenu}
                 className={classNames('cursor-pointer')}
@@ -53,6 +69,16 @@ export const Header = () => {
                 </svg>
               </div>
             </button>
+
+            {!haspaymentPlansId && (
+              <button
+                className="hidden md:flex bg-primary px-4 py-2 text-white rounded-full"
+                type="button"
+                onClick={handleCarePlus}
+              >
+                Ser miembro Care+
+              </button>
+            )}
           </div>
         </div>
       </nav>
