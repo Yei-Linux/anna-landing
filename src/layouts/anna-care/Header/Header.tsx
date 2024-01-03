@@ -33,6 +33,16 @@ export const Header = () => {
           </a>
 
           <div className={styles.NavListCSS}>
+            {!haspaymentPlansId && (
+              <button
+                className="hidden md:flex bg-primary px-4 py-2 text-white rounded-full"
+                type="button"
+                onClick={handleCarePlus}
+              >
+                Ser miembro Care+
+              </button>
+            )}
+
             <button type="button" onClick={toggleMenu}>
               <Image
                 isHidden={isOpenMenu}
@@ -65,16 +75,6 @@ export const Header = () => {
                 </svg>
               </div>
             </button>
-
-            {!haspaymentPlansId && (
-              <button
-                className="hidden md:flex bg-primary px-4 py-2 text-white rounded-full"
-                type="button"
-                onClick={handleCarePlus}
-              >
-                Ser miembro Care+
-              </button>
-            )}
           </div>
         </div>
       </nav>
