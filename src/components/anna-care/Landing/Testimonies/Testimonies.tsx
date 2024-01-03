@@ -19,7 +19,7 @@ export const Testimonies = () => {
       />
 
       <div className="flex flex-col gap-3 mt-10">
-        <div className="ml-[-100px]">
+        <div className="">
           <Balloon direction="left" fill="#EBFFE7">
             <Testimony
               src="/assets/testimony_1.png"
@@ -31,7 +31,7 @@ export const Testimonies = () => {
           </Balloon>
         </div>
 
-        <div className="mr-[-100px]">
+        <div className="">
           <Balloon direction="right" fill="#F6E7FF">
             <Testimony
               src="/assets/testimony_2.png"
