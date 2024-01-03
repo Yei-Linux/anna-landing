@@ -33,11 +33,7 @@ export const Header = () => {
           </a>
 
           <div className={styles.NavListCSS}>
-            <button
-              className="flex md:hidden"
-              type="button"
-              onClick={toggleMenu}
-            >
+            <button type="button" onClick={toggleMenu}>
               <Image
                 isHidden={isOpenMenu}
                 className={classNames('cursor-pointer')}

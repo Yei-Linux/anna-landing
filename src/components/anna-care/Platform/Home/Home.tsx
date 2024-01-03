@@ -9,7 +9,7 @@ import { Landing } from '../../Landing';
 
 export const Home = () => {
   const { close, isOpen, message, severity } = useNotificationStore();
-  const { data } = useSession();
+  const { status } = useSession();
 
   return (
     <Fragment>
@@ -24,7 +24,8 @@ export const Home = () => {
         </Alert>
       </Snackbar>
       <SignIn />
-      {data ? <HomeContent /> : <Landing />}
+      {status === 'authenticated' && <HomeContent />}
+      {status === 'unauthenticated' && <Landing />}
     </Fragment>
   );
 };

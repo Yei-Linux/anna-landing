@@ -2,13 +2,15 @@ import { Text } from '../../../ui/Text';
 import { Image } from '../../../ui/Image';
 import { Button } from '../../../ui/Button';
 import { Pill } from '../../../ui/Pill';
+import { useSession } from 'next-auth/react';
 
 import { Profile } from '../../../ui/Profile/Profile';
 import { Appointments } from '../Appointments/Appointments';
 import { useGetBookingAppointments } from '../../../../hooks/useGetBooking';
+import { useHome } from './useHome';
 
 export const HomeContent = () => {
-    const { data } = useSession();
+  const { data } = useSession();
   const { handleCarePlus, handleTreatment, handleChangeCondition } = useHome();
   const isNewUser = !(data?.user as any)?.fullName;
   const haspaymentPlansId = (data?.user as any)?.paymentPlansId;
@@ -112,11 +114,3 @@ export const HomeContent = () => {
     </div>
   );
 };
-function useSession(): { data: any; } {
-    throw new Error('Function not implemented.');
-}
-
-function useHome(): { handleCarePlus: any; handleTreatment: any; handleChangeCondition: any; } {
-    throw new Error('Function not implemented.');
-}
-
