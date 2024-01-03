@@ -3,17 +3,12 @@ import { Text } from '../../../ui/Text';
 export const Hero = () => {
   return (
     <div className="flex flex-col gap-14">
-      <img
-        src="/assets/hero.png"
-        alt="Hero"
-        width="100%"
-        style={{ maxHeight: '600px' }}
-      />
+      <img src="/assets/hero.webp" alt="Hero" width="100%" />
 
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">
         <Text
           text="Adiós complicaciones. Ten bienestar a largo plazo"
-          className="text-center"
+          className="text-center text-primary"
           level="xl"
           as="h3"
         />
@@ -27,7 +22,7 @@ export const Hero = () => {
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">
         <Text
           text="Orientación todos los días del año."
-          className="text-center"
+          className="text-center text-primary"
           level="xl"
           as="h3"
         />
