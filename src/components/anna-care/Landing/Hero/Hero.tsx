@@ -1,11 +1,18 @@
+import ReactPlayer from 'react-player/lazy';
 import { Text } from '../../../ui/Text';
 
 export const Hero = () => {
   return (
     <div className="flex flex-col gap-14">
-      <video width="100%" controls={false} autoPlay loop muted>
-        <source src="/videos/hero.mp4" />
-      </video>
+      <ReactPlayer
+        width="100%"
+        height="auto"
+        url="/videos/hero.mp4"
+        controls={false}
+        playing
+        loop
+        muted
+      />
 
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">
         <Text

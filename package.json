@@ -34,6 +34,7 @@
     "react-admin": "^4.13.3",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.48.2",
+    "react-player": "^2.14.1",
     "react-query": "^3.39.3",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
