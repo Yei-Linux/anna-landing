@@ -5,7 +5,7 @@ export const Hero = () => {
     <div className="flex flex-col gap-14">
       <video
         width="100%"
-        src="https://media.istockphoto.com/id/1316253211/es/v%C3%ADdeo/paciente-femenina-haciendo-una-videollamada-de-conferencia-con-su-m%C3%A9dico-de-familia-en-el.mp4?s=mp4-640x640-is&k=20&c=C0VwPfjbj9sKGdzM0WbDnXIZrwZd9GJa017IIk23Xg8="
+        src="/videos/hero.mp4"
         controls={false}
         autoPlay
         loop
