@@ -3,13 +3,9 @@ import { Text } from '../../../ui/Text';
 export const Hero = () => {
   return (
     <div className="flex flex-col gap-14">
-      <video
-        width="100%"
-        src="/videos/hero.mp4"
-        controls={false}
-        autoPlay
-        loop
-      />
+      <video width="100%" controls={false} autoPlay loop>
+        <source src="/videos/hero.mp4" />
+      </video>
 
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">
         <Text
