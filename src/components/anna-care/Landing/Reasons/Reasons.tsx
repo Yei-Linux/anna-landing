@@ -67,7 +67,7 @@ de soporte médico"
 
         <Reason
           isOdd
-          src="/assets/reason_4.png"
+          src="/assets/reason_4.jpeg"
           reason="Tú en el centro: Mejora tu condición impulsada por tecnología"
         >
           <Reason.SubReason

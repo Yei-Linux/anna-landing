@@ -3,7 +3,13 @@ import { Text } from '../../../ui/Text';
 export const Hero = () => {
   return (
     <div className="flex flex-col gap-14">
-      <img src="/assets/hero.webp" alt="Hero" width="100%" />
+      <video
+        width="100%"
+        src="https://media.istockphoto.com/id/1316253211/es/v%C3%ADdeo/paciente-femenina-haciendo-una-videollamada-de-conferencia-con-su-m%C3%A9dico-de-familia-en-el.mp4?s=mp4-640x640-is&k=20&c=C0VwPfjbj9sKGdzM0WbDnXIZrwZd9GJa017IIk23Xg8="
+        controls={false}
+        autoPlay
+        loop
+      />
 
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">
         <Text

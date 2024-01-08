@@ -32,7 +32,7 @@ export const Reason = ({ src, reason, children, isOdd = false }: TReason) => {
         <img src={src} alt="reason" width="100%" />
         <div
           className={classNames('w-[20%] h-[5px] bg-primary', {
-            'bg-[#0DB760]': isOdd,
+            '!bg-[#0DB760]': isOdd,
           })}
         />
       </div>

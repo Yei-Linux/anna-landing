@@ -11,7 +11,7 @@ export const Cover = ({ src }: TCover) => {
         src={src}
         alt="health_better"
         width="100%"
-        style={{ height: '150px' }}
+        style={{ height: '140px' }}
       />
     </div>
   );
@@ -25,7 +25,9 @@ const Body = ({ children }: TBody) => {
 type TCard = PropsWithChildren<{ maxWidth?: string }>;
 export const Card = ({ children, maxWidth = '250px' }: TCard) => {
   return (
-    <div className={` rounded-lg max-w-[${maxWidth}] bg-white`}>{children}</div>
+    <div className={` rounded-lg max-w-[${maxWidth}] bg-white overflow-hidden`}>
+      {children}
+    </div>
   );
 };
 

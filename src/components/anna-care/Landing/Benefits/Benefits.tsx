@@ -5,7 +5,7 @@ export const Benefits = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-14 bg-[#fafafa] py-10">
       <Card>
-        <Card.Cover src="/assets/benefit1.png" />
+        <Card.Cover src="/assets/benefit2.jpeg" />
         <Card.Body>
           <div className="flex flex-col gap-5">
             <Text
@@ -25,7 +25,7 @@ export const Benefits = () => {
       </Card>
 
       <Card>
-        <Card.Cover src="/assets/benefit2.png" />
+        <Card.Cover src="/assets/benefit1.jpeg" />
         <Card.Body>
           <div className="flex flex-col gap-5">
             <Text
