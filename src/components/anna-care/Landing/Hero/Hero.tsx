@@ -7,7 +7,7 @@ export const Hero = () => {
       <ReactPlayer
         width="100%"
         height="auto"
-        url="/videos/hero.mp4"
+        url="https://trova-images.s3.amazonaws.com/hero.mp4"
         controls={false}
         playing
         loop
