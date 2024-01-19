@@ -3,15 +3,9 @@ import { useSignInStore, useStepsStore } from '../../../../../store';
 import { KnowYou } from '../shared';
 import { AnyCondition } from '../shared/AnyCondition/AnyCondition';
 import { ChooseCondition } from '../shared/ChooseCondition';
-import { TakeCare } from '../shared/TakeCare';
-import { Kit } from '../shared/Kit/Kit';
-import {
-  BenefisActionsForCronic,
-  BenefisActionsForNotCronic,
-  Benefits,
-} from '../shared/Benefits';
 import { PaymentPlans } from '../shared/PaymentsPlans';
 import { useSession } from 'next-auth/react';
+import { TakeCare } from '../shared/TakeCare';
 
 export const CarePlus = () => {
   const { status, data } = useSession();
@@ -22,27 +16,12 @@ export const CarePlus = () => {
   const withCronic = (initStep: number = 4) => (
     <Fragment>
       {currentSignInStep === initStep && <ChooseCondition />}
-      {currentSignInStep === initStep + 1 && <Kit />}
-      {currentSignInStep === initStep + 2 && (
-        <Benefits>
-          <BenefisActionsForCronic />
-        </Benefits>
-      )}
-      {currentSignInStep === initStep + 3 && <ChooseCondition />}
-      {currentSignInStep === initStep + 4 && <PaymentPlans />}
+      {currentSignInStep === initStep + 1 && <PaymentPlans />}
     </Fragment>
   );
 
   const withoutCronic = (initStep: number = 4) => (
-    <Fragment>
-      {currentSignInStep === initStep && <Kit />}
-      {currentSignInStep === initStep + 1 && (
-        <Benefits>
-          <BenefisActionsForNotCronic />
-        </Benefits>
-      )}
-      {currentSignInStep === initStep + 2 && <PaymentPlans />}
-    </Fragment>
+    <Fragment>{currentSignInStep === initStep && <PaymentPlans />}</Fragment>
   );
 
   if (status === 'loading') {

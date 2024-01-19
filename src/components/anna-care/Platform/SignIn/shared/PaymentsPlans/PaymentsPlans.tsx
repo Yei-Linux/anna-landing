@@ -11,8 +11,10 @@ import Link from 'next/link';
 import { useOptionsStore } from '../../../../../../store/options';
 import { benefitsDetails } from '../../../../../../constants/befenits';
 import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
-import { useSignInStore } from '../../../../../../store';
+import { useLandingBotStore, useSignInStore } from '../../../../../../store';
 import { useRouter } from 'next/router';
+import { messages } from '../../../../../../constants/messages';
+import { useWaitList } from '../../../../../../hooks/useWaitlist';
 
 const disableDirectSuscription = true;
 
@@ -23,6 +25,10 @@ export interface IPaymentPlans {
 export const PaymentPlans = ({
   isDisableUpsertRegister = true,
 }: IPaymentPlans) => {
+  const { flags } = useLandingBotStore();
+  const signupEnabled = !!flags?.signup_controller?.enabled;
+
+  const { joinWaitList } = useWaitList();
   const [planSelected, setPlanSelected] = useState<string | null>(null);
   const { push } = useRouter();
   const { signInData } = useSignInStore();
@@ -69,6 +75,32 @@ export const PaymentPlans = ({
     'Hola, quiero orientacion con respecto a la suscripción de Anna Care';
   const link = getBotUrlSender(PHONE_NUMBER, message);
   const linkToSuscribe = getBotUrlSender(PHONE_NUMBER, messageToSuscribe);
+  const FLOWS = messages(signupEnabled);
+
+  const handleJoinToWaitlist = async () => {
+    if (!signInData) return;
+
+    await joinWaitList(signInData);
+  };
+
+  const handleRequestSuscription = async () => {
+    if (disableDirectSuscription) {
+      push(linkToSuscribe);
+      return;
+    }
+
+    if (!data?.user?.email) return;
+    if (!planSelected) return;
+    if (!isDisableUpsertRegister) {
+      await handlerUpsertInfo(
+        {
+          cronicalDiseasesId: signInData?.cronicDesease,
+        },
+        data?.user?.email
+      );
+    }
+    await handleSuscribe(planSelected, data.user.email);
+  };
 
   return (
     <div className="flex flex-col md:justify-between gap-3 h-full">
@@ -101,37 +133,29 @@ export const PaymentPlans = ({
       </div>
 
       <div className="flex flex-col gap-3 px-3">
-        <Button
-          disabled={paymentPlansId && planSelected === paymentPlansId}
-          className="w-full"
-          onClick={async () => {
-            if (disableDirectSuscription) {
-              push(linkToSuscribe);
-              return;
-            }
-
-            if (!data?.user?.email) return;
-            if (!planSelected) return;
-            if (!isDisableUpsertRegister) {
-              await handlerUpsertInfo(
-                {
-                  cronicalDiseasesId: signInData?.cronicDesease,
-                },
-                data?.user?.email
-              );
-            }
-            await handleSuscribe(planSelected, data.user.email);
-          }}
-        >
-          {paymentPlansId && planSelected === paymentPlansId
-            ? 'Estas suscrito con esta opción'
-            : 'Suscribirme'}
-        </Button>
-        <Link href={link}>
-          <span className="text-center text-neutralStrong cursor-pointer m-auto">
-            Orientate con un asistente médico
-          </span>
-        </Link>
+        {!signupEnabled && (
+          <Button className="w-full" onClick={handleJoinToWaitlist}>
+            {FLOWS.PAYMENT_PLAN_SIGNUP.button}
+          </Button>
+        )}
+        {signupEnabled && (
+          <Button
+            disabled={paymentPlansId && planSelected === paymentPlansId}
+            className="w-full"
+            onClick={handleRequestSuscription}
+          >
+            {paymentPlansId && planSelected === paymentPlansId
+              ? 'Estas suscrito con esta opción'
+              : FLOWS.PAYMENT_PLAN_SIGNUP.button}
+          </Button>
+        )}
+        {signupEnabled && (
+          <Link href={link}>
+            <span className="text-center text-neutralStrong cursor-pointer m-auto">
+              Orientate con un asistente médico
+            </span>
+          </Link>
+        )}
       </div>
     </div>
   );

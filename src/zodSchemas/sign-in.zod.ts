@@ -4,3 +4,8 @@ export const signInZodSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
+
+export const waitListZodSchema = z.object({
+  email: z.string().email(),
+  password: z.string().optional(),
+});

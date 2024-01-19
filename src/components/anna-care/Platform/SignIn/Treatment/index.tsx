@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { useStepsStore } from '../../../../../store';
 import { KnowYou } from '../shared';
-import { TakeCare } from '../shared/TakeCare';
 import { ChooseDisease } from '../shared/ChooseDisease';
 import { ChooseDay } from '../shared/ChooseDay/ChooseDay';
 import { ChooseHour } from '../shared/ChooseHour/ChooseHour';
@@ -9,6 +8,7 @@ import { ConfirmationPayment } from '../shared/ConfirmationPayment';
 import { useSession } from 'next-auth/react';
 import { AnyCondition } from '../shared/AnyCondition';
 import { ChooseCondition } from '../shared/ChooseCondition';
+import { TakeCare } from '../shared/TakeCare';
 
 export const Treatment = () => {
   const { status, data } = useSession();

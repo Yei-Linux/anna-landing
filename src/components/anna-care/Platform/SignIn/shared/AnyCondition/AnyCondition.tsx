@@ -1,4 +1,8 @@
-import { useSignInStore, useStepsStore } from '../../../../../../store';
+import {
+  useLandingBotStore,
+  useSignInStore,
+  useStepsStore,
+} from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 import { Image } from '../../../../../ui/Image';
@@ -7,6 +11,9 @@ import { useSession } from 'next-auth/react';
 import { useOptionsStore } from '../../../../../../store/options';
 
 export const AnyCondition = () => {
+  const { flags } = useLandingBotStore();
+  const signupEnabled = !!flags?.signup_controller?.enabled;
+
   const { data } = useSession();
   const { setSigninData, signInData } = useSignInStore();
   const { nextSignInStep } = useStepsStore();
@@ -14,6 +21,28 @@ export const AnyCondition = () => {
   const { options } = useOptionsStore();
   const cronicDisease =
     options?.cronicalDiseases[options?.cronicalDiseases.length - 1].id;
+
+  const handleAnyCondition = () => {
+    setSigninData({
+      hasAnyCronicDesease: false,
+    });
+
+    if (!signupEnabled) {
+      nextSignInStep();
+      return;
+    }
+
+    if (!signInData) return;
+    if (!data?.user?.email) return;
+    handlerUpsertInfo(
+      {
+        fullName: signInData.fullName,
+        hasAnyCronicDesease: false,
+        cronicalDiseasesId: cronicDisease,
+      },
+      data?.user?.email
+    );
+  };
 
   return (
     <div className="flex flex-col md:justify-between gap-10 h-full p-7">
@@ -52,22 +81,7 @@ export const AnyCondition = () => {
         <Button
           disabled={isRegistering}
           className="w-full bg-white !text-primary !border-2 !border-primary"
-          onClick={() => {
-            setSigninData({
-              hasAnyCronicDesease: false,
-            });
-
-            if (!signInData) return;
-            if (!data?.user?.email) return;
-            handlerUpsertInfo(
-              {
-                fullName: signInData.fullName,
-                hasAnyCronicDesease: false,
-                cronicalDiseasesId: cronicDisease,
-              },
-              data?.user?.email
-            );
-          }}
+          onClick={handleAnyCondition}
         >
           No, no tengo
         </Button>

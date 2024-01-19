@@ -1,13 +1,21 @@
 import { Text } from '../../../../../ui/Text';
 import { Button } from '../../../../../ui/Button';
-import { useSignInStore, useStepsStore } from '../../../../../../store';
+import {
+  useLandingBotStore,
+  useSignInStore,
+  useStepsStore,
+} from '../../../../../../store';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TKnowYouForm } from '../../../../../../types/sign-in';
 import { knowYouSchema } from '../../../../../../zodSchemas/know-you.zod';
 import { FormControllerInput } from '../../../../../ui/FormControllerInput';
+import { messages } from '../../../../../../constants/messages';
 
 export const KnowYou = () => {
+  const { flags } = useLandingBotStore();
+  const signupEnabled = !!flags?.signup_controller?.enabled;
+
   const { setSigninData, signInData } = useSignInStore();
   const { nextSignInStep } = useStepsStore();
   const { handleSubmit, control } = useForm<TKnowYouForm>({
@@ -18,6 +26,8 @@ export const KnowYou = () => {
     },
   });
 
+  const FLOWS = messages(signupEnabled);
+
   const onSubmit = (data: TKnowYouForm) => {
     setSigninData({ ...data });
     nextSignInStep();
@@ -26,11 +36,13 @@ export const KnowYou = () => {
   return (
     <div className="flex flex-col gap-10 p-7">
       <div className="flex flex-col gap-2">
-        <Text text="A conocerte" level="2xl" fontWeight="semibold" as="h3" />
         <Text
-          text="Completa los datos para que Anna te de una mejor experiencia"
-          level="base"
+          text={FLOWS.KNOW_YOU_SIGNUP.title}
+          level="2xl"
+          fontWeight="semibold"
+          as="h3"
         />
+        <Text text={FLOWS.KNOW_YOU_SIGNUP.description} level="base" />
       </div>
 
       <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>

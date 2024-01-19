@@ -8,8 +8,7 @@ import { ChangeCondition } from './ChangeCondition';
 
 export const SignIn = () => {
   const { prevSignInStep, currentSignInStep } = useStepsStore();
-  const { isOpenSignIn, toggleSignIn, signInType, signInData } =
-    useSignInStore();
+  const { isOpenSignIn, toggleSignIn, signInType } = useSignInStore();
 
   return (
     <Drawer

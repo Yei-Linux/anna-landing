@@ -18,7 +18,7 @@ const Option = ({ text, onClick, isSelected }: IOption) => {
         className={classNames('rounded-md bg-primary w-[20px] h-[20px]', {
           'bg-primary': isSelected,
           'bg-white': !isSelected,
-          'border-2 border-neutralPrimary': !isSelected,
+          'border-2 border-black': !isSelected,
         })}
       ></div>
 

@@ -1,8 +1,8 @@
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useNotificationStore, useSignInStore, useStepsStore } from '../store';
-import { TSignInForm } from '../types/sign-in';
+import { TSignInForm, TWaitlistForm } from '../types/sign-in';
 import axios from 'axios';
-import { ERROR_LOGIN_MESSAGE } from '../constants';
+import { ERROR_LOGIN_MESSAGE, ERROR_WAITLIST_MESSAGE } from '../constants';
 
 export const useSignIn = () => {
   const callbackUrl = '/';
