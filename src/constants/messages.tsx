@@ -5,8 +5,7 @@ const TAKE_CARE_SIGNUP_ENABLE = {
 
 const TAKE_CARE_SIGNUP_NOT_ENABLE = {
   title: 'Hola. Bienvenido a Anna!',
-  description:
-    'Completa las siguientes preguntas y únete a nuestra lista de espera 😄',
+  description: 'Completa las siguientes preguntas y únete a Anna 😄',
 };
 
 const KNOW_YOU_SIGNUP_ENABLE = {

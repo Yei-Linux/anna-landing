@@ -1,8 +1,24 @@
 import prisma from '../config/prisma';
 
+export const countPendingPatients = async () => {
+  try {
+    const total = await prisma.user.count({
+      where: {
+        approved: false,
+      },
+    });
+    return total;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
 export const countPatients = async () => {
   try {
-    const total = await prisma.user.count();
+    const total = await prisma.user.count({
+      where: {
+        approved: true,
+      },
+    });
     return total;
   } catch (error) {
     throw new Error((error as Error).message);
@@ -17,6 +33,7 @@ export interface IPatient {
   hasAnyCronicDesease: boolean;
   cronicalDiseasesId: string;
   paymentPlansId?: string;
+  requestedPaymentPlansId?: string
 }
 export const createPatient = async (patient: IPatient) => {
   try {
@@ -43,8 +60,8 @@ export const signUpPatient = async (patient: ISignUpPatient) => {
     if (OrUserDoesntExistsEitherHasOnlyEmail) {
       return await prisma.user.upsert({
         where: { email: patient.email },
-        update: patient,
-        create: patient,
+        update: { ...patient, approved: true },
+        create: { ...patient, approved: true },
       });
     }
 
@@ -107,7 +124,15 @@ export const getPatients = async (
   search?: string
 ) => {
   try {
-    let pipeline: any = [{ $skip: skip }, { $limit: sizeByPage }];
+    let pipeline: any = [
+      { $skip: skip },
+      { $limit: sizeByPage },
+      {
+        $match: {
+          $and: [{ approved: true }],
+        },
+      },
+    ];
 
     if (search) {
       pipeline = [
@@ -125,6 +150,59 @@ export const getPatients = async (
                 email: { $regex: search, $options: 'i' },
               },
             ],
+            $and: [{ approved: true }],
+          },
+        },
+        ...pipeline,
+      ];
+    }
+
+    const patientsResultSet: any = await prisma.user.aggregateRaw({
+      pipeline,
+    });
+
+    return patientsResultSet?.map(({ _id, ...item }: any) => ({
+      ...item,
+      id: _id['$oid'],
+    }));
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
+export const getNotApprovedPatients = async (
+  skip: number,
+  sizeByPage: number,
+  search?: string
+) => {
+  try {
+    let pipeline: any = [
+      { $skip: skip },
+      { $limit: sizeByPage },
+      {
+        $match: {
+          $and: [{ approved: false }],
+        },
+      },
+    ];
+
+    if (search) {
+      pipeline = [
+        {
+          $match: {
+            $or: [
+              { fullName: { $regex: search, $options: 'i' } },
+              {
+                phone: { $regex: search, $options: 'i' },
+              },
+              {
+                documentNumber: { $regex: search, $options: 'i' },
+              },
+              {
+                email: { $regex: search, $options: 'i' },
+              },
+            ],
+            $and: [{ approved: false }],
           },
         },
         ...pipeline,
@@ -164,6 +242,26 @@ export const getAnnaUserByEmail = async (email: string) => {
   }
 };
 
+export const verifyAnnaUserApproved = async (email: string) => {
+  try {
+    const patientResultSet = await prisma.user.findFirst({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+        email: true,
+        approved: true,
+      },
+    });
+
+    if (!patientResultSet) return null;
+    return patientResultSet;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+};
+
 export const getPatientById = async (id: string) => {
   try {
     const patientResultSet = await prisma.user.findFirst({
@@ -181,6 +279,7 @@ export const getPatientById = async (id: string) => {
         clinic_histories: true,
         cronicalDiseasesId: true,
         paymentPlansId: true,
+        approved: true,
       },
     });
 

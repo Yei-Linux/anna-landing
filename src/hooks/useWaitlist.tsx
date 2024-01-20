@@ -1,19 +1,14 @@
-import {
-  TSignInData,
-  useNotificationStore,
-  useSignInStore,
-  useStepsStore,
-} from '../store';
-import { TWaitlistForm } from '../types/sign-in';
+import { TSignInData, useNotificationStore, useStepsStore } from '../store';
 import axios from 'axios';
 import { ERROR_WAITLIST_MESSAGE } from '../constants';
 
 export const useWaitList = () => {
   const { open } = useNotificationStore();
-  const { setCurrentSignInStep } = useStepsStore();
-  const { toggleSignIn } = useSignInStore();
+  const { nextSignInStep } = useStepsStore();
 
-  const joinWaitList = async (data: TSignInData) => {
+  const joinWaitList = async (
+    data: TSignInData & { paymentPlansId?: string }
+  ) => {
     try {
       const { data: userJoinned } = await axios.post(
         '/api/anna/waitlist',
@@ -25,8 +20,7 @@ export const useWaitList = () => {
         return;
       }
 
-      toggleSignIn();
-      setCurrentSignInStep(1);
+      nextSignInStep();
       open({
         severity: 'success',
         message: userJoinned.message,

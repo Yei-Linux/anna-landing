@@ -68,7 +68,7 @@ export const EditPatient = () => {
 
       <Edit component={EditPageWrapper} redirect={`/patients`}>
         <SimpleForm component={EditWrapper} toolbar={<ToolbarEdit />}>
-          <h2 className="font-semibold mb-5">Patient Information</h2>
+          <h2 className="font-semibold mb-5">Información del Paciente</h2>
 
           <Grid container spacing={2}>
             <Grid item sm={6} xs={12}>
@@ -83,9 +83,6 @@ export const EditPatient = () => {
                 label="Document Number"
                 disabled
               />
-            </Grid>
-            <Grid item sm={6} xs={12}>
-              <TextInput source="gender" label="Gender" disabled />
             </Grid>
             <Grid item sm={6} xs={12}>
               <TextInput source="email" label="Email" disabled />

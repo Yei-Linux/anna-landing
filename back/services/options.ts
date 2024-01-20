@@ -13,16 +13,22 @@ type TPaymentPlan = {
   price: number;
   isPopular: boolean;
 };
-type TCronicalDisease = {
+export type TCronicalDisease = {
   id: string;
   text: string;
   paymentPlan: Array<TPaymentPlan>;
+};
+
+type TTakeCareOption = {
+  id: string;
+  text: string;
 };
 
 export type TAnnaOptions = {
   diseases: Array<TOption>;
   turns: Array<TOption>;
   cronicalDiseases: Array<TCronicalDisease>;
+  takeCareOptions: Array<TTakeCareOption>;
 };
 
 export const getAnnaOptions = async (): Promise<TAnnaOptions> => {
@@ -46,8 +52,9 @@ export const getAnnaOptions = async (): Promise<TAnnaOptions> => {
         },
       },
     });
+    const takeCareOptions = await prisma.takeCareOptions.findMany();
 
-    return { diseases, turns, cronicalDiseases };
+    return { diseases, turns, cronicalDiseases, takeCareOptions };
   } catch (error) {
     throw new Error('Error getting options');
   }

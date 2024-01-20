@@ -12,11 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useSignIn } from '../../../../../../hooks/useSignIn';
 
-import {
-  useLandingBotStore,
-  useSignInStore,
-  useStepsStore,
-} from '../../../../../../store';
+import { useLandingBotStore, useSignInStore } from '../../../../../../store';
 import { messages } from '../../../../../../constants/messages';
 
 export const TakeCare = () => {
@@ -28,12 +24,10 @@ export const TakeCare = () => {
   const { handleSubmit, control } = useForm<TSignInForm>({
     resolver: zodResolver(signupEnabled ? signInZodSchema : waitListZodSchema),
   });
-  const { nextSignInStep } = useStepsStore();
   const FLOWS = messages(signupEnabled);
 
   const continueToWaitList = (data: TWaitlistForm) => {
     setSigninData({ ...data });
-    nextSignInStep();
   };
 
   return (

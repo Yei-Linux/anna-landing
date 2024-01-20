@@ -4,7 +4,7 @@ export const ERROR_MESSAGE =
   'Lo sentimos, ha ocurrido un error inesperado. Inténtalo más tarde por favor';
 export const ERROR_LOGIN_MESSAGE = 'Credenciales incorrectas';
 export const ERROR_WAITLIST_MESSAGE = 'Credenciales incorrectas';
-export const ZUSTAND_STORE_VERSION = 0;
+export const ZUSTAND_STORE_VERSION = 1;
 
 export const INSTAGRAM = '/';
 export const TWITTER = '/';

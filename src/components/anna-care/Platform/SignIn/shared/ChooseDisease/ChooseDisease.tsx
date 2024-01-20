@@ -9,6 +9,12 @@ export const ChooseDisease = () => {
   const { nextSignInStep } = useStepsStore();
   const { options } = useOptionsStore();
 
+  const handleChooseDisease = () => {
+    if (!treatmentData?.disease) return;
+    if (!treatmentData?.diseaseText) return;
+    nextSignInStep();
+  };
+
   return (
     <div className="flex flex-col md:justify-between gap-10 h-full">
       <div className="flex flex-col gap-2">
@@ -39,14 +45,7 @@ export const ChooseDisease = () => {
         )}
       </div>
 
-      <Button
-        className="w-full"
-        onClick={() => {
-          if (!treatmentData?.disease) return;
-          if (!treatmentData?.diseaseText) return;
-          nextSignInStep();
-        }}
-      >
+      <Button className="w-full" onClick={handleChooseDisease}>
         Continuar
       </Button>
     </div>

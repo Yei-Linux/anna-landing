@@ -38,18 +38,39 @@ enum PeriodPayment {
 }
 
 model PaymentPlans {
-  id                 String            @id @default(auto()) @map("_id") @db.ObjectId
-  type               PeriodPayment     @default(Monthly)
-  subtitle           String
-  description        String
-  priceInfo          String
-  price              Int
-  isPopular          Boolean
-  User               User[]
-  CronicalDiseases   CronicalDiseases? @relation(fields: [cronicalDiseasesId], references: [id])
-  cronicalDiseasesId String?           @db.ObjectId
+  id                        String            @id @default(auto()) @map("_id") @db.ObjectId
+  type                      PeriodPayment     @default(Monthly)
+  subtitle                  String
+  description               String
+  priceInfo                 String
+  price                     Int
+  isPopular                 Boolean
+  CronicalDiseases          CronicalDiseases? @relation(fields: [cronicalDiseasesId], references: [id])
+  cronicalDiseasesId        String?           @db.ObjectId
+  UserCarePlusPlan          User[]            @relation("UserCarePlusPlan")
+  UserRequestedCarePlusPlan User[]            @relation("UserRequestedCarePlusPlan")
 
   @@map("payment_plans")
+}
+
+model TakeCareOptions {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  text                String
+  UserTakeCareOptions UserTakeCareOptions[]
+
+  @@map("take_care_options")
+}
+
+model UserTakeCareOptions {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  User            User?            @relation(fields: [userId], references: [id])
+  TakeCareOptions TakeCareOptions? @relation(fields: [takeCareOptionsId], references: [id])
+
+  takeCareOptionsId String? @db.ObjectId
+  userId            String? @db.ObjectId
+
+  @@map("user_take_care_options")
 }
 
 model User {
@@ -68,7 +89,11 @@ model User {
   Diagnosis           diagnosis[]
   BookingAppointments bookingAppointments[]
   clinic_histories    clinic_histories?     @relation(fields: [clinic_historiesId], references: [id])
-  carePlusPlan        PaymentPlans?         @relation(fields: [paymentPlansId], references: [id])
+
+  carePlusPlan          PaymentPlans? @relation("UserCarePlusPlan", fields: [paymentPlansId], references: [id])
+  requestedCarePlusPlan PaymentPlans? @relation("UserRequestedCarePlusPlan", fields: [requestedPaymentPlansId], references: [id])
+
+  UserTakeCareOptions UserTakeCareOptions[]
 
   emailVerified DateTime? @map("email_verified")
   image         String?
@@ -82,7 +107,9 @@ model User {
 
   clinic_historiesId String? @db.ObjectId
   cronicalDiseasesId String? @db.ObjectId
-  paymentPlansId     String? @db.ObjectId
+
+  requestedPaymentPlansId String? @db.ObjectId
+  paymentPlansId          String? @db.ObjectId
 
   @@map("users")
 }

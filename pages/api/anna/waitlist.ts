@@ -1,5 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { joinToWaitlist } from '../../../back/services/waitlist.service';
+import {
+  sendEmaiWaitlist,
+  sendEmaiWaitlistForAdmin,
+} from '../../../back/services/send-email.service';
 
 async function post(req: NextApiRequest, res: NextApiResponse<any>) {
   const body = req.body;
@@ -12,6 +16,8 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
 
   try {
     const message = await joinToWaitlist(body);
+    sendEmaiWaitlist(body.email);
+    sendEmaiWaitlistForAdmin(body.email);
     return res.status(200).json({
       data: body,
       message,

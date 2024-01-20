@@ -28,6 +28,7 @@ export const authorize = async (
     email: user.email,
     fullName: user.fullName,
     paymentPlansId: user.paymentPlansId,
+    requestedPaymentPlansId: user.paymentPlansId,
     cronicalDiseasesId: user.cronicalDiseasesId,
     randomKey: 'b41f9146-ca61-41dd-80f4-079625f82fc2',
   };

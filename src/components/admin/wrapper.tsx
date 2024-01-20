@@ -13,6 +13,8 @@ import authProvider from '../../config/auth-provider';
 import { Login } from './Login/Login';
 import { queryClient } from '../../config/react-query';
 import { dataProvider } from '../../config/life-cycle-callbacks';
+import { PendingEditPatient } from './Patients/PendingEdit';
+import { PendingPatientList } from './Patients/PendingList';
 
 export const AdminWrapper = () => {
   return (
@@ -25,7 +27,7 @@ export const AdminWrapper = () => {
       queryClient={queryClient}
     >
       <Resource
-        options={{ label: 'Patients' }}
+        options={{ label: 'Pacientes Aprobados' }}
         name="patients"
         list={PatientList}
         edit={EditPatient}
@@ -46,6 +48,13 @@ export const AdminWrapper = () => {
           element={<EditClinicHistory />}
         />
       </Resource>
+      <Resource
+        options={{ label: 'Usuarios Pendientes' }}
+        name="not-approved-patients"
+        list={PendingPatientList}
+        edit={PendingEditPatient}
+        icon={PeopleIcon}
+      />
     </Admin>
   );
 };

@@ -7,6 +7,7 @@ export type TSignInData = {
   phone: string;
   hasAnyCronicDesease: boolean;
   cronicDesease: string;
+  takeCareOptionsSelected: string[];
   email: string;
   password: string;
 };
@@ -16,6 +17,7 @@ export interface ISignInStore {
   signInType?: TSignInType;
   toggleSignIn: () => void;
   setSignInType: (signInType: TSignInType) => void;
+  clearSigninData: () => void;
   setSigninData: (data: Optional<TSignInData, keyof TSignInData>) => void;
 }
 export const useSignInStore = create<ISignInStore>((set) => ({
@@ -29,4 +31,6 @@ export const useSignInStore = create<ISignInStore>((set) => ({
       ...state,
       signInData: { ...state.signInData, ...(data as any) },
     })),
+
+  clearSigninData: () => set((state) => ({ ...state, signInData: undefined })),
 }));

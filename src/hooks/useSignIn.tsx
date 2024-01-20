@@ -23,7 +23,7 @@ export const useSignIn = () => {
 
       if (res?.error) {
         open({ severity: 'error', message: ERROR_LOGIN_MESSAGE });
-        return;
+        return false;
       }
 
       const isNewUser = !user.data?.fullName;
@@ -33,7 +33,11 @@ export const useSignIn = () => {
       }
       setCurrentSignInStep(1);
       open({ severity: 'success', message: 'Bienvenido(a) a Anna!' });
-    } catch (error) {}
+
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 
   return { signinHandler };

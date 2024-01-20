@@ -9,6 +9,12 @@ export const ChooseDay = () => {
   const { treatmentData, setTreatmentData } = useTreatmentStore();
   const { nextSignInStep } = useStepsStore();
 
+  const handleChooseDay = () => {
+    if (!treatmentData?.day) return;
+    if (!treatmentData?.dayText) return;
+    nextSignInStep();
+  };
+
   return (
     <div className="flex flex-col md:justify-between gap-3 h-full">
       <div className="flex flex-col gap-2">
@@ -40,14 +46,7 @@ export const ChooseDay = () => {
         />
       </div>
 
-      <Button
-        className="w-full"
-        onClick={() => {
-          if (!treatmentData?.day) return;
-          if (!treatmentData?.dayText) return;
-          nextSignInStep();
-        }}
-      >
+      <Button className="w-full" onClick={handleChooseDay}>
         Continuar
       </Button>
     </div>

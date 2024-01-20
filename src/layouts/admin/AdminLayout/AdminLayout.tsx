@@ -53,6 +53,7 @@ export const MyMenu = () => (
   <div className="py-4">
     <Menu>
       <Menu.ResourceItem name="patients" />
+      <Menu.ResourceItem name="not-approved-patients" />
     </Menu>
   </div>
 );

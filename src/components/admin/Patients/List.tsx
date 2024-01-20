@@ -47,10 +47,8 @@ export const PatientList = () => {
       <Breadcrumb />
       <EditWrapper>
         <div>
-          <h2 className="font-semibold mb-3">Patients</h2>
-          <p className="font-light">
-            Here you can find patients that was registered throught the bot
-          </p>
+          <h2 className="font-semibold mb-3">Pacientes</h2>
+          <p className="font-light">Aquí encontrarás a los pacientes de Anna</p>
         </div>
 
         <List actions={<ListActions />} filters={patientstFilters}>

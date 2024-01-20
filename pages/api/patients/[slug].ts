@@ -13,7 +13,12 @@ const put = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   try {
     if (!id) throw new Error('Id is required');
 
-    const patient = await updatePatient(body, id);
+    const patient = await updatePatient(
+      {
+        ...body,
+      },
+      id
+    );
     return res.status(200).json(patient);
   } catch (error) {
     return res.status(500).json({});

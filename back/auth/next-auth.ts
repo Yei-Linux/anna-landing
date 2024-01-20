@@ -37,6 +37,7 @@ export const handlerAuth = NextAuth({
           fullName: token.fullName,
           paymentPlansId: token.paymentPlansId,
           cronicalDiseasesId: token.cronicalDiseasesId,
+          requestedPaymentPlansId: token.paymentPlansId,
           randomKey: token.randomKey,
         },
       };
@@ -59,6 +60,7 @@ export const handlerAuth = NextAuth({
         fullName: (user as any).fullName,
         paymentPlansId: (user as any).paymentPlansId,
         cronicalDiseasesId: (user as any).cronicalDiseasesId,
+        requestedPaymentPlansId: (user as any).paymentPlansId,
         randomKey: (user as any).randomKey,
       };
     },

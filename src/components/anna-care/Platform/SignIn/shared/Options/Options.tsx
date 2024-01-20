@@ -26,7 +26,7 @@ const Option = ({ text, onClick, isSelected }: IOption) => {
         text={text}
         level="base"
         as="p"
-        className="text-neutralStrong text-center"
+        className="text-neutralStrong text-left"
       />
     </li>
   );
@@ -38,7 +38,7 @@ interface IOptions {
     id: string;
   }>;
   setter?: (prop: string, text?: string) => void;
-  compareToId?: string;
+  compareToId?: string | string[];
 }
 export const Options = ({ options, setter, compareToId }: IOptions) => {
   return (
@@ -47,7 +47,11 @@ export const Options = ({ options, setter, compareToId }: IOptions) => {
         <Option
           key={id}
           text={text}
-          isSelected={compareToId === id}
+          isSelected={
+            Array.isArray(compareToId)
+              ? compareToId.includes(id)
+              : compareToId === id
+          }
           onClick={() => setter?.(id, text)}
         />
       ))}

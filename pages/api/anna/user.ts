@@ -5,6 +5,7 @@ import {
 } from '../../../back/services';
 import { AUTH_SECRET } from '../../../back/auth/constants';
 import { decode } from 'next-auth/jwt';
+import { insertTakeCareOptionByUser } from '../../../back/services/take-care-options.service';
 
 async function post(req: NextApiRequest, res: NextApiResponse<any>) {
   const body = req.body;
@@ -25,6 +26,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
     fullName: body.fullName,
     hasAnyCronicDesease: body.hasAnyCronicDesease,
     cronicalDiseasesId: body.cronicalDiseasesId,
+    approved: true,
   };
 
   try {
@@ -32,6 +34,8 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
       infoToUpsert,
       body.email
     );
+
+    await insertTakeCareOptionByUser(body.takeCareOptionsSelected, user.id);
 
     return res.status(200).json({
       data: user,

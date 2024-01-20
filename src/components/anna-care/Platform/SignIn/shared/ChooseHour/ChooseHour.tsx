@@ -9,6 +9,12 @@ export const ChooseHour = () => {
   const { nextSignInStep } = useStepsStore();
   const { options } = useOptionsStore();
 
+  const handleChooseHour = () => {
+    if (!treatmentData?.hour) return;
+    if (!treatmentData?.hourText) return;
+    nextSignInStep();
+  };
+
   return (
     <div className="flex flex-col md:justify-between gap-7 h-full">
       <div className="flex flex-col gap-2">
@@ -39,14 +45,7 @@ export const ChooseHour = () => {
         )}
       </div>
 
-      <Button
-        className="w-full"
-        onClick={() => {
-          if (!treatmentData?.hour) return;
-          if (!treatmentData?.hourText) return;
-          nextSignInStep();
-        }}
-      >
+      <Button className="w-full" onClick={handleChooseHour}>
         Continuar
       </Button>
     </div>

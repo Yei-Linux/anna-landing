@@ -1,158 +1,111 @@
-import { useEffect, useState } from 'react';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
-import { PlanDetails } from './PlanDetails';
-import { PlanItem } from './PlanItem';
-import { useSuscribe } from '../../../../../../hooks/useSuscribe';
+import { PlanDetails } from './components/PlanDetails';
 import { useSession } from 'next-auth/react';
-import { getBotUrlSender, getSuscribeMessage } from '../../../../../../helpers';
-import { PHONE_NUMBER } from '../../../../../../constants';
 import Link from 'next/link';
-import { useOptionsStore } from '../../../../../../store/options';
-import { benefitsDetails } from '../../../../../../constants/befenits';
-import { useRegisterUser } from '../../../../../../hooks/useRegisterUser';
 import { useLandingBotStore, useSignInStore } from '../../../../../../store';
-import { useRouter } from 'next/router';
-import { messages } from '../../../../../../constants/messages';
+
 import { useWaitList } from '../../../../../../hooks/useWaitlist';
+import { usePlan } from './usePlan';
+import { useRequestAnnaCare } from '../../../../../../hooks/useRequestAnnaCare';
 
-const disableDirectSuscription = true;
+export interface IPaymentPlans {}
 
-export interface IPaymentPlans {
-  isDisableUpsertRegister?: boolean;
-}
-
-export const PaymentPlans = ({
-  isDisableUpsertRegister = true,
-}: IPaymentPlans) => {
+export const PaymentPlans = ({}: IPaymentPlans) => {
   const { flags } = useLandingBotStore();
   const signupEnabled = !!flags?.signup_controller?.enabled;
 
+  const { requestAnnaCare } = useRequestAnnaCare();
   const { joinWaitList } = useWaitList();
-  const [planSelected, setPlanSelected] = useState<string | null>(null);
-  const { push } = useRouter();
+
   const { signInData } = useSignInStore();
-  const { handleSuscribe } = useSuscribe();
-  const { handlerUpsertInfo } = useRegisterUser();
   const { data } = useSession();
-  const { options } = useOptionsStore();
-  const paymentPlansId = (data?.user as any)?.paymentPlansId;
-  const cronicalOptions = options?.cronicalDiseases.find(
-    ({ id }) =>
-      ((!isDisableUpsertRegister && signInData?.cronicDesease) ||
-        (data?.user as any)?.cronicalDiseasesId ||
-        options?.cronicalDiseases[options?.cronicalDiseases.length - 1].id) ==
-      id
-  );
 
-  useEffect(() => {
-    if (!cronicalOptions) return;
-    const defaultValue =
-      cronicalOptions?.paymentPlan.find(({ id }) => id === paymentPlansId)
-        ?.id || cronicalOptions?.paymentPlan?.[0]?.id;
-
-    setPlanSelected(defaultValue);
-  }, [cronicalOptions]);
-
-  const name = cronicalOptions?.text;
-  const plansSelected = cronicalOptions?.paymentPlan ?? [];
-  const benefitsSelected = cronicalOptions?.id
-    ? benefitsDetails[cronicalOptions?.id]
-    : [];
-
-  const detailsPlanSelected = plansSelected.find(
-    ({ id }) => planSelected == id
-  );
-  const messageToSuscribe = detailsPlanSelected
-    ? getSuscribeMessage({
-        type: `Plan ${
-          detailsPlanSelected.type === 'Monthly' ? 'Mensual' : 'Anual'
-        }`,
-        cronicDiseaseText: name ?? '',
-      })
-    : '';
-  const message =
-    'Hola, quiero orientacion con respecto a la suscripción de Anna Care';
-  const link = getBotUrlSender(PHONE_NUMBER, message);
-  const linkToSuscribe = getBotUrlSender(PHONE_NUMBER, messageToSuscribe);
-  const FLOWS = messages(signupEnabled);
+  const { planSelected, name, plans, benefits, FLOWS, paymentPlanId, link } =
+    usePlan({
+      data,
+      signInData,
+      signupEnabled,
+    });
 
   const handleJoinToWaitlist = async () => {
     if (!signInData) return;
+    if (!planSelected) return;
 
-    await joinWaitList(signInData);
+    await joinWaitList({ ...signInData, paymentPlansId: planSelected });
   };
 
   const handleRequestSuscription = async () => {
-    if (disableDirectSuscription) {
-      push(linkToSuscribe);
-      return;
-    }
-
-    if (!data?.user?.email) return;
     if (!planSelected) return;
-    if (!isDisableUpsertRegister) {
-      await handlerUpsertInfo(
-        {
-          cronicalDiseasesId: signInData?.cronicDesease,
-        },
-        data?.user?.email
-      );
-    }
-    await handleSuscribe(planSelected, data.user.email);
+    const email = data?.user?.email || signInData?.email;
+    if (!email) return;
+
+    await requestAnnaCare({
+      email,
+      paymentPlansId: planSelected,
+    });
   };
 
   return (
-    <div className="flex flex-col md:justify-between gap-3 h-full">
-      <div className="flex flex-col gap-2">
-        <Text
-          text={name}
-          level="base"
-          fontWeight="semibold"
-          as="h3"
-          className="text-center"
-        />
-      </div>
-
-      <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col md:justify-between gap-4 h-full">
+      <div className="flex flex-col justify-center gap-4">
+        <div className="flex flex-col gap-2 mb-4">
+          <Text
+            text={`${
+              signInData?.fullName ? signInData?.fullName + ' ' : ''
+            }Tus doctores estarán contigo en:`}
+            level="base"
+            as="h3"
+            className="text-left !text-[18px]"
+          />
+          <Text
+            text={'Programa de ' + name}
+            level="base"
+            as="h3"
+            className="text-left text-primary !text-[18px]"
+          />
+        </div>
         <div>
-          {plansSelected.map((plan) => (
-            <PlanItem
-              key={plan.id}
-              title={`Plan ${plan.type === 'Monthly' ? 'Mensual' : 'Anual'}`}
-              subTitle={plan.subtitle}
-              priceInfo={plan.priceInfo}
-              description={plan.description}
-              isPopular={plan.isPopular}
-              isSelected={planSelected === plan.id}
-              onClick={() => setPlanSelected(plan.id)}
-            />
+          {plans.map((plan) => (
+            <>
+              <div className="flex gap-4 items-center">
+                <Text
+                  text={plan.priceInfo}
+                  level="xl"
+                  fontWeight="semibold"
+                  as="h1"
+                />
+                <span>
+                  / {`por ${plan.type === 'Monthly' ? 'mes' : 'año'}`}
+                </span>
+              </div>
+            </>
           ))}
         </div>
-        <PlanDetails details={benefitsSelected} />
+        <PlanDetails details={benefits} />
       </div>
 
       <div className="flex flex-col gap-3 px-3">
-        {!signupEnabled && (
+        {!signupEnabled && !data?.user && (
           <Button className="w-full" onClick={handleJoinToWaitlist}>
             {FLOWS.PAYMENT_PLAN_SIGNUP.button}
           </Button>
         )}
-        {signupEnabled && (
+        {(signupEnabled || data?.user) && (
           <Button
-            disabled={paymentPlansId && planSelected === paymentPlansId}
+            disabled={paymentPlanId && planSelected === paymentPlanId}
             className="w-full"
             onClick={handleRequestSuscription}
           >
-            {paymentPlansId && planSelected === paymentPlansId
+            {paymentPlanId && planSelected === paymentPlanId
               ? 'Estas suscrito con esta opción'
-              : FLOWS.PAYMENT_PLAN_SIGNUP.button}
+              : 'Suscribirme con esta condición'}
           </Button>
         )}
         {signupEnabled && (
           <Link href={link}>
             <span className="text-center text-neutralStrong cursor-pointer m-auto">
-              Orientate con un asistente médico
+              Oriéntate con un asistente médico
             </span>
           </Link>
         )}

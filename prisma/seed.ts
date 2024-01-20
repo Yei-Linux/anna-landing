@@ -3,9 +3,9 @@ import {
   cronicalDiseaseSeeders,
   diseasesSeeders,
   plannsSeeders,
+  takeCareOptionsSeeders,
   turnSeeders,
 } from './seeders/options';
-import { ObjectId } from 'bson';
 
 const prisma = new PrismaClient();
 
@@ -39,6 +39,13 @@ async function main() {
       where: { id: plan.id },
       update: {},
       create: { ...plan, id: plan.id.toString() },
+    });
+  }
+  for (const takeCareOption of takeCareOptionsSeeders) {
+    await prisma.takeCareOptions.upsert({
+      where: { id: takeCareOption.id },
+      update: { text: takeCareOption.text },
+      create: { ...takeCareOption, id: takeCareOption.id.toString() },
     });
   }
 }

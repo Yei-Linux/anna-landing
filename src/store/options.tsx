@@ -51,7 +51,8 @@ export const useDefaultOptionsStorage = () => {
       const isValid =
         optionsJson?.diseases?.length > 0 &&
         optionsJson?.turns?.length > 0 &&
-        optionsJson?.cronicalDiseases?.length > 0;
+        optionsJson?.cronicalDiseases?.length > 0 &&
+        optionsJson?.takeCareOptions?.length > 0;
       if (isValid) return;
 
       setDefaultOptions();
