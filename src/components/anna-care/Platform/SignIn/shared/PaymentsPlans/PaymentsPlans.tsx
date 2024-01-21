@@ -8,11 +8,13 @@ import { useLandingBotStore, useSignInStore } from '../../../../../../store';
 import { useWaitList } from '../../../../../../hooks/useWaitlist';
 import { usePlan } from './usePlan';
 import { useRequestAnnaCare } from '../../../../../../hooks/useRequestAnnaCare';
+import { useState } from 'react';
 
 export interface IPaymentPlans {}
 
 export const PaymentPlans = ({}: IPaymentPlans) => {
   const { flags } = useLandingBotStore();
+  const [isLoading, setIsLoading] = useState(false);
   const signupEnabled = !!flags?.signup_controller?.enabled;
 
   const { requestAnnaCare } = useRequestAnnaCare();
@@ -32,7 +34,9 @@ export const PaymentPlans = ({}: IPaymentPlans) => {
     if (!signInData) return;
     if (!planSelected) return;
 
+    setIsLoading(true);
     await joinWaitList({ ...signInData, paymentPlansId: planSelected });
+    setIsLoading(false);
   };
 
   const handleRequestSuscription = async () => {
@@ -40,16 +44,18 @@ export const PaymentPlans = ({}: IPaymentPlans) => {
     const email = data?.user?.email || signInData?.email;
     if (!email) return;
 
+    setIsLoading(true);
     await requestAnnaCare({
       email,
       paymentPlansId: planSelected,
     });
+    setIsLoading(false);
   };
 
   return (
-    <div className="flex flex-col md:justify-between gap-4 h-full">
+    <div className="flex flex-col justify-between gap-4 h-full">
       <div className="flex flex-col justify-center gap-4">
-        <div className="flex flex-col gap-2 mb-4">
+        <div className="flex flex-col gap-2 mb-4 px-[20px]">
           <Text
             text={`${
               signInData?.fullName ? signInData?.fullName + ' ' : ''
@@ -65,7 +71,7 @@ export const PaymentPlans = ({}: IPaymentPlans) => {
             className="text-left text-primary !text-[18px]"
           />
         </div>
-        <div>
+        <div className="px-[20px]">
           {plans.map((plan) => (
             <>
               <div className="flex gap-4 items-center">
@@ -87,8 +93,12 @@ export const PaymentPlans = ({}: IPaymentPlans) => {
 
       <div className="flex flex-col gap-3 px-3">
         {!signupEnabled && !data?.user && (
-          <Button className="w-full" onClick={handleJoinToWaitlist}>
-            {FLOWS.PAYMENT_PLAN_SIGNUP.button}
+          <Button
+            className="w-full"
+            onClick={handleJoinToWaitlist}
+            loading={isLoading}
+          >
+            {!isLoading ? FLOWS.PAYMENT_PLAN_SIGNUP.button : 'Cargando'}
           </Button>
         )}
         {(signupEnabled || data?.user) && (
@@ -96,10 +106,13 @@ export const PaymentPlans = ({}: IPaymentPlans) => {
             disabled={paymentPlanId && planSelected === paymentPlanId}
             className="w-full"
             onClick={handleRequestSuscription}
+            loading={isLoading}
           >
-            {paymentPlanId && planSelected === paymentPlanId
-              ? 'Estas suscrito con esta opción'
-              : 'Suscribirme con esta condición'}
+            {!isLoading
+              ? paymentPlanId && planSelected === paymentPlanId
+                ? 'Estas suscrito con esta opción'
+                : 'Suscribirme con esta condición'
+              : 'Cargando'}
           </Button>
         )}
         {signupEnabled && (

@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 export const Hero = () => {
   return (
     <div className="flex flex-col gap-10">
-      <div className="mt-[-20px] z-[1]">
+      <div className="mt-[-40px] z-[1]">
         <ReactPlayer
           width="100%"
           height="95%"
@@ -16,7 +16,7 @@ export const Hero = () => {
           loop
           muted
         />
-        <div className="h-[20px] w-full bg-white mt-[-20px] z-[2] relative"></div>
+        <div className="h-[40px] w-full bg-white mt-[-40px] z-[2] relative"></div>
       </div>
 
       <div className="flex flex-col gap-3 px-3 max-w-[500px] m-auto">

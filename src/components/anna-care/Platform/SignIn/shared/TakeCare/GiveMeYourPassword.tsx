@@ -9,11 +9,7 @@ import { useSignIn } from '../../../../../../hooks/useSignIn';
 
 import { useSignInStore } from '../../../../../../store';
 
-export interface IGiveMeYourPassword {
-  onContinue?: () => void;
-}
-
-export const GiveMeYourPassword = ({ onContinue }: IGiveMeYourPassword) => {
+export const GiveMeYourPassword = () => {
   const { signInData, setSigninData } = useSignInStore();
   const { signinHandler } = useSignIn();
   const { handleSubmit, control } = useForm<TSignInForm>({
@@ -27,12 +23,11 @@ export const GiveMeYourPassword = ({ onContinue }: IGiveMeYourPassword) => {
       email: signInData?.email,
       password: data.password,
     });
+
     if (!success) {
       setSigninData({ email: undefined, password: undefined });
       return;
     }
-
-    onContinue?.();
   };
 
   return (

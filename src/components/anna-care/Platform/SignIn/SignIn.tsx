@@ -6,7 +6,8 @@ import { Image } from '../../../ui/Image';
 import { ChangeCondition } from './ChangeCondition';
 
 export const SignIn = () => {
-  const { prevSignInStep, currentSignInStep } = useStepsStore();
+  const { prevSignInStep, currentSignInStep, isLastStep, setIsLastStep } =
+    useStepsStore();
   const { isOpenSignIn, toggleSignIn, signInType } = useSignInStore();
 
   return (
@@ -25,7 +26,8 @@ export const SignIn = () => {
               height={20}
               hasShadow={false}
               onClick={() => {
-                if (currentSignInStep === 1) {
+                if (currentSignInStep === 1 || isLastStep) {
+                  setIsLastStep(false);
                   toggleSignIn();
                   return;
                 }

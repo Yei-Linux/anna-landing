@@ -1,13 +1,19 @@
 import { Fragment } from 'react';
-import { useSignInStore, useStepsStore } from '../../../../../store';
+import {
+  useLandingBotStore,
+  useSignInStore,
+  useStepsStore,
+} from '../../../../../store';
 import { KnowYou } from '../shared';
 import { AnyCondition } from '../shared/AnyCondition/AnyCondition';
 import { ChooseCondition } from '../shared/ChooseCondition';
 import { PaymentPlans } from '../shared/PaymentsPlans';
 import { useSession } from 'next-auth/react';
-import { TakeCareSteps } from '../shared/TakeCare';
+import { TakeCare } from '../shared/TakeCare';
 import { TakeCareOptions } from '../shared/TakeCareOptions';
 import { WaitlistMessage } from '../shared/WaitlistMessage/WaitlistMessage';
+import { GiveMeYourPassword } from '../shared/TakeCare/GiveMeYourPassword';
+import { YouAreNotApprovedYet } from '../shared/TakeCare/YouAreNotApprovedYet';
 
 /**
  * Drawer Component rendered when user either wants to sign in(when has an account) or signup
@@ -18,6 +24,8 @@ export const CarePlus = () => {
   const { status, data } = useSession();
   const { currentSignInStep } = useStepsStore();
   const { signInData } = useSignInStore();
+  const { flags } = useLandingBotStore();
+
   const hasAnyCronicDesease = signInData?.hasAnyCronicDesease;
 
   const withCronic = (initStep: number = 5) => (
@@ -68,9 +76,35 @@ export const CarePlus = () => {
     return <Fragment></Fragment>;
   }
 
+  if (
+    !flags?.signup_controller.enabled &&
+    signInData?.approved !== undefined &&
+    signInData.approved
+  ) {
+    return (
+      <Fragment>
+        {currentSignInStep === 1 && <TakeCare />}
+        {currentSignInStep === 2 && <GiveMeYourPassword />}
+      </Fragment>
+    );
+  }
+
+  if (
+    !flags?.signup_controller.enabled &&
+    signInData?.approved !== undefined &&
+    !signInData.approved
+  ) {
+    return (
+      <Fragment>
+        {currentSignInStep === 1 && <TakeCare />}
+        {currentSignInStep === 2 && <YouAreNotApprovedYet />}
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
-      {currentSignInStep === 1 && <TakeCareSteps />}
+      {currentSignInStep === 1 && <TakeCare />}
       {currentSignInStep === 2 && <KnowYou />}
       {currentSignInStep === 3 && <TakeCareOptions />}
       {currentSignInStep === 4 && <AnyCondition />}

@@ -14,20 +14,29 @@ import { useSignIn } from '../../../../../../hooks/useSignIn';
 
 import { useLandingBotStore, useSignInStore } from '../../../../../../store';
 import { messages } from '../../../../../../constants/messages';
+import { useValidateUserWaitlist } from '../../../../../../hooks/useValidateUserWaitlist';
 
 export const TakeCare = () => {
   const { flags } = useLandingBotStore();
   const signupEnabled = !!flags?.signup_controller?.enabled;
 
-  const { setSigninData } = useSignInStore();
+  const { setSigninData, signInData } = useSignInStore();
   const { signinHandler } = useSignIn();
   const { handleSubmit, control } = useForm<TSignInForm>({
     resolver: zodResolver(signupEnabled ? signInZodSchema : waitListZodSchema),
+    defaultValues: {
+      email: signInData?.email,
+      password: signInData?.password,
+    },
   });
+  const { validateUserFromWaitList } = useValidateUserWaitlist();
   const FLOWS = messages(signupEnabled);
 
   const continueToWaitList = (data: TWaitlistForm) => {
     setSigninData({ ...data });
+
+    if (!data.email) return;
+    validateUserFromWaitList(data.email);
   };
 
   return (

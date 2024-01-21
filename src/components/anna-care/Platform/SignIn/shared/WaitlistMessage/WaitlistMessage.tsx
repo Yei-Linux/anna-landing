@@ -1,14 +1,20 @@
+import { useEffect } from 'react';
 import { useStepsStore, useSignInStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 
 export const WaitlistMessage = () => {
-  const { setCurrentSignInStep } = useStepsStore();
-  const { toggleSignIn } = useSignInStore();
+  const { setCurrentSignInStep, setIsLastStep } = useStepsStore();
+  const { toggleSignIn, clearSigninData } = useSignInStore();
   const handleGotItButton = () => {
     toggleSignIn();
+    clearSigninData();
     setCurrentSignInStep(1);
   };
+
+  useEffect(() => {
+    setIsLastStep(true);
+  }, []);
 
   return (
     <div className="flex flex-col md:justify-between gap-7 h-full p-4">

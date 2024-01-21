@@ -5,8 +5,11 @@ export type TStepsStore = {
   setCurrentSignInStep: (currentSignInStep: number) => void;
   nextSignInStep: () => void;
   prevSignInStep: () => void;
+  setIsLastStep: (isLastStep: boolean) => void;
+  isLastStep: boolean;
 };
 export const useStepsStore = create<TStepsStore>((set) => ({
+  isLastStep: false,
   currentSignInStep: 1,
   setCurrentSignInStep: (currentSignInStep) =>
     set((state) => ({
@@ -22,5 +25,10 @@ export const useStepsStore = create<TStepsStore>((set) => ({
     set((state) => ({
       ...state,
       currentSignInStep: Math.max(1, state.currentSignInStep - 1),
+    })),
+  setIsLastStep: (isLastStep: boolean) =>
+    set((state) => ({
+      ...state,
+      isLastStep,
     })),
 }));

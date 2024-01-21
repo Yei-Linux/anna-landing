@@ -1,22 +1,22 @@
+import { useEffect } from 'react';
 import { useStepsStore, useSignInStore } from '../../../../../../store';
 import { Button } from '../../../../../ui/Button';
 import { Text } from '../../../../../ui/Text';
 
-export interface IYouAreNotApprovedYet {
-  onContinue?: () => void;
-}
-
-export const YouAreNotApprovedYet = ({ onContinue }: IYouAreNotApprovedYet) => {
-  const { setSigninData } = useSignInStore();
-  const { setCurrentSignInStep } = useStepsStore();
+export const YouAreNotApprovedYet = () => {
+  const { clearSigninData } = useSignInStore();
+  const { setCurrentSignInStep, setIsLastStep } = useStepsStore();
   const { toggleSignIn } = useSignInStore();
 
   const handleGotItButton = () => {
     toggleSignIn();
-    setSigninData({ email: undefined });
+    clearSigninData();
     setCurrentSignInStep(1);
-    onContinue?.();
   };
+
+  useEffect(() => {
+    setIsLastStep(true);
+  }, []);
 
   return (
     <div className="flex flex-col md:justify-between gap-7 h-full p-4">

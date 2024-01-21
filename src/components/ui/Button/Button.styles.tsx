@@ -6,7 +6,9 @@ const ButtonCSS = classNames(
   'font-light',
   'py-2',
   'px-6',
-  'rounded-lg'
+  'rounded-lg',
+  'flex',
+  'justify-center'
 );
 
 const styles = { ButtonCSS };

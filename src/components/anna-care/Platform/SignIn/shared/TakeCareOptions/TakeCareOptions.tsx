@@ -24,7 +24,7 @@ export const TakeCareOptions = ({}: ITakeCareOptions) => {
   };
 
   return (
-    <div className="flex flex-col md:justify-between gap-1 md:gap-10 h-full p-4">
+    <div className="flex flex-col justify-between gap-1 md:gap-10 h-full p-4">
       <div className="flex flex-col gap-2">
         <Text
           text="¿Qué es lo que quieres cuidar?"

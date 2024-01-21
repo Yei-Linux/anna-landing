@@ -10,6 +10,7 @@ export type TSignInData = {
   takeCareOptionsSelected: string[];
   email: string;
   password: string;
+  approved: boolean;
 };
 export interface ISignInStore {
   signInData?: TSignInData;

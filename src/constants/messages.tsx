@@ -5,7 +5,7 @@ const TAKE_CARE_SIGNUP_ENABLE = {
 
 const TAKE_CARE_SIGNUP_NOT_ENABLE = {
   title: 'Hola. Bienvenido a Anna!',
-  description: 'Completa las siguientes preguntas y únete a Anna 😄',
+  description: 'Por favor ingresa tu correo electrónico',
 };
 
 const KNOW_YOU_SIGNUP_ENABLE = {
@@ -23,7 +23,7 @@ const PAYMENT_PLAN_SIGNUP_ENABLE = {
   button: 'Suscribirme',
 };
 const PAYMENT_PLAN_SIGNUP_NOT_ENABLE = {
-  button: 'Unirme a la Lista de Espera!',
+  button: 'Listo!',
 };
 
 const FLOW_ENABLE = {
