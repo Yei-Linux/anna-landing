@@ -19,7 +19,7 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
 
   try {
     const message = await requestAnnaCare(body);
-    sendEmaiRequestAnnaCare(body.email);
+    await sendEmaiRequestAnnaCare(body.email);
     return res.status(200).json({
       data: body,
       message,

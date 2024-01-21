@@ -16,7 +16,7 @@ const put = async (req: NextApiRequest, res: NextApiResponse<any>) => {
 
     const patient = await updatePatient(body, id);
     if (body.approved && patient.email) {
-      sendEmaiWasApproved(patient.email);
+      await sendEmaiWasApproved(patient.email);
     }
     return res.status(200).json(patient);
   } catch (error) {
