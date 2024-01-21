@@ -16,8 +16,8 @@ async function post(req: NextApiRequest, res: NextApiResponse<any>) {
 
   try {
     const message = await joinToWaitlist(body);
-    sendEmaiWaitlist(body.email);
-    sendEmaiWaitlistForAdmin(body.email);
+    await sendEmaiWaitlist(body.email);
+    await sendEmaiWaitlistForAdmin(body.email);
     return res.status(200).json({
       data: body,
       message,
