@@ -8,7 +8,8 @@ import { ConfirmationPayment } from '../shared/ConfirmationPayment';
 import { useSession } from 'next-auth/react';
 import { AnyCondition } from '../shared/AnyCondition';
 import { ChooseCondition } from '../shared/ChooseCondition';
-import { TakeCareSteps } from '../shared/TakeCare';
+import { TakeCare } from '../shared/TakeCare';
+import { TakeCareOptions } from '../shared/TakeCareOptions';
 
 /**
  * Drawer Component rendered when user either wants to book a medical appointment
@@ -27,14 +28,15 @@ export const Treatment = () => {
   if (status === 'unauthenticated') {
     return (
       <Fragment>
-        {currentSignInStep === 1 && <TakeCareSteps />}
+        {currentSignInStep === 1 && <TakeCare />}
         {currentSignInStep === 2 && <KnowYou />}
-        {currentSignInStep === 3 && <AnyCondition />}
-        {currentSignInStep === 4 && <ChooseCondition />}
-        {currentSignInStep === 5 && <ChooseDisease />}
-        {currentSignInStep === 6 && <ChooseDay />}
-        {currentSignInStep === 7 && <ChooseHour />}
-        {currentSignInStep === 8 && <ConfirmationPayment />}
+        {currentSignInStep === 3 && <TakeCareOptions />}
+        {currentSignInStep === 4 && <AnyCondition />}
+        {currentSignInStep === 5 && <ChooseCondition />}
+        {currentSignInStep === 6 && <ChooseDisease />}
+        {currentSignInStep === 7 && <ChooseDay />}
+        {currentSignInStep === 8 && <ChooseHour />}
+        {currentSignInStep === 9 && <ConfirmationPayment />}
       </Fragment>
     );
   }
